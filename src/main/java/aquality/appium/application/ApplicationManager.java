@@ -1,5 +1,6 @@
 package aquality.appium.application;
 
+import aquality.appium.configuration.Configuration;
 import aquality.appium.configuration.IConfiguration;
 
 public class ApplicationManager {
@@ -18,13 +19,11 @@ public class ApplicationManager {
     }
 
     public static void setDefaultFactory(){
-        /*
-        todo: to be implemented
         IConfiguration configuration = Configuration.getInstance();
         IApplicationFactory applicationFactory = Configuration.getInstance().getApplicationProfile().isRemote()
                 ? new RemoteApplicationFactory(configuration) : new LocalApplicationFactory(configuration);
 
-        setFactory(applicationFactory);*/
+        setFactory(applicationFactory);
     }
 
     public static void setFactory(IApplicationFactory applicationFactory){

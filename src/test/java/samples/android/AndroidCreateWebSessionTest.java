@@ -1,31 +1,34 @@
 package samples.android;
 
 
+import aquality.appium.application.ApplicationManager;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
-import org.testng.annotations.*;
-import samples.BaseTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class AndroidCreateWebSessionTest extends BaseTest {
+public class AndroidCreateWebSessionTest {
     private AndroidDriver<WebElement> driver;
 
     @BeforeClass
-    public void setUp() throws MalformedURLException {
+    public void setUp() {
+        System.setProperty("profile", "androidwebsession");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("deviceName", "Android Emulator");
         capabilities.setCapability("browserName", "Chrome");
-        driver = new AndroidDriver<WebElement>(getServiceUrl(), capabilities);
+        driver = (AndroidDriver<WebElement>) ApplicationManager.getApplication().getDriver();
     }
 
     @AfterClass
     public void tearDown() {
-        driver.quit();
+        ApplicationManager.getApplication().quit();
+        System.clearProperty("profile");
     }
 
     @Test()

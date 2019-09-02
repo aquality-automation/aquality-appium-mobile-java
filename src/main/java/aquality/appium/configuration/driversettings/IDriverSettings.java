@@ -8,15 +8,11 @@ public interface IDriverSettings {
 
     Capabilities getCapabilities();
 
-    String getWebDriverVersion();
-
-    String getSystemArchitecture();
-
-    String getDownloadDir();
-
-    String getDownloadDirCapabilityKey();
-
     PlatformName getPlatformName();
+
+    boolean hasApplicationPath();
+
+    String getApplicationPath();
 
     JsonFile getSettingsFile();
 

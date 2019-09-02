@@ -1,6 +1,8 @@
 package aquality.appium.configuration;
 
+import aquality.appium.localization.SupportedLanguage;
+
 public interface ILoggerConfiguration {
 
-    //todo: SupportedLanguage getLanguage();
+    SupportedLanguage getLanguage();
 }

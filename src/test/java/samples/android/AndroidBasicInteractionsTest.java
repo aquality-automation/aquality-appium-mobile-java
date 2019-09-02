@@ -1,24 +1,22 @@
 package samples.android;
 
+import aquality.appium.application.ApplicationManager;
+import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import samples.BaseTest;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.Duration;
 
-public class AndroidBasicInteractionsTest extends BaseTest {
-    private AndroidDriver<WebElement> driver;
+public class AndroidBasicInteractionsTest {
+    private AndroidDriver<?> driver;
     private final String SEARCH_ACTIVITY = ".app.SearchInvoke";
     private final String ALERT_DIALOG_ACTIVITY = ".app.AlertDialogSamples";
     private final String PACKAGE = "io.appium.android.apis";
@@ -32,29 +30,24 @@ public class AndroidBasicInteractionsTest extends BaseTest {
     }
 
     @BeforeClass
-    public void setUp() throws IOException {
-        File appDir = new File(getResourcesPath(), "apps");
-        File app = new File(appDir.getCanonicalPath(), "ApiDemos-debug.apk");
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("deviceName", "Android Emulator");
-        capabilities.setCapability("app", app.getAbsolutePath());
-        driver = new AndroidDriver<WebElement>(getServiceUrl(), capabilities);
+    public void setUp() {
+        driver = (AndroidDriver<?>) ApplicationManager.getApplication().getDriver();
     }
 
     @AfterClass
     public void tearDown() {
-        driver.quit();
+        ApplicationManager.getApplication().quit();
     }
 
 
     @Test()
     public void testSendKeys() {
-        driver.startActivity(PACKAGE, SEARCH_ACTIVITY);
+        driver.startActivity(new Activity(PACKAGE, SEARCH_ACTIVITY));
         AndroidElement searchBoxEl = (AndroidElement) driver.findElementById("txt_query_prefill");
         searchBoxEl.sendKeys("Hello world!");
         AndroidElement onSearchRequestedBtn = (AndroidElement) driver.findElementById("btn_start_search");
         onSearchRequestedBtn.click();
-        AndroidElement searchText = (AndroidElement) new WebDriverWait(driver, 30)
+        AndroidElement searchText = (AndroidElement) new WebDriverWait(driver, Duration.ofSeconds(30))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("android:id/search_src_text")));
         String searchTextValue = searchText.getText();
         Assert.assertEquals(searchTextValue, "Hello world!");
@@ -63,7 +56,7 @@ public class AndroidBasicInteractionsTest extends BaseTest {
     @Test
     public void testOpensAlert() {
         // Open the "Alert Dialog" activity of the android app
-        driver.startActivity(PACKAGE, ALERT_DIALOG_ACTIVITY);
+        driver.startActivity(new Activity(PACKAGE, ALERT_DIALOG_ACTIVITY));
 
         // Click button that opens a dialog
         AndroidElement openDialogButton = (AndroidElement) driver.findElementById("io.appium.android.apis:id/two_buttons");
