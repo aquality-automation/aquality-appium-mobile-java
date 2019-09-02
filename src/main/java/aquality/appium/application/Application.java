@@ -35,10 +35,10 @@ public class Application {
     }
 
     /**
-     * Returns platform of current application
+     * Returns name of current platform
      * @return name
      */
-    public final ApplicationPlatform geApplicationPlatform() {
-        return configuration.getApplicationProfile().getApplicationName();
+    public final PlatformName getPlatformName() {
+        return configuration.getApplicationProfile().getPlatformName();
     }
 }

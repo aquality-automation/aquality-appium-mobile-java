@@ -15,7 +15,7 @@ public class WindowsDesktopAppTest extends BaseTest {
     public static WindowsDriver<?> driver;
 
     @BeforeTest
-    public void setup() throws MalformedURLException {
+    public void setup() {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("platformVersion", "10");
         caps.setCapability("platformName", "Windows");
@@ -32,10 +32,10 @@ public class WindowsDesktopAppTest extends BaseTest {
 
     @Test
     public void test() {
-        driver.findElementByName("One").click();
-        driver.findElementByName("Plus").click();
-        driver.findElementByName("Two").click();
-        driver.findElementByName("Equals").click();
-        Assert.assertEquals(driver.findElementByAccessibilityId("CalculatorResults").getText(), "Display is 3");
+        driver.findElementByXPath("//*[@AutomationId='num1Button']").click();
+        driver.findElementByAccessibilityId("plusButton").click();
+        driver.findElementByAccessibilityId("num2Button").click();
+        driver.findElementByAccessibilityId("equalButton").click();
+        Assert.assertTrue(driver.findElementByAccessibilityId("CalculatorResults").getText().endsWith("3"), "Display result is not match to expected");
     }
 }

@@ -1,6 +1,7 @@
 package aquality.appium.application;
 
-public enum  ApplicationPlatform {
+public enum PlatformName {
     ANDROID,
-    IOS
+    IOS,
+    WINDOWS
 }

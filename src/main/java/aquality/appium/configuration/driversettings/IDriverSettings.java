@@ -1,6 +1,6 @@
 package aquality.appium.configuration.driversettings;
 
-import aquality.appium.application.ApplicationPlatform;
+import aquality.appium.application.PlatformName;
 import aquality.appium.utils.JsonFile;
 import org.openqa.selenium.Capabilities;
 
@@ -16,7 +16,7 @@ public interface IDriverSettings {
 
     String getDownloadDirCapabilityKey();
 
-    ApplicationPlatform getApplicationPlatform();
+    PlatformName getPlatformName();
 
     JsonFile getSettingsFile();
 
