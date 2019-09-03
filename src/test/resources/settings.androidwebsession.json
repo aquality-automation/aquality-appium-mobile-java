@@ -1,0 +1,29 @@
+{
+  "platformName" : "android",
+  "isRemote": true,
+  "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
+  "isElementHighlightEnabled" : true,
+
+  "driverSettings": {
+    "android": {
+      "capabilities": {
+        "deviceName": "Android Emulator",
+        "browserName": "Chrome"
+      }
+    }
+  },
+  "timeouts": {
+    "timeoutImplicit" : 0,
+    "timeoutCondition" : 15,
+    "timeoutScript" : 10,
+    "timeoutPageLoad" : 30,
+    "timeoutPollingInterval": 300
+  },
+  "retry": {
+    "number": 2,
+    "pollingInterval": 300
+  },
+  "logger": {
+    "language": "en"
+  }
+}
