@@ -1,8 +1,9 @@
 package aquality.appium.application;
 
 import aquality.appium.configuration.IConfiguration;
-import aquality.appium.configuration.ITimeoutConfiguration;
-import aquality.appium.logger.Logger;
+import aquality.selenium.configuration.ITimeoutConfiguration;
+import aquality.selenium.localization.LocalizationManager;
+import aquality.selenium.logger.Logger;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.remote.service.DriverService;
 
@@ -62,7 +63,7 @@ public class Application {
     }
 
     public void quit() {
-        // todo: logger.info(getLocManager().getValue("loc.browser.driver.quit"));
+        logger.info(LocalizationManager.getInstance().getValue("loc.browser.driver.quit"));
         if (getDriver() != null) {
             getDriver().quit();
         }

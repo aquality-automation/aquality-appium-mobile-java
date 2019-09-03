@@ -1,8 +1,8 @@
 package aquality.appium.application;
 
 import aquality.appium.configuration.IConfiguration;
-import aquality.appium.localization.LocalizationManager;
-import aquality.appium.logger.Logger;
+import aquality.selenium.localization.LocalizationManager;
+import aquality.selenium.logger.Logger;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;

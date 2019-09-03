@@ -5,7 +5,7 @@ import aquality.appium.configuration.driversettings.AndroidSettings;
 import aquality.appium.configuration.driversettings.IDriverSettings;
 import aquality.appium.configuration.driversettings.IOSSettings;
 import aquality.appium.configuration.driversettings.WindowsSettings;
-import aquality.appium.utils.JsonFile;
+import aquality.selenium.utils.JsonFile;
 import org.openqa.selenium.InvalidArgumentException;
 
 import java.net.MalformedURLException;

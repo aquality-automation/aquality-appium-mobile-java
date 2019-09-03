@@ -1,6 +1,7 @@
 package samples.android;
 
 import aquality.appium.application.ApplicationManager;
+import aquality.selenium.waitings.ConditionalWait;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
@@ -13,7 +14,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.nio.file.Paths;
-import java.time.Duration;
 
 public class AndroidBasicInteractionsTest {
     private AndroidDriver<?> driver;
@@ -47,7 +47,7 @@ public class AndroidBasicInteractionsTest {
         searchBoxEl.sendKeys("Hello world!");
         AndroidElement onSearchRequestedBtn = (AndroidElement) driver.findElementById("btn_start_search");
         onSearchRequestedBtn.click();
-        AndroidElement searchText = (AndroidElement) new WebDriverWait(driver, Duration.ofSeconds(30))
+        AndroidElement searchText = (AndroidElement) new WebDriverWait(driver, 30)
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("android:id/search_src_text")));
         String searchTextValue = searchText.getText();
         Assert.assertEquals(searchTextValue, "Hello world!");
@@ -63,6 +63,7 @@ public class AndroidBasicInteractionsTest {
         openDialogButton.click();
 
         // Check that the dialog is there
+        ConditionalWait.waitForTrue(() -> !driver.findElementsById("android:id/alertTitle").isEmpty(), "alert should be present");
         AndroidElement alertElement = (AndroidElement) driver.findElementById("android:id/alertTitle");
         String alertText = alertElement.getText();
         Assert.assertEquals(alertText, "Lorem ipsum dolor sit aie consectetur adipiscing\nPlloaso mako nuto siwuf cakso dodtos anr koop.");

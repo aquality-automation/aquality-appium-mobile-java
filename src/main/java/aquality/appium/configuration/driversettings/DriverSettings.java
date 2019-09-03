@@ -1,7 +1,7 @@
 package aquality.appium.configuration.driversettings;
 
-import aquality.appium.localization.LocalizationManager;
-import aquality.appium.logger.Logger;
+import aquality.selenium.localization.LocalizationManager;
+import aquality.selenium.logger.Logger;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.DesiredCapabilities;
 

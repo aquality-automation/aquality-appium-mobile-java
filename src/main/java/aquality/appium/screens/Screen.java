@@ -1,7 +1,7 @@
 package aquality.appium.screens;
 
 import aquality.appium.elements.interfaces.IElementFactory;
-import aquality.appium.logger.Logger;
+import aquality.selenium.logger.Logger;
 import org.openqa.selenium.By;
 
 public class Screen {
