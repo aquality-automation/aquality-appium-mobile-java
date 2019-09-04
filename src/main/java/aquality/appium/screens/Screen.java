@@ -1,12 +1,16 @@
 package aquality.appium.screens;
 
+import aquality.appium.application.ApplicationManager;
+import aquality.appium.application.PlatformName;
+import aquality.appium.elements.ElementFactory;
 import aquality.appium.elements.interfaces.IElementFactory;
-import aquality.selenium.logger.Logger;
+import aquality.appium.elements.interfaces.ILabel;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.InvalidArgumentException;
 
 public class Screen {
 
-    private static final Logger logger = Logger.getInstance();
     /**
      * Locator for specified screen
      */
@@ -24,7 +28,7 @@ public class Screen {
     protected Screen(By locator, String name) {
         this.locator = locator;
         this.name = name;
-        this.elementFactory = null;// new ElementFactory();
+        this.elementFactory = new ElementFactory();
     }
 
     /**
@@ -34,7 +38,7 @@ public class Screen {
      * False - screen is not opened
      */
     public boolean isDisplayed() {
-        return getElementFactory().getLabel(locator, name).state().waitForDisplayed();
+        return getFormLabel().state().waitForDisplayed();
     }
 
     /**
@@ -44,26 +48,29 @@ public class Screen {
      * @return True - screen is opened,
      * False - screen is not opened
      */
-    public boolean isScreenDisplayed(Long timeout) {
-        return getElementFactory().getLabel(locator, name).state().waitForDisplayed(timeout);
+    public boolean isDisplayed(Long timeout) {
+        return getFormLabel().state().waitForDisplayed(timeout);
     }
 
-// todo: define if it is needed
-//    /**
-//     * Scroll screen without scrolling entire page
-//     * @param x horizontal coordinate
-//     * @param y vertical coordinate
-//     */
-//    public void scrollBy(int x, int y) {
-//        getElementFactory().getLabel(locator, name).getJsActions().scrollBy(x, y);
-//    }
-//
-//    public Dimension getScreenSize() {
-//        return getElementFactory().getLabel(locator, name).getElement().getSize();
-//    }
-//
+    public Dimension getScreenSize() {
+       return getFormLabel().getElement().getSize();
+    }
 
     protected IElementFactory getElementFactory(){
         return elementFactory;
+    }
+
+    private ILabel getFormLabel(){
+        return getElementFactory().getLabel(locator, name);
+    }
+
+    void ensureApplicationPlatformCorrect(PlatformName targetPlatform) {
+        PlatformName currentPlatform = ApplicationManager.getApplication().getPlatformName();
+        if(targetPlatform != currentPlatform) {
+            throw new InvalidArgumentException(String.format(
+                    "Cannot perform this operation. Current platform %s don't match to target %s",
+                    currentPlatform,
+                    targetPlatform));
+        }
     }
 }

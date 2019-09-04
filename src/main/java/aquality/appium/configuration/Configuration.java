@@ -1,6 +1,9 @@
 package aquality.appium.configuration;
 
-import aquality.selenium.configuration.*;
+import aquality.selenium.configuration.ILoggerConfiguration;
+import aquality.selenium.configuration.IRetryConfiguration;
+import aquality.selenium.configuration.LoggerConfiguration;
+import aquality.selenium.configuration.RetryConfiguration;
 import aquality.selenium.utils.JsonFile;
 
 public class Configuration implements IConfiguration{
@@ -14,8 +17,8 @@ public class Configuration implements IConfiguration{
     private Configuration() {
         JsonFile settings = getSettings();
         timeoutConfiguration = new TimeoutConfiguration(settings);
-        retryConfiguration = new RetryConfiguration(settings);
         applicationProfile = new ApplicationProfile(settings);
+        retryConfiguration = new RetryConfiguration(settings);
         loggerConfiguration = new LoggerConfiguration(settings);
     }
 

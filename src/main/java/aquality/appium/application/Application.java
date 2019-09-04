@@ -1,11 +1,13 @@
 package aquality.appium.application;
 
 import aquality.appium.configuration.IConfiguration;
-import aquality.selenium.configuration.ITimeoutConfiguration;
+import aquality.appium.configuration.ITimeoutConfiguration;
 import aquality.selenium.localization.LocalizationManager;
 import aquality.selenium.logger.Logger;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.remote.service.DriverService;
+
+import java.util.concurrent.TimeUnit;
 
 public class Application {
 
@@ -22,12 +24,7 @@ public class Application {
         this.configuration = configuration;
         this.timeouts = configuration.getTimeoutConfiguration();
         this.timeoutImpl = timeouts.getImplicit();
-        /*
-        todo: determine if all of these timeouts are necessary to be set this way
         getDriver().manage().timeouts().implicitlyWait(timeoutImpl, TimeUnit.SECONDS);
-        setPageLoadTimeout(timeouts.getPageLoad());
-        setScriptTimeout(timeouts.getScript());
-         */
     }
 
     public Application(DriverService driverService, AppiumDriver appiumDriver, IConfiguration configuration) {
@@ -36,6 +33,7 @@ public class Application {
         this.configuration = configuration;
         this.timeouts = configuration.getTimeoutConfiguration();
         this.timeoutImpl = timeouts.getImplicit();
+        getDriver().manage().timeouts().implicitlyWait(timeoutImpl, TimeUnit.SECONDS);
     }
 
     /**
@@ -62,6 +60,19 @@ public class Application {
         return configuration.getApplicationProfile().getPlatformName();
     }
 
+    /**
+     * Sets web driver implicit wait timeout
+     * Be careful with using this method. Implicit timeout can affect to duration of driver operations
+     * @param timeout seconds to wait
+     */
+    public void setImplicitWaitTimeout(Long timeout) {
+        logger.debug(String.format(getLocManager().getValue("loc.browser.implicit.timeout"), timeout));
+        if(!timeout.equals(getImplicitWaitTimeout())){
+            getDriver().manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+            timeoutImpl = timeout;
+        }
+    }
+
     public void quit() {
         logger.info(LocalizationManager.getInstance().getValue("loc.browser.driver.quit"));
         if (getDriver() != null) {
@@ -71,5 +82,13 @@ public class Application {
         if (getDriverService() != null) {
             getDriverService().stop();
         }
+    }
+
+    private Long getImplicitWaitTimeout() {
+        return timeoutImpl;
+    }
+
+    private LocalizationManager getLocManager(){
+        return LocalizationManager.getInstance();
     }
 }

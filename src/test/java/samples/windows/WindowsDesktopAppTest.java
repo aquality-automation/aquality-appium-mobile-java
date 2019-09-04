@@ -5,6 +5,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import samples.windows.calculator.screens.CalculatorScreen;
+import samples.windows.calculator.screens.CalculatorScreen.Button;
 
 public class WindowsDesktopAppTest {
 
@@ -24,10 +26,11 @@ public class WindowsDesktopAppTest {
 
     @Test
     public void test() {
-        driver.findElementByXPath("//*[@AutomationId='num1Button']").click();
-        driver.findElementByAccessibilityId("plusButton").click();
-        driver.findElementByAccessibilityId("num2Button").click();
-        driver.findElementByAccessibilityId("equalButton").click();
-        Assert.assertTrue(driver.findElementByAccessibilityId("CalculatorResults").getText().endsWith("3"), "Display result is not match to expected");
+        CalculatorScreen calculatorScreen = new CalculatorScreen();
+        calculatorScreen.clickButton(Button.ONE);
+        calculatorScreen.clickButton(Button.PLUS);
+        calculatorScreen.clickButton(Button.TWO);
+        calculatorScreen.clickButton(Button.EQUALS);
+        Assert.assertTrue(calculatorScreen.getResults().endsWith("3"), "Display result is not match to expected");
     }
 }
