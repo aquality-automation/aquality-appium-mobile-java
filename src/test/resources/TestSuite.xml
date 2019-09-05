@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Demo Test Suite" verbose="1">
+    <test name="Android tests" parallel="methods" thread-count="2">
+        <classes>
+            <class name="samples.android.AndroidBasicInteractionsTest"/>
+        </classes>
+    </test>
+</suite>
