@@ -1,9 +1,10 @@
 package aquality.appium.configuration;
 
-import aquality.appium.utils.JsonFile;
-
-import java.io.IOException;
-import java.io.UncheckedIOException;
+import aquality.selenium.configuration.ILoggerConfiguration;
+import aquality.selenium.configuration.IRetryConfiguration;
+import aquality.selenium.configuration.LoggerConfiguration;
+import aquality.selenium.configuration.RetryConfiguration;
+import aquality.selenium.utils.JsonFile;
 
 public class Configuration implements IConfiguration{
 
@@ -16,8 +17,8 @@ public class Configuration implements IConfiguration{
     private Configuration() {
         JsonFile settings = getSettings();
         timeoutConfiguration = new TimeoutConfiguration(settings);
-        retryConfiguration = new RetryConfiguration(settings);
         applicationProfile = new ApplicationProfile(settings);
+        retryConfiguration = new RetryConfiguration(settings);
         loggerConfiguration = new LoggerConfiguration(settings);
     }
 
@@ -47,10 +48,6 @@ public class Configuration implements IConfiguration{
 
     private JsonFile getSettings() {
         String settingsProfile = System.getProperty("profile") == null ? "settings.json" : "settings." + System.getProperty("profile") + ".json";
-        try{
-            return new JsonFile(settingsProfile);
-        }catch (IOException e){
-            throw new UncheckedIOException(String.format("Browser profile assigned in file %1$s was not found in the root of resources directory", settingsProfile), e);
-        }
+        return new JsonFile(settingsProfile);
     }
 }

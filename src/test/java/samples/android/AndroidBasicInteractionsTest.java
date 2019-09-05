@@ -1,33 +1,22 @@
 package samples.android;
 
 import aquality.appium.application.ApplicationManager;
-import io.appium.java_client.android.Activity;
+import aquality.selenium.logger.Logger;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.nio.file.Paths;
-import java.time.Duration;
+import samples.android.apidemos.screens.AlertsMenuScreen;
+import samples.android.apidemos.screens.InvokeSearchScreen;
+import samples.android.apidemos.screens.MainMenuScreen;
+import samples.android.apidemos.screens.TwoButtonsAlert;
 
 public class AndroidBasicInteractionsTest {
     private AndroidDriver<?> driver;
     private final String SEARCH_ACTIVITY = ".app.SearchInvoke";
     private final String ALERT_DIALOG_ACTIVITY = ".app.AlertDialogSamples";
     private final String PACKAGE = "io.appium.android.apis";
-
-    private static String getEnvVariable(String key, String defaultValue) {
-        return System.getProperty(key) != null ? System.getProperty(key) : defaultValue;
-    }
-
-    private static String getResourcesPath() {
-        return Paths.get(getEnvVariable("user.dir", System.getProperty("project.basedir")), "src", "test", "resources").toString();
-    }
 
     @BeforeClass
     public void setUp() {
@@ -42,33 +31,29 @@ public class AndroidBasicInteractionsTest {
 
     @Test()
     public void testSendKeys() {
-        driver.startActivity(new Activity(PACKAGE, SEARCH_ACTIVITY));
-        AndroidElement searchBoxEl = (AndroidElement) driver.findElementById("txt_query_prefill");
-        searchBoxEl.sendKeys("Hello world!");
-        AndroidElement onSearchRequestedBtn = (AndroidElement) driver.findElementById("btn_start_search");
-        onSearchRequestedBtn.click();
-        AndroidElement searchText = (AndroidElement) new WebDriverWait(driver, Duration.ofSeconds(30))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.id("android:id/search_src_text")));
-        String searchTextValue = searchText.getText();
-        Assert.assertEquals(searchTextValue, "Hello world!");
+        new MainMenuScreen().startSearch();
+        InvokeSearchScreen searchScreen = new InvokeSearchScreen();
+        String query = "Hello world!";
+        searchScreen.submitSearch(query);
+        Assert.assertEquals(searchScreen.getSearchResult(), query, "Search result don't match to entered query");
     }
 
     @Test
     public void testOpensAlert() {
-        // Open the "Alert Dialog" activity of the android app
-        driver.startActivity(new Activity(PACKAGE, ALERT_DIALOG_ACTIVITY));
 
-        // Click button that opens a dialog
-        AndroidElement openDialogButton = (AndroidElement) driver.findElementById("io.appium.android.apis:id/two_buttons");
-        openDialogButton.click();
+        Logger.getInstance().info("Open the 'Alert Dialog' activity of the android app");
+        new MainMenuScreen().openAlerts();
 
-        // Check that the dialog is there
-        AndroidElement alertElement = (AndroidElement) driver.findElementById("android:id/alertTitle");
-        String alertText = alertElement.getText();
-        Assert.assertEquals(alertText, "Lorem ipsum dolor sit aie consectetur adipiscing\nPlloaso mako nuto siwuf cakso dodtos anr koop.");
-        AndroidElement closeDialogButton = (AndroidElement) driver.findElementById("android:id/button1");
+        Logger.getInstance().info("Click button that opens a dialog");
+        new AlertsMenuScreen().openTwoButtonsDialog();
 
-        // Close the dialog
-        closeDialogButton.click();
+        Logger.getInstance().info("Check that the dialog is there");
+        TwoButtonsAlert alertDialog = new TwoButtonsAlert();
+        Assert.assertEquals(alertDialog.getAlertText(),
+                "Lorem ipsum dolor sit aie consectetur adipiscing\nPlloaso mako nuto siwuf cakso dodtos anr koop.",
+                "Alert text should match to expected");
+
+        Logger.getInstance().info("Close the dialog");
+        alertDialog.closeDialog();
     }
 }

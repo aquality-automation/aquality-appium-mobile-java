@@ -1,23 +1,21 @@
 package aquality.appium.configuration;
 
-import aquality.appium.utils.JsonFile;
+import aquality.selenium.utils.JsonFile;
 
-public class TimeoutConfiguration implements ITimeoutConfiguration{
+public class TimeoutConfiguration implements ITimeoutConfiguration {
     private final JsonFile settingsFile;
 
     private final long condition;
-    private final long script;
-    private final long pageLoad;
     private final long pollInterval;
     private final long implicit;
+    private final long command;
     
     public TimeoutConfiguration(JsonFile settingsFile) {
         this.settingsFile = settingsFile;
         condition = getTimeout(TIMEOUT.CONDITION);
-        script = getTimeout(TIMEOUT.SCRIPT);
-        pageLoad = getTimeout(TIMEOUT.PAGE_LOAD);
         pollInterval = getTimeout(TIMEOUT.POLL_INTERVAL);
         implicit = getTimeout(TIMEOUT.IMPLICIT);
+        command = getTimeout(TIMEOUT.COMMAND);
     }
 
     private long getTimeout(TIMEOUT timeout){
@@ -33,24 +31,19 @@ public class TimeoutConfiguration implements ITimeoutConfiguration{
         return condition;
     }
 
-    public long getScript(){
-        return script;
-    }
-
-    public long getPageLoad(){
-        return pageLoad;
-    }
-
     public long getPollingInterval(){
         return pollInterval;
+    }
+
+    public long getCommand(){
+        return command;
     }
 
     private enum TIMEOUT {
         IMPLICIT("timeoutImplicit"),
         CONDITION("timeoutCondition"),
-        SCRIPT("timeoutScript"),
-        PAGE_LOAD("timeoutPageLoad"),
-        POLL_INTERVAL("timeoutPollingInterval");
+        POLL_INTERVAL("timeoutPollingInterval"),
+        COMMAND("timeoutCommand");
 
         private String key;
         TIMEOUT(String key){

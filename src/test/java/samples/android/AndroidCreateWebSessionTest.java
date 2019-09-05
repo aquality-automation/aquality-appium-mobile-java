@@ -4,7 +4,6 @@ package samples.android;
 import aquality.appium.application.ApplicationManager;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -19,9 +18,6 @@ public class AndroidCreateWebSessionTest {
     @BeforeClass
     public void setUp() {
         System.setProperty("profile", "androidwebsession");
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("deviceName", "Android Emulator");
-        capabilities.setCapability("browserName", "Chrome");
         driver = (AndroidDriver<WebElement>) ApplicationManager.getApplication().getDriver();
     }
 

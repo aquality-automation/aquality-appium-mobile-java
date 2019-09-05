@@ -6,10 +6,7 @@ public interface ITimeoutConfiguration {
 
     long getCondition();
 
-    long getScript();
-
-    long getPageLoad();
-
     long getPollingInterval();
 
+    long getCommand();
 }

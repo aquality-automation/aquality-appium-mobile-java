@@ -1,7 +1,7 @@
 package aquality.appium.configuration.driversettings;
 
 import aquality.appium.application.PlatformName;
-import aquality.appium.utils.JsonFile;
+import aquality.selenium.utils.JsonFile;
 
 public class AndroidSettings extends DriverSettings{
 
