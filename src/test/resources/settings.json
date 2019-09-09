@@ -21,6 +21,15 @@
       "capabilities": {
         "deviceName": "Android Emulator"
       }
+    },
+    "ios": {
+      "applicationPath": "./src/test/resources/apps/TestApp.app.zip",
+      "capabilities": {
+        "deviceName": "iOS Simulator",
+        "automationName": "XCUITest",
+        "platformName": "iOS",
+        "udid": "<SIMULATOR_ID/DEVICE_ID>"
+      }
     }
   },
   "timeouts": {
