@@ -1,7 +1,7 @@
 package samples.windows.calculator.screens;
 
-import aquality.appium.elements.interfaces.ILabel;
-import aquality.appium.screens.WindowsScreen;
+import aquality.appium.mobile.elements.interfaces.ILabel;
+import aquality.appium.mobile.screens.WindowsScreen;
 import io.appium.java_client.MobileBy;
 import org.openqa.selenium.By;
 

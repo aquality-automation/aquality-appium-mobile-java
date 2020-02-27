@@ -1,7 +1,8 @@
 package samples.android;
 
-import aquality.appium.application.ApplicationManager;
-import aquality.selenium.logger.Logger;
+import aquality.appium.mobile.application.AqualityServices;
+import aquality.appium.mobile.application.MobileModule;
+import aquality.selenium.core.logging.Logger;
 import io.appium.java_client.android.AndroidDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -20,12 +21,14 @@ public class AndroidBasicInteractionsTest {
 
     @BeforeClass
     public void setUp() {
-        driver = (AndroidDriver<?>) ApplicationManager.getApplication().getDriver();
+        System.clearProperty("profile");
+        AqualityServices.initInjector(new MobileModule(AqualityServices::getApplication));
+        driver = (AndroidDriver<?>) AqualityServices.getApplication().getDriver();
     }
 
     @AfterClass
     public void tearDown() {
-        ApplicationManager.getApplication().quit();
+        AqualityServices.getApplication().quit();
     }
 
 

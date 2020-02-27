@@ -1,5 +1,6 @@
 package samples.windows;
-import aquality.appium.application.ApplicationManager;
+import aquality.appium.mobile.application.AqualityServices;
+import aquality.appium.mobile.application.MobileModule;
 import io.appium.java_client.windows.WindowsDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -10,17 +11,18 @@ import samples.windows.calculator.screens.CalculatorScreen.Button;
 
 public class WindowsDesktopAppTest {
 
-    public static WindowsDriver<?> driver;
+    private static WindowsDriver<?> driver;
 
     @BeforeTest
     public void setup() {
         System.setProperty("profile", "windowslocalsession");
-        driver = (WindowsDriver<?>) ApplicationManager.getApplication().getDriver();
+        AqualityServices.initInjector(new MobileModule(AqualityServices::getApplication));
+        driver = (WindowsDriver<?>) AqualityServices.getApplication().getDriver();
     }
 
     @AfterTest
     public void tearDown() {
-        ApplicationManager.getApplication().quit();
+        AqualityServices.getApplication().quit();
         System.clearProperty("profile");
     }
 
