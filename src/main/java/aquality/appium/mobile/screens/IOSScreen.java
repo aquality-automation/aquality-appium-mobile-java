@@ -17,6 +17,7 @@ public class IOSScreen extends Screen {
         super(locator, name);
     }
 
+    @Override
     protected IOSDriver<IOSElement> getDriver(){
         ensureApplicationPlatformCorrect(PlatformName.IOS);
         return (IOSDriver<IOSElement>) AqualityServices.getApplication().getDriver();

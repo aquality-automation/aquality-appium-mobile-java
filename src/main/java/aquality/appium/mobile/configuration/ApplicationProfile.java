@@ -4,7 +4,6 @@ import aquality.appium.mobile.application.PlatformName;
 import aquality.appium.mobile.configuration.driversettings.AndroidSettings;
 import aquality.appium.mobile.configuration.driversettings.IDriverSettings;
 import aquality.appium.mobile.configuration.driversettings.IOSSettings;
-import aquality.appium.mobile.configuration.driversettings.WindowsSettings;
 import aquality.selenium.core.utilities.ISettingsFile;
 import com.google.inject.Inject;
 import org.openqa.selenium.InvalidArgumentException;
@@ -40,9 +39,6 @@ public class ApplicationProfile implements IApplicationProfile {
                 break;
             case IOS:
                 driverSettings = new IOSSettings(settingsFile);
-                break;
-            case WINDOWS:
-                driverSettings = new WindowsSettings(settingsFile);
                 break;
             default:
                 throw new IllegalArgumentException("There are no assigned behaviour for retrieving driver driversettings for platform " + getPlatformName());

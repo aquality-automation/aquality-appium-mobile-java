@@ -7,8 +7,6 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
-import io.appium.java_client.windows.WindowsDriver;
-import io.appium.java_client.windows.WindowsElement;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.http.HttpClient;
 import org.openqa.selenium.remote.http.HttpClient.Builder;
@@ -38,9 +36,6 @@ abstract class ApplicationFactory implements IApplicationFactory {
                 break;
             case IOS:
                 driver = new IOSDriver<IOSElement>(serviceUrl, httpClientFactory, capabilities);
-                break;
-            case WINDOWS:
-                driver = new WindowsDriver<WindowsElement>(serviceUrl, httpClientFactory, capabilities);
                 break;
             default:
                 throw getLoggedWrongPlatformNameException(platformName.name());

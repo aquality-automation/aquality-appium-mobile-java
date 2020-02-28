@@ -5,21 +5,19 @@
   "isElementHighlightEnabled" : true,
 
   "driverSettings": {
-    "windows": {
-      "capabilities": {
-        "platformVersion": "10",
-        "platformName": "Windows",
-        "deviceName": "WindowsPC",
-        "app": "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App",
-        "newCommandTimeout": "2000"
-      },
-      "options": {},
-      "startArguments": []
-    },
     "android": {
       "applicationPath": "./src/test/resources/apps/ApiDemos-debug.apk",
       "capabilities": {
         "deviceName": "Android Emulator"
+      }
+    },
+    "ios": {
+      "applicationPath": "./src/test/resources/apps/TestApp.app.zip",
+      "capabilities": {
+        "deviceName": "iOS Simulator",
+        "automationName": "XCUITest",
+        "platformName": "iOS",
+        "udid": "<SIMULATOR_ID/DEVICE_ID>"
       }
     }
   },

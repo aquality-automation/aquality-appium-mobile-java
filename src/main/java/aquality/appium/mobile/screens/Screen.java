@@ -4,13 +4,14 @@ import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.application.PlatformName;
 import aquality.appium.mobile.elements.interfaces.IElementFactory;
 import aquality.appium.mobile.elements.interfaces.ILabel;
+import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.InvalidArgumentException;
 
 import java.time.Duration;
 
-public class Screen {
+public abstract class Screen {
 
     /**
      * Locator for specified screen
@@ -28,6 +29,8 @@ public class Screen {
         this.locator = locator;
         this.name = name;
     }
+
+    protected abstract AppiumDriver getDriver();
 
     /**
      * Return screen state for screen locator

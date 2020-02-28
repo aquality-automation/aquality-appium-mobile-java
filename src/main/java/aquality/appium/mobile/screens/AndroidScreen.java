@@ -17,6 +17,7 @@ public class AndroidScreen extends Screen {
         super(locator, name);
     }
 
+    @Override
     protected AndroidDriver<AndroidElement> getDriver(){
         ensureApplicationPlatformCorrect(PlatformName.ANDROID);
         return (AndroidDriver<AndroidElement>) AqualityServices.getApplication().getDriver();
