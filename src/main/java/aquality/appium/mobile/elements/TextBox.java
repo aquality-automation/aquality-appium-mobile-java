@@ -33,6 +33,12 @@ public class TextBox extends Element implements ITextBox {
     }
 
     @Override
+    public void clear() {
+        logElementAction(LOG_CLEARING);
+        doWithRetry(() -> getElement().clear());
+    }
+
+    @Override
     public void clearAndType(final String value) {
         clearAndType(value, false);
     }
@@ -40,11 +46,6 @@ public class TextBox extends Element implements ITextBox {
     @Override
     public void clearAndTypeSecret(final String value) {
         clearAndType(value, true);
-    }
-
-    @Override
-    public void submit() {
-        doWithRetry(() -> getElement().submit());
     }
 
     @Override

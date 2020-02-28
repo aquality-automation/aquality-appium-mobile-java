@@ -11,7 +11,11 @@ import aquality.selenium.core.localization.ILocalizationManager;
 import aquality.selenium.core.localization.ILocalizedLogger;
 import aquality.selenium.core.utilities.IElementActionRetrier;
 import aquality.selenium.core.waitings.IConditionalWait;
+import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+
+import java.time.Duration;
 
 /**
  * Abstract class, describing wrapper of Appium element.
@@ -70,5 +74,16 @@ public abstract class Element extends aquality.selenium.core.elements.Element im
     @Override
     public <T extends IElement> T findChildElement(By childLoc, String name, ElementType elementType, ElementState state) {
         return getElementFactory().findChildElement(this, childLoc, name, elementType, state);
+    }
+
+    @Override
+    public MobileElement getElement(Duration timeout) {
+        return (MobileElement) super.getElement(timeout);
+    }
+
+    @Override
+    public void sendKeys(Keys key) {
+        logElementAction("loc.text.sending.keys", Keys.class.getSimpleName().concat(".").concat(key.name()));
+        doWithRetry(() -> getElement().sendKeys(key));
     }
 }

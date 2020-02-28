@@ -26,6 +26,6 @@
     "language": "en"
   },
   "elementCache": {
-    "isEnabled": false
+    "isEnabled": true
   }
 }

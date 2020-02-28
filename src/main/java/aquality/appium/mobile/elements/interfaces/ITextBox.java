@@ -16,23 +16,23 @@ public interface ITextBox extends IElement {
     void typeSecret(String value);
 
     /**
-     * Clears input and enters text in the box, inputted value isn't logging
-     *
-     * @param value text
+     * Clears input.
      */
-    void clearAndType(String value);
+    void clear();
 
     /**
      * Clears input and enters text in the box
      *
      * @param value text
      */
-    void clearAndTypeSecret(String value);
+    void clearAndType(String value);
 
     /**
-     * Submits the field
+     * Clears input and enters text in the box, inputted value isn't logging
+     *
+     * @param value text
      */
-    void submit();
+    void clearAndTypeSecret(String value);
 
     /**
      * Gets value of field
