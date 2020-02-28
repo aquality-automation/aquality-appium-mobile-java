@@ -34,11 +34,11 @@ public class AqualityServices extends aquality.selenium.core.applications.Aquali
     }
 
     /**
-     * Check if browser already started or not.
+     * Check if application already started or not.
      *
-     * @return true if browser started and false otherwise.
+     * @return true if application started and false otherwise.
      */
-    public static boolean isBrowserStarted() {
+    public static boolean isApplicationStarted() {
         return getInstance().isAppStarted();
     }
 

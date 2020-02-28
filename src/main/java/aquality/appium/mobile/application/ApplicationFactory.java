@@ -1,6 +1,7 @@
 package aquality.appium.mobile.application;
 
 import aquality.selenium.core.configurations.ITimeoutConfiguration;
+import aquality.selenium.core.localization.ILocalizationManager;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
@@ -18,9 +19,9 @@ import java.time.Duration;
 
 abstract class ApplicationFactory implements IApplicationFactory {
 
-    private IllegalArgumentException getLoggedWrongPlatformNameException() {
-        // todo: String message = getLocalizationManager().getValue("loc.browser.name.wrong");
-        String message = "Platform name is not supported";
+    private IllegalArgumentException getLoggedWrongPlatformNameException(String actualPlatform) {
+        String message = AqualityServices.get(ILocalizationManager.class)
+                .getLocalizedMessage("loc.platform.name.wrong", actualPlatform);
         IllegalArgumentException exception = new IllegalArgumentException(message);
         AqualityServices.getLogger().fatal(message, exception);
         return exception;
@@ -42,7 +43,7 @@ abstract class ApplicationFactory implements IApplicationFactory {
                 driver = new WindowsDriver<WindowsElement>(serviceUrl, httpClientFactory, capabilities);
                 break;
             default:
-                throw getLoggedWrongPlatformNameException();
+                throw getLoggedWrongPlatformNameException(platformName.name());
         }
         return driver;
     }
@@ -69,7 +70,6 @@ abstract class ApplicationFactory implements IApplicationFactory {
     }
 
     void logApplicationIsReady() {
-        // todo: change key
-        AqualityServices.getLocalizedLogger().info("loc.browser.ready", AqualityServices.getApplicationProfile().getPlatformName().toString());
+        AqualityServices.getLocalizedLogger().info("loc.application.ready", AqualityServices.getApplicationProfile().getPlatformName().toString());
     }
 }

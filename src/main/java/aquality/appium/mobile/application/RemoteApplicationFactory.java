@@ -3,12 +3,15 @@ package aquality.appium.mobile.application;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.remote.LocalFileDetector;
 
+import java.net.URL;
+
 public class RemoteApplicationFactory extends ApplicationFactory {
 
     @Override
     public Application getApplication() {
-        AqualityServices.getLocalizedLogger().info("loc.browser.grid"); //todo: change key
-        AppiumDriver driver = getDriver(AqualityServices.getApplicationProfile().getRemoteConnectionUrl());
+        URL serverUrl = AqualityServices.getApplicationProfile().getRemoteConnectionUrl();
+        AqualityServices.getLocalizedLogger().info("loc.application.driver.remote", serverUrl);
+        AppiumDriver driver = getDriver(serverUrl);
         driver.setFileDetector(new LocalFileDetector());
         logApplicationIsReady();
         return new Application(driver);

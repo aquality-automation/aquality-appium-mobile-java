@@ -12,7 +12,9 @@ public class TextBox extends Element implements ITextBox {
 
     private static final String LOG_TYPING = "loc.text.typing";
     private static final String LOG_CLEARING = "loc.text.clearing";
-    private static final String LOG_MASKED_VALUE = "loc.text.masked_value";
+    private static final String LOG_FOCUSING = "loc.text.focusing";
+    private static final String LOG_UNFOCUSING = "loc.text.unfocusing";
+    private final String logMaskedValue = getLocalizationManager().getLocalizedMessage("loc.text.masked_value");
 
     protected TextBox(final By locator, final String name, final ElementState state) {
         super(locator, name, state);
@@ -55,22 +57,24 @@ public class TextBox extends Element implements ITextBox {
 
     @Override
     public void focus() {
+        logElementAction(LOG_FOCUSING);
         doWithRetry(() -> getElement().sendKeys(""));
     }
 
     @Override
     public void unfocus() {
+        logElementAction(LOG_UNFOCUSING);
         doWithRetry(() -> getElement().sendKeys(Keys.TAB));
     }
 
     private void type(final String value, final boolean maskValueInLog) {
-        logElementAction(LOG_TYPING, maskValueInLog ? LOG_MASKED_VALUE : value);
+        logElementAction(LOG_TYPING, maskValueInLog ? logMaskedValue : value);
         doWithRetry(() -> getElement().sendKeys(value));
     }
 
     private void clearAndType(final String value, final boolean maskValueInLog) {
         logElementAction(LOG_CLEARING);
-        logElementAction(LOG_TYPING, maskValueInLog ? LOG_MASKED_VALUE : value);
+        logElementAction(LOG_TYPING, maskValueInLog ? logMaskedValue : value);
         doWithRetry(() -> {
             getElement().clear();
             getElement().sendKeys(value);

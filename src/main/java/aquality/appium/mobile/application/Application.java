@@ -74,8 +74,8 @@ public class Application implements IApplication {
 
     @Override
     public void setImplicitWaitTimeout(Duration timeout) {
-        localizedLogger.debug("loc.browser.implicit.timeout", timeout.getSeconds());
         if (!timeout.equals(timeoutImpl)) {
+            localizedLogger.debug("loc.application.implicit.timeout", timeout.getSeconds());
             setImplicitlyWaitToDriver(timeoutImpl.getSeconds());
             timeoutImpl = timeout;
         }
@@ -85,7 +85,7 @@ public class Application implements IApplication {
      * Executes appium driver quit, then stops the driver service
      */
     public void quit() {
-        localizedLogger.info("loc.browser.driver.quit");
+        localizedLogger.info("loc.application.quit");
         if (getDriver() != null) {
             getDriver().quit();
         }
