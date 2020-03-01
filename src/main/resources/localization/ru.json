@@ -14,7 +14,7 @@
   "loc.application.driver.remote": "Установка драйвера для приложения с использованием сервера по адресу '%s'",
   "loc.platform.name.wrong": "Платформа '%s' не поддерживается.",
   "loc.application.ready": "Приложение на платформе '%1$s' готово...",
-  "loc.application.implicit.timeout": "Установка implicit(неявного) таймаута: '%1$s' секунд",
+  "loc.application.implicit.timeout": "Установка таймаута implicit(неявного) ожидания: '%1$s' сек.",
   "loc.button": "Кнопка",
   "loc.checkbox": "Чекбокс",
   "loc.checkbox.get.state": "Получение состояния",
