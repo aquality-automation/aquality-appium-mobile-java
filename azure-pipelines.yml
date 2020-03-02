@@ -39,7 +39,7 @@ steps:
     appium --version
     java -version
     echo "Starting Appium server"
-    appium --allow-insecure chromedriver_autodownload
+    appium
 
 - task: SonarCloudPrepare@1
   inputs:
