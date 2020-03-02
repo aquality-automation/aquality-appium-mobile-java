@@ -14,19 +14,12 @@ public class Application implements IApplication {
 
     private final ILocalizedLogger localizedLogger;
     private final IApplicationProfile applicationProfile;
-    private final ITimeoutConfiguration timeouts;
     private Duration timeoutImpl;
     private final AppiumDriver appiumDriver;
     private final DriverService driverService;
 
     public Application(AppiumDriver appiumDriver) {
-        this.appiumDriver = appiumDriver;
-        this.driverService = null;
-        localizedLogger = AqualityServices.getLocalizedLogger();
-        applicationProfile = AqualityServices.getApplicationProfile();
-        this.timeouts = AqualityServices.get(ITimeoutConfiguration.class);
-        this.timeoutImpl = timeouts.getImplicit();
-        setImplicitlyWaitToDriver(timeoutImpl.getSeconds());
+        this(null, appiumDriver);
     }
 
     public Application(DriverService driverService, AppiumDriver appiumDriver) {
@@ -34,7 +27,7 @@ public class Application implements IApplication {
         this.driverService = driverService;
         localizedLogger = AqualityServices.getLocalizedLogger();
         applicationProfile = AqualityServices.getApplicationProfile();
-        this.timeouts = AqualityServices.get(ITimeoutConfiguration.class);
+        ITimeoutConfiguration timeouts = AqualityServices.get(ITimeoutConfiguration.class);
         this.timeoutImpl = timeouts.getImplicit();
         setImplicitlyWaitToDriver(timeoutImpl.getSeconds());
     }

@@ -8,7 +8,7 @@ public interface IConfigurationsModule extends aquality.selenium.core.configurat
     /**
      * @return class which implements {@link IApplicationProfile}
      */
-    default Class<? extends IApplicationProfile> getBrowserProfileImplementation() {
+    default Class<? extends IApplicationProfile> getApplicationProfileImplementation() {
         return ApplicationProfile.class;
     }
 

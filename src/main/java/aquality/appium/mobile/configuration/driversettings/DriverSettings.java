@@ -14,8 +14,11 @@ abstract class DriverSettings implements IDriverSettings {
 
     private static final String appPathKey = "applicationPath";
     private static final String appCapabilityKey = "app";
+    private final ISettingsFile settingsFile;
 
-    abstract ISettingsFile getSettingsFile();
+    DriverSettings(ISettingsFile settingsFile) {
+        this.settingsFile = settingsFile;
+    }
 
     @Override
     public Capabilities getCapabilities() {
@@ -29,7 +32,7 @@ abstract class DriverSettings implements IDriverSettings {
     }
 
     private Map<String, Object> getCapabilitiesFromSettings(){
-        return getSettingsFile().getMap(getDriverCapabilitiesJsonPath());
+        return settingsFile.getMap(getDriverCapabilitiesJsonPath());
     }
 
     private String getAbsolutePath(String relativePath) {
@@ -43,13 +46,13 @@ abstract class DriverSettings implements IDriverSettings {
         }
     }
 
-    protected boolean hasApplicationPath() {
-        return getSettingsFile().getMap(getDriverSettingsPath()).containsKey(appPathKey);
+    private boolean hasApplicationPath() {
+        return settingsFile.getMap(getDriverSettingsPath()).containsKey(appPathKey);
     }
 
     @Override
     public String getApplicationPath() {
-        return String.valueOf(getSettingsFile().getValue(getDriverSettingsPath() + "/" + appPathKey));
+        return String.valueOf(settingsFile.getValue(getDriverSettingsPath() + "/" + appPathKey));
     }
 
     private String getDriverCapabilitiesJsonPath(){

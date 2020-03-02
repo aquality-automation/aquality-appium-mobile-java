@@ -17,7 +17,7 @@ public class MobileModule extends AqualityModule<Application> implements IConfig
     @Override
     protected void configure() {
         super.configure();
-        bind(IApplicationProfile.class).to(getBrowserProfileImplementation()).in(Singleton.class);
+        bind(IApplicationProfile.class).to(getApplicationProfileImplementation()).in(Singleton.class);
         bind(IConfiguration.class).to(getConfigurationImplementation());
         bind(IElementFactory.class).to(getElementFactoryImplementation());
     }
