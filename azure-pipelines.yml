@@ -42,7 +42,8 @@ steps:
     export PATH
     appium --version
     java -version
-    
+    appium --allow-insecure chromedriver_autodownload &
+    echo "Appium server started"
 
 
 - task: SonarCloudPrepare@1
@@ -63,7 +64,7 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'clean test -DisRemote=false'
+    goals: 'clean test'
 
 - task: SonarCloudAnalyze@1
 
