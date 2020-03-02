@@ -1,9 +1,9 @@
 package samples.android.apidemos.screens;
 
-import aquality.appium.elements.interfaces.IButton;
-import aquality.appium.elements.interfaces.ILabel;
-import aquality.appium.elements.interfaces.ITextBox;
-import aquality.appium.screens.AndroidScreen;
+import aquality.appium.mobile.elements.interfaces.IButton;
+import aquality.appium.mobile.elements.interfaces.ILabel;
+import aquality.appium.mobile.elements.interfaces.ITextBox;
+import aquality.appium.mobile.screens.AndroidScreen;
 import org.openqa.selenium.By;
 
 public class InvokeSearchScreen extends AndroidScreen {

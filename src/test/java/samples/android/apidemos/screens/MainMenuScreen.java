@@ -1,6 +1,6 @@
 package samples.android.apidemos.screens;
 
-import aquality.appium.screens.AndroidScreen;
+import aquality.appium.mobile.screens.AndroidScreen;
 import io.appium.java_client.android.Activity;
 import org.openqa.selenium.By;
 
