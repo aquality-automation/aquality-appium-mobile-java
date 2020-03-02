@@ -4,7 +4,7 @@ trigger:
   - master
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'macOS 10.14'
 
 steps:
   - task: SonarCloudPrepare@1
