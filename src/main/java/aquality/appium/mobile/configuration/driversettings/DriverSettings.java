@@ -12,8 +12,8 @@ import java.util.Map;
 
 abstract class DriverSettings implements IDriverSettings {
 
-    private static final String appPathKey = "applicationPath";
-    private static final String appCapabilityKey = "app";
+    private static final String APPLICATION_PATH_KEY = "applicationPath";
+    private static final String APP_CAPABILITY_KEY = "app";
     private final ISettingsFile settingsFile;
 
     DriverSettings(ISettingsFile settingsFile) {
@@ -26,7 +26,7 @@ abstract class DriverSettings implements IDriverSettings {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilitiesFromSettings.forEach(capabilities::setCapability);
         if(hasApplicationPath()) {
-            capabilities.setCapability(appCapabilityKey, getAbsolutePath(getApplicationPath()));
+            capabilities.setCapability(APP_CAPABILITY_KEY, getAbsolutePath(getApplicationPath()));
         }
         return capabilities;
     }
@@ -47,12 +47,12 @@ abstract class DriverSettings implements IDriverSettings {
     }
 
     private boolean hasApplicationPath() {
-        return settingsFile.getMap(getDriverSettingsPath()).containsKey(appPathKey);
+        return settingsFile.getMap(getDriverSettingsPath()).containsKey(APPLICATION_PATH_KEY);
     }
 
     @Override
     public String getApplicationPath() {
-        return String.valueOf(settingsFile.getValue(getDriverSettingsPath() + "/" + appPathKey));
+        return String.valueOf(settingsFile.getValue(getDriverSettingsPath() + "/" + APPLICATION_PATH_KEY));
     }
 
     private String getDriverCapabilitiesJsonPath(){
