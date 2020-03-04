@@ -8,7 +8,9 @@
     "android": {
       "applicationPath": "./src/test/resources/apps/ApiDemos-debug.apk",
       "capabilities": {
-        "deviceName": "test",
+        "deviceName": "Android Emulator",
+        "automationName": "UIAutomator2",
+        "eventTimings": true,
         "uiautomator2ServerInstallTimeout": "30000"
       }
     },
