@@ -15,6 +15,32 @@ variables:
   IOS_PLATFORM_VERSION: 12.2
   IOS_DEVICE_NAME: iPhone X
 steps:
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'aqualityautomation'
+    scannerMode: 'CLI'
+    configMode: 'file'
+    extraProperties: |
+        sonar.coverage.exclusions=**/**
+
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'clean complile'
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
 - task: NodeTool@0
   inputs:
     versionSpec: '11.15.0'
@@ -42,32 +68,9 @@ steps:
     export PATH
     appium --version
     java -version
+    echo "Installing and Running Appium doctor"
+    npm install -g appium-doctor
+    appium-doctor
     appium --allow-insecure chromedriver_autodownload &
     echo "Appium server started"
-
-
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'aqualityautomation'
-    scannerMode: 'CLI'
-    configMode: 'file'
-    extraProperties: |
-        sonar.coverage.exclusions=**/**
-
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'clean test'
-
-- task: SonarCloudAnalyze@1
-
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
+    maven test
