@@ -58,19 +58,19 @@ steps:
     echo "Emulator started"
     sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
     xcrun simctl list
-    npm config delete prefix
-    npm config set prefix $NVM_DIR/versions/node/`node --version`
+    #npm config delete prefix
+    #npm config set prefix $NVM_DIR/versions/node/`node --version`
     node --version
-    npm install -g appium
-    ln -fs /Users/runner/.nvm/versions/node/v11.15.0/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
+    sudo npm install -g appium
+    #ln -fs /Users/runner/.nvm/versions/node/v11.15.0/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
     chmod +x /usr/local/bin/appium
     path+=('/usr/local/bin/appium')
     export PATH
     appium --version
     java -version
     echo "Installing and Running Appium doctor"
-    npm install -g appium-doctor
-    ln -fs /Users/runner/.nvm/versions/node/v11.15.0/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
+    sudo npm install -g appium-doctor
+    #ln -fs /Users/runner/.nvm/versions/node/v11.15.0/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
     chmod +x /usr/local/bin/appium-doctor
     path+=('/usr/local/bin/appium-doctor')
     export PATH
