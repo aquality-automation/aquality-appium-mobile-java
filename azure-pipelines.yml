@@ -75,6 +75,6 @@ steps:
     path+=('/usr/local/bin/appium-doctor')
     export PATH
     appium-doctor
-    appium --allow-insecure chromedriver_autodownload &
+    sudo appium --allow-insecure chromedriver_autodownload &
     echo "Appium server started"
     /usr/local/bin/mvn -f /Users/runner/runners/2.165.0/work/1/s/pom.xml test
