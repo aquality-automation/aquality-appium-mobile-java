@@ -61,7 +61,7 @@ steps:
     #npm config delete prefix
     #npm config set prefix $NVM_DIR/versions/node/`node --version`
     node --version
-    sudo npm install -g appium
+    sudo npm install -g appium --chromedriver-skip-install
     #ln -fs /Users/runner/.nvm/versions/node/v11.15.0/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
     chmod +x /usr/local/bin/appium
     path+=('/usr/local/bin/appium')
