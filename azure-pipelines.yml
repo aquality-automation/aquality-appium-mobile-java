@@ -47,6 +47,7 @@ steps:
 
 - script: |
     echo "Configuring Environment"
+    echo $JAVA_HOME
     echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)'
     echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n "$(ANDROID_EMU_NAME)" -k 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)' --force
     echo $ANDROID_HOME/emulator/emulator -list-avds
@@ -77,4 +78,4 @@ steps:
     appium-doctor
     sudo appium --allow-insecure chromedriver_autodownload &
     echo "Appium server started"
-    /usr/local/bin/mvn -f /Users/runner/runners/2.165.0/work/1/s/pom.xml test
+    sudo /usr/local/bin/mvn -f /Users/runner/runners/2.165.0/work/1/s/pom.xml test
