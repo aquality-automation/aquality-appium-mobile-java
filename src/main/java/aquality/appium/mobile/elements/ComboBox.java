@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  */
 public class ComboBox extends Element implements IComboBox {
 
-    private static final String LOG_SELECTING_VALUE = "loc.selecting.value";
+    private static final String LOG_SELECTING_VALUE = "loc.combobox.select.by.value";
 
     protected ComboBox(final By locator, final String name, final ElementState state) {
         super(locator, name, state);
@@ -29,7 +29,7 @@ public class ComboBox extends Element implements IComboBox {
 
     @Override
     public void selectByIndex(int index) {
-        logElementAction(LOG_SELECTING_VALUE);
+        logElementAction(LOG_SELECTING_VALUE, String.format("#%d", index));
         doWithRetry(() -> new Select(getElement()).selectByIndex(index));
     }
 
@@ -40,14 +40,14 @@ public class ComboBox extends Element implements IComboBox {
     }
 
     @Override
-    public void clickAndSelectByText(String value) {
+    public void clickAndSelectByText(String text) {
         click();
-        selectByText(value);
+        selectByText(text);
     }
 
     @Override
     public void selectByContainingText(String text) {
-        logElementAction(LOG_SELECTING_VALUE);
+        logElementAction(LOG_SELECTING_VALUE, text);
         selectOptionThatContains(WebElement::getText,
                 Select::selectByVisibleText,
                 text);
@@ -55,7 +55,7 @@ public class ComboBox extends Element implements IComboBox {
 
     @Override
     public void selectByContainingValue(String value) {
-        logElementAction(LOG_SELECTING_VALUE);
+        logElementAction(LOG_SELECTING_VALUE, value);
         selectOptionThatContains(element -> element.getAttribute(Attributes.VALUE.toString()),
                 Select::selectByValue,
                 value);
@@ -83,7 +83,7 @@ public class ComboBox extends Element implements IComboBox {
 
     @Override
     public void selectByValue(String value) {
-        logElementAction(LOG_SELECTING_VALUE);
+        logElementAction(LOG_SELECTING_VALUE, value);
         doWithRetry(() -> new Select(getElement()).selectByValue(value));
     }
 
