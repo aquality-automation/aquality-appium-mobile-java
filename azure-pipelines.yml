@@ -78,4 +78,14 @@ steps:
     appium-doctor
     sudo appium --allow-insecure chromedriver_autodownload &
     echo "Appium server started"
-    sudo /usr/local/bin/mvn -f /Users/runner/runners/2.165.0/work/1/s/pom.xml test
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'test'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
