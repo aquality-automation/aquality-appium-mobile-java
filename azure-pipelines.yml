@@ -52,7 +52,7 @@ steps:
     export PATH=$PATH:$JAVA_HOME/bin
 
     echo export "ANDROID_HOME=\$ANDROID_HOME" >> ~/.bash_profile
-    export PATH=$PATH:$ANDROID_HOME/sdk
+    export PATH=$PATH:$ANDROID_HOME
 
     mvn -version
     echo $ANDROID_HOME
