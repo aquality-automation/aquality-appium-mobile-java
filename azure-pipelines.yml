@@ -54,6 +54,8 @@ steps:
     echo export "ANDROID_HOME=\$ANDROID_HOME" >> ~/.bash_profile
     export PATH=$PATH:$ANDROID_HOME/build-tools
 
+    ls $ANDROID_HOME/build-tools/
+
     mvn -version
     echo $ANDROID_HOME
     echo $JAVA_HOME
