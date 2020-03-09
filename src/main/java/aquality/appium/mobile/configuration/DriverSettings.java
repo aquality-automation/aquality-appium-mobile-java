@@ -1,6 +1,7 @@
-package aquality.appium.mobile.configuration.driversettings;
+package aquality.appium.mobile.configuration;
 
 import aquality.appium.mobile.application.AqualityServices;
+import aquality.appium.mobile.application.PlatformName;
 import aquality.selenium.core.localization.ILocalizationManager;
 import aquality.selenium.core.utilities.ISettingsFile;
 import org.openqa.selenium.Capabilities;
@@ -10,14 +11,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
-abstract class DriverSettings implements IDriverSettings {
+public class DriverSettings implements IDriverSettings {
 
     private static final String APPLICATION_PATH_KEY = "applicationPath";
     private static final String APP_CAPABILITY_KEY = "app";
     private final ISettingsFile settingsFile;
+    private final PlatformName platformName;
 
-    DriverSettings(ISettingsFile settingsFile) {
+    public DriverSettings(ISettingsFile settingsFile, PlatformName platformName) {
         this.settingsFile = settingsFile;
+        this.platformName = platformName;
     }
 
     @Override
@@ -60,6 +63,6 @@ abstract class DriverSettings implements IDriverSettings {
     }
 
     private String getDriverSettingsPath(){
-        return String.format("/driverSettings/%1$s", getPlatformName().toString().toLowerCase());
+        return String.format("/driverSettings/%1$s", platformName.toString().toLowerCase());
     }
 }

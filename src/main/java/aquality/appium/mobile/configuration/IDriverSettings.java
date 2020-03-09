@@ -1,6 +1,5 @@
-package aquality.appium.mobile.configuration.driversettings;
+package aquality.appium.mobile.configuration;
 
-import aquality.appium.mobile.application.PlatformName;
 import org.openqa.selenium.Capabilities;
 
 /**
@@ -13,12 +12,6 @@ public interface IDriverSettings {
      * @return initialized {@link Capabilities}.
      */
     Capabilities getCapabilities();
-
-    /**
-     * Get desired platform name.
-     * @return Platform name.
-     */
-    PlatformName getPlatformName();
 
     /**
      * Provides a path to the application.

@@ -1,7 +1,6 @@
 package aquality.appium.mobile.configuration;
 
 import aquality.appium.mobile.application.PlatformName;
-import aquality.appium.mobile.configuration.driversettings.IDriverSettings;
 
 import java.net.URL;
 
