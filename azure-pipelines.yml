@@ -93,8 +93,8 @@ steps:
     while [[ $? -ne 0 ]]; do sleep 1; $ANDROID_HOME/platform-tools/adb shell pm list packages; done;
     $ANDROID_HOME/platform-tools/adb devices
     echo "Emulator started"
-    sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
-    xcrun simctl list
+    #sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
+    #xcrun simctl list
 
     appium --allow-insecure chromedriver_autodownload &
     echo "Appium server started"
