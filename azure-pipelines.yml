@@ -29,7 +29,7 @@ steps:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
+    jdkVersionOption: '1.11'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
@@ -48,7 +48,8 @@ steps:
 - script: |
     echo "Configuring Environment"
     echo $JAVA_HOME
-    echo export "JAVA_HOME=\$(/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home)" >> ~/.bash_profile
+    ls /Library/Java/JavaVirtualMachines/
+    echo export "JAVA_HOME=\$(/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home)" >> ~/.bash_profile
     export PATH=$PATH:$JAVA_HOME/bin
 
     echo export "ANDROID_HOME=\$ANDROID_HOME" >> ~/.bash_profile
