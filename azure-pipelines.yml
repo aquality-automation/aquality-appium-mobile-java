@@ -61,6 +61,7 @@ steps:
 
     echo "Installing Appium"
     node --version
+    npm list --depth 0
     npm install appium --chromedriver-skip-install
     ln -fs /Users/runner/.nvm/versions/node/v11.15.0/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
     chmod +x /usr/local/bin/appium
@@ -72,6 +73,8 @@ steps:
     chmod +x /usr/local/bin/appium-doctor
     export PATH=$PATH:/usr/local/bin/appium-doctor
     
+    npm list --depth 0
+
     appium --version
     appium-doctor
 
