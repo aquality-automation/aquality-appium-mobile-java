@@ -78,6 +78,7 @@ steps:
     appium-doctor
     sudo appium --allow-insecure chromedriver_autodownload &
     echo "Appium server started"
+    mvn -version
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
