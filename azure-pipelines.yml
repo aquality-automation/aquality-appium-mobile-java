@@ -61,15 +61,20 @@ steps:
 
     echo "Installing Appium"
     node --version
+
+    #npm config delete prefix
+    #npm config set prefix $NVM_DIR/versions/node/`node --version`
+
+
     npm list --depth 0
     npm install appium --chromedriver-skip-install
-    ln -fs /Users/runner/.nvm/versions/node/v11.15.0/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
+    ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
     chmod +x /usr/local/bin/appium
     export PATH=$PATH:/usr/local/bin/appium
     
     echo "Installing and Running Appium doctor"
     npm install -g appium-doctor
-    ln -fs /Users/runner/.nvm/versions/node/v11.15.0/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
+    ln -fs /usr/local/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
     chmod +x /usr/local/bin/appium-doctor
     export PATH=$PATH:/usr/local/bin/appium-doctor
     
@@ -89,10 +94,6 @@ steps:
     echo "Emulator started"
     sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
     xcrun simctl list
-    
-    
-    #npm config delete prefix
-    #npm config set prefix $NVM_DIR/versions/node/`node --version`
 
     appium --allow-insecure chromedriver_autodownload &
     echo "Appium server started"
