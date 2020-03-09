@@ -52,7 +52,7 @@ steps:
     export PATH=$PATH:$JAVA_HOME/bin
 
     echo export "ANDROID_HOME=\$ANDROID_HOME" >> ~/.bash_profile
-    export PATH=$PATH:$ANDROID_HOME/build-tools
+    export PATH=$PATH:$ANDROID_HOME/build-tools/23.0.3
 
     ls $ANDROID_HOME/build-tools/
 
