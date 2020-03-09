@@ -72,7 +72,7 @@ steps:
     #npm config delete prefix
     #npm config set prefix $NVM_DIR/versions/node/`node --version`
     node --version
-    sudo npm install -g appium --chromedriver-skip-install
+    npm install appium --chromedriver-skip-install
     #ln -fs /Users/runner/.nvm/versions/node/v11.15.0/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
     chmod +x /usr/local/bin/appium
     path+=('/usr/local/bin/appium')
@@ -80,12 +80,12 @@ steps:
     appium --version
     java -version
     echo "Installing and Running Appium doctor"
-    sudo npm install -g appium-doctor
+    npm install -g appium-doctor
     #ln -fs /Users/runner/.nvm/versions/node/v11.15.0/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
     chmod +x /usr/local/bin/appium-doctor
     path+=('/usr/local/bin/appium-doctor')
     export PATH
     appium-doctor
-    sudo appium --allow-insecure chromedriver_autodownload &
+    appium --allow-insecure chromedriver_autodownload &
     echo "Appium server started"
     '/usr/local/bin/mvn' test
