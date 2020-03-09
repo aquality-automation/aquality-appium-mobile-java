@@ -48,6 +48,9 @@ steps:
 - script: |
     echo "Configuring Environment"
     echo $JAVA_HOME
+    echo export "JAVA_HOME=\$(/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home)" >> ~/.bash_profile
+    mvn -version
+    echo $JAVA_HOME
     echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)'
     echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n "$(ANDROID_EMU_NAME)" -k 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)' --force
     echo $ANDROID_HOME/emulator/emulator -list-avds
@@ -78,7 +81,6 @@ steps:
     appium-doctor
     sudo appium --allow-insecure chromedriver_autodownload &
     echo "Appium server started"
-    mvn -version
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
