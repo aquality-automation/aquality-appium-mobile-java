@@ -35,7 +35,7 @@ public class AndroidBasicInteractionsTest {
         Assert.assertTrue(searchScreen.isDisplayed(), searchScreen.getName() + " should be opened from the menu");
         String query = "Hello world!";
         searchScreen.submitSearch(query);
-        Assert.assertNotEquals(searchScreen.getSearchResult(), query, "Search result don't match to entered query");
+        Assert.assertEquals(searchScreen.getSearchResult(), query, "Search result don't match to entered query");
     }
 
     @Test

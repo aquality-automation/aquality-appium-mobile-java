@@ -1,6 +1,5 @@
 package samples.android;
 
-
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.application.MobileModule;
 import aquality.appium.mobile.elements.interfaces.ITextBox;
@@ -11,11 +10,14 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import testreport.ScreenshotListener;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
+@Listeners(ScreenshotListener.class)
 public class AndroidCreateWebSessionTest {
     private AndroidDriver<WebElement> driver;
 
