@@ -38,9 +38,8 @@ steps:
     echo "Configuring Environment"
     echo $JAVA_HOME
     ls /Library/Java/JavaVirtualMachines/
-    echo export "JAVA_HOME=\$(/Library/Java/JavaVirtualMachines/zulu-13.jdk/Contents/Home)" >> ~/.bash_profile
+    echo export "JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-13.jdk/Contents/Home" >> ~/.bash_profile
     export PATH=$PATH:$JAVA_HOME/bin
-    vim ~/.bash_profile
 
     echo export "ANDROID_HOME=\$ANDROID_HOME" >> ~/.bash_profile
     export PATH=$PATH:$ANDROID_HOME
