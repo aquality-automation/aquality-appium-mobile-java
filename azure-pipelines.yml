@@ -95,6 +95,7 @@ steps:
 
     appium --allow-insecure chromedriver_autodownload &
     echo "Appium server started"
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -106,3 +107,15 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'target'
+    Contents: '*.png'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'

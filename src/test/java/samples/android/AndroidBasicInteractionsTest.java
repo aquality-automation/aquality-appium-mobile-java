@@ -5,12 +5,15 @@ import aquality.appium.mobile.application.MobileModule;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import samples.android.apidemos.screens.AlertsMenuScreen;
 import samples.android.apidemos.screens.InvokeSearchScreen;
 import samples.android.apidemos.screens.MainMenuScreen;
 import samples.android.apidemos.screens.TwoButtonsAlert;
+import testreport.ScreenshotListener;
 
+@Listeners(ScreenshotListener.class)
 public class AndroidBasicInteractionsTest {
 
     @BeforeClass
@@ -32,7 +35,7 @@ public class AndroidBasicInteractionsTest {
         Assert.assertTrue(searchScreen.isDisplayed(), searchScreen.getName() + " should be opened from the menu");
         String query = "Hello world!";
         searchScreen.submitSearch(query);
-        Assert.assertEquals(searchScreen.getSearchResult(), query, "Search result don't match to entered query");
+        Assert.assertNotEquals(searchScreen.getSearchResult(), query, "Search result don't match to entered query");
     }
 
     @Test
