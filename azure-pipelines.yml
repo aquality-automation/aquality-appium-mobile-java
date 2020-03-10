@@ -112,7 +112,7 @@ steps:
   displayName: 'Run tests'
   inputs:
     mavenPomFile: 'pom.xml'
-    goals: 'test'
+    goals: 'test -DisRemote=false'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
