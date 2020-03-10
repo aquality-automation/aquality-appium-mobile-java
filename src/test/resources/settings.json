@@ -11,7 +11,7 @@
         "deviceName": "Android Emulator",
         "automationName": "UIAutomator2",
         "eventTimings": true,
-        "uiautomator2ServerInstallTimeout": "30000"
+        "uiautomator2ServerInstallTimeout": 30000
       }
     },
     "ios": {

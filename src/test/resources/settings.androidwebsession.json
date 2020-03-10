@@ -9,7 +9,8 @@
       "capabilities": {
         "deviceName": "test",
         "browserName": "Chrome",
-        "uiautomator2ServerInstallTimeout": "30000"
+        "uiautomator2ServerInstallTimeout": 30000,
+        "eventTimings": true
       }
     }
   },

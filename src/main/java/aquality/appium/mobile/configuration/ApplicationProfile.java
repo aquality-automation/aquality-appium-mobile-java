@@ -24,7 +24,7 @@ public class ApplicationProfile implements IApplicationProfile {
 
     @Override
     public boolean isRemote() {
-        return Boolean.valueOf(settingsFile.getValue("/isRemote").toString());
+        return (Boolean) settingsFile.getValue("/isRemote");
     }
 
     @Override
