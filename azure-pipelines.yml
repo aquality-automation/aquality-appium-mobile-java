@@ -120,7 +120,6 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
-  continueOnError: true
 
 - task: CopyFiles@2
   displayName: 'Copy failure screenshots and test logs'
@@ -130,6 +129,7 @@ steps:
         surefire-reports/failure_screenshots/*.png
         log/*.log
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  condition: succeededOrFailed()
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish copied artifacts'
@@ -137,3 +137,4 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+  condition: succeededOrFailed()
