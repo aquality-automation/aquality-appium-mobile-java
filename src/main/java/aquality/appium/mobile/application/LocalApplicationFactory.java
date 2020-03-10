@@ -11,6 +11,6 @@ public class LocalApplicationFactory extends ApplicationFactory {
         service.start();
         AppiumDriver driver = getDriver(service.getUrl());
         logApplicationIsReady();
-        return new Application(service, driver);
+        return new Application(driver, service);
     }
 }

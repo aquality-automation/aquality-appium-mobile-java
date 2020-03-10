@@ -65,6 +65,6 @@ abstract class ApplicationFactory implements IApplicationFactory {
     }
 
     void logApplicationIsReady() {
-        AqualityServices.getLocalizedLogger().info("loc.application.ready", AqualityServices.getApplicationProfile().getPlatformName().toString());
+        AqualityServices.getLocalizedLogger().info("loc.application.ready", AqualityServices.getApplicationProfile().getPlatformName());
     }
 }

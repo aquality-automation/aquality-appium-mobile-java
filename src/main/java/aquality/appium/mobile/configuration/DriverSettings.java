@@ -1,6 +1,7 @@
-package aquality.appium.mobile.configuration.driversettings;
+package aquality.appium.mobile.configuration;
 
 import aquality.appium.mobile.application.AqualityServices;
+import aquality.appium.mobile.application.PlatformName;
 import aquality.selenium.core.localization.ILocalizationManager;
 import aquality.selenium.core.utilities.ISettingsFile;
 import org.openqa.selenium.Capabilities;
@@ -10,14 +11,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
-abstract class DriverSettings implements IDriverSettings {
+public class DriverSettings implements IDriverSettings {
 
-    private static final String appPathKey = "applicationPath";
-    private static final String appCapabilityKey = "app";
+    private static final String APPLICATION_PATH_KEY = "applicationPath";
+    private static final String APP_CAPABILITY_KEY = "app";
     private final ISettingsFile settingsFile;
+    private final PlatformName platformName;
 
-    DriverSettings(ISettingsFile settingsFile) {
+    public DriverSettings(ISettingsFile settingsFile, PlatformName platformName) {
         this.settingsFile = settingsFile;
+        this.platformName = platformName;
     }
 
     @Override
@@ -26,7 +29,7 @@ abstract class DriverSettings implements IDriverSettings {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilitiesFromSettings.forEach(capabilities::setCapability);
         if(hasApplicationPath()) {
-            capabilities.setCapability(appCapabilityKey, getAbsolutePath(getApplicationPath()));
+            capabilities.setCapability(APP_CAPABILITY_KEY, getAbsolutePath(getApplicationPath()));
         }
         return capabilities;
     }
@@ -47,12 +50,12 @@ abstract class DriverSettings implements IDriverSettings {
     }
 
     private boolean hasApplicationPath() {
-        return settingsFile.getMap(getDriverSettingsPath()).containsKey(appPathKey);
+        return settingsFile.getMap(getDriverSettingsPath()).containsKey(APPLICATION_PATH_KEY);
     }
 
     @Override
     public String getApplicationPath() {
-        return String.valueOf(settingsFile.getValue(getDriverSettingsPath() + "/" + appPathKey));
+        return String.valueOf(settingsFile.getValue(getDriverSettingsPath() + "/" + APPLICATION_PATH_KEY));
     }
 
     private String getDriverCapabilitiesJsonPath(){
@@ -60,6 +63,6 @@ abstract class DriverSettings implements IDriverSettings {
     }
 
     private String getDriverSettingsPath(){
-        return String.format("/driverSettings/%1$s", getPlatformName().toString().toLowerCase());
+        return String.format("/driverSettings/%1$s", platformName.toString().toLowerCase());
     }
 }

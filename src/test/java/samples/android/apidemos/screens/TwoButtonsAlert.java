@@ -20,7 +20,7 @@ public class TwoButtonsAlert extends AndroidScreen {
         return lblAlertTitle.getText();
     }
 
-    public void closeDialog(){
+    public void close(){
         btnClose.click();
     }
 }

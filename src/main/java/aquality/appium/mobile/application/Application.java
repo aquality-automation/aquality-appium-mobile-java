@@ -19,21 +19,21 @@ public class Application implements IApplication {
     private final DriverService driverService;
 
     public Application(AppiumDriver appiumDriver) {
-        this(null, appiumDriver);
+        this(appiumDriver, null);
     }
 
-    public Application(DriverService driverService, AppiumDriver appiumDriver) {
+    public Application(AppiumDriver appiumDriver, DriverService driverService) {
         this.appiumDriver = appiumDriver;
         this.driverService = driverService;
         localizedLogger = AqualityServices.getLocalizedLogger();
         applicationProfile = AqualityServices.getApplicationProfile();
-        ITimeoutConfiguration timeouts = AqualityServices.get(ITimeoutConfiguration.class);
-        this.timeoutImpl = timeouts.getImplicit();
-        setImplicitlyWaitToDriver(timeoutImpl.getSeconds());
+        Duration implicitTimeout = AqualityServices.get(ITimeoutConfiguration.class).getImplicit();
+        setImplicitlyWaitToDriver(implicitTimeout);
     }
 
-    private void setImplicitlyWaitToDriver(long seconds) {
-        getDriver().manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
+    private void setImplicitlyWaitToDriver(Duration duration) {
+        getDriver().manage().timeouts().implicitlyWait(duration.getSeconds(), TimeUnit.SECONDS);
+        this.timeoutImpl = duration;
     }
 
     /**
@@ -69,8 +69,7 @@ public class Application implements IApplication {
     public void setImplicitWaitTimeout(Duration timeout) {
         if (!timeout.equals(timeoutImpl)) {
             localizedLogger.debug("loc.application.implicit.timeout", timeout.getSeconds());
-            setImplicitlyWaitToDriver(timeoutImpl.getSeconds());
-            timeoutImpl = timeout;
+            setImplicitlyWaitToDriver(timeout);
         }
     }
 

@@ -4,6 +4,7 @@ import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.application.PlatformName;
 import aquality.appium.mobile.elements.interfaces.IElementFactory;
 import aquality.appium.mobile.elements.interfaces.ILabel;
+import aquality.selenium.core.elements.interfaces.IElementStateProvider;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -13,14 +14,9 @@ import java.time.Duration;
 
 public abstract class Screen {
 
-    /**
-     * Locator for specified screen
-     */
-    protected final By locator;
-    /**
-     * Name of specified screen
-     */
-    protected final String name;
+    private final By locator;
+    private final String name;
+    private final ILabel screenLabel;
 
     /**
      * Constructor with parameters
@@ -28,6 +24,7 @@ public abstract class Screen {
     protected Screen(By locator, String name) {
         this.locator = locator;
         this.name = name;
+        screenLabel = getElementFactory().getLabel(locator, name);
     }
 
     protected abstract AppiumDriver getDriver();
@@ -39,7 +36,7 @@ public abstract class Screen {
      * False - screen is not opened
      */
     public boolean isDisplayed() {
-        return getFormLabel().state().waitForDisplayed();
+        return screenLabel.state().waitForDisplayed();
     }
 
     /**
@@ -50,19 +47,15 @@ public abstract class Screen {
      * False - screen is not opened
      */
     public boolean isDisplayed(Duration timeout) {
-        return getFormLabel().state().waitForDisplayed(timeout);
+        return screenLabel.state().waitForDisplayed(timeout);
     }
 
-    public Dimension getScreenSize() {
-       return getFormLabel().getElement().getSize();
+    public Dimension getSize() {
+       return screenLabel.getElement().getSize();
     }
 
     protected IElementFactory getElementFactory(){
         return AqualityServices.getElementFactory();
-    }
-
-    private ILabel getFormLabel(){
-        return getElementFactory().getLabel(locator, name);
     }
 
     void ensureApplicationPlatformCorrect(PlatformName targetPlatform) {
@@ -73,5 +66,28 @@ public abstract class Screen {
                     currentPlatform,
                     targetPlatform));
         }
+    }
+
+    /**
+     * Locator for specified screen
+     */
+    public By getLocator() {
+        return locator;
+    }
+
+    /**
+     * Name of specified screen
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Provides ability to define of element's state (whether it is displayed, exists or not) and respective waiting functions
+     *
+     * @return provider to define element's state
+     */
+    public IElementStateProvider state() {
+        return screenLabel.state();
     }
 }

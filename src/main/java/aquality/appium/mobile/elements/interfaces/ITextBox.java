@@ -9,7 +9,7 @@ public interface ITextBox extends IElement {
     void type(String value);
 
     /**
-     * Enter the text in the box, inputted value isn't logging
+     * Enter the text in the box, inputted value isn't logged
      *
      * @param value text
      */
@@ -28,7 +28,7 @@ public interface ITextBox extends IElement {
     void clearAndType(String value);
 
     /**
-     * Clears input and enters text in the box, inputted value isn't logging
+     * Clears input and enters text in the box, inputted value isn't logged
      *
      * @param value text
      */
