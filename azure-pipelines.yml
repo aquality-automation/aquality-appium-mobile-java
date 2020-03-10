@@ -49,12 +49,11 @@ steps:
   continueOnError: true
 
 - task: NodeTool@0
-  displayName: 'Install Node.js tool'
+  displayName: 'Install Node.js tool to setup Appium and emulators'
   inputs:
     versionSpec: '11.15.0'
 
-- script:
-  displayName: 'Install Appium and setup emulators' |
+- script: |
     echo "Configuring Environment"
     echo $JAVA_HOME
     ls /Library/Java/JavaVirtualMachines/
@@ -73,7 +72,7 @@ steps:
     echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)'
     echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n "$(ANDROID_EMU_NAME)" -k 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)' --force
     echo $ANDROID_HOME/emulator/emulator -list-avds
-    
+
     echo "Starting emulator"
     nohup $ANDROID_HOME/emulator/emulator -avd "$(ANDROID_EMU_NAME)" -no-snapshot > /dev/null 2>&1 &
     $ANDROID_HOME/platform-tools/adb wait-for-device
@@ -91,13 +90,13 @@ steps:
     ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
     chmod +x /usr/local/bin/appium
     export PATH=$PATH:/usr/local/bin/appium
-    
+
     echo "Installing and Running Appium doctor"
     npm install -g appium-doctor
     ln -fs /usr/local/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
     chmod +x /usr/local/bin/appium-doctor
     export PATH=$PATH:/usr/local/bin/appium-doctor
-    
+
     npm list --depth 0
 
     appium --version
