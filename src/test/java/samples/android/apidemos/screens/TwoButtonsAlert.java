@@ -1,8 +1,8 @@
 package samples.android.apidemos.screens;
 
-import aquality.appium.elements.interfaces.IButton;
-import aquality.appium.elements.interfaces.ILabel;
-import aquality.appium.screens.AndroidScreen;
+import aquality.appium.mobile.elements.interfaces.IButton;
+import aquality.appium.mobile.elements.interfaces.ILabel;
+import aquality.appium.mobile.screens.AndroidScreen;
 import org.openqa.selenium.By;
 
 public class TwoButtonsAlert extends AndroidScreen {
@@ -20,7 +20,7 @@ public class TwoButtonsAlert extends AndroidScreen {
         return lblAlertTitle.getText();
     }
 
-    public void closeDialog(){
+    public void close(){
         btnClose.click();
     }
 }

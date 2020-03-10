@@ -1,9 +1,9 @@
 package samples.android.apidemos.screens;
 
-import aquality.appium.elements.interfaces.IButton;
-import aquality.appium.elements.interfaces.ILabel;
-import aquality.appium.elements.interfaces.ITextBox;
-import aquality.appium.screens.AndroidScreen;
+import aquality.appium.mobile.elements.interfaces.IButton;
+import aquality.appium.mobile.elements.interfaces.ILabel;
+import aquality.appium.mobile.elements.interfaces.ITextBox;
+import aquality.appium.mobile.screens.AndroidScreen;
 import org.openqa.selenium.By;
 
 public class InvokeSearchScreen extends AndroidScreen {
@@ -13,7 +13,7 @@ public class InvokeSearchScreen extends AndroidScreen {
     private final ILabel lblSearchResult = getElementFactory().getLabel(By.id("android:id/search_src_text"), "Search results");
 
     public InvokeSearchScreen() {
-        super(By.xpath("//*[contains(.,'App/Search/Invoke Search')]"), "Invoke Search");
+        super(By.xpath("//android.widget.TextView[@text='App/Search/Invoke Search']"), "Invoke Search");
     }
 
     public void submitSearch(String query) {
