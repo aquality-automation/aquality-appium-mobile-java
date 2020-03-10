@@ -3,27 +3,32 @@ package samples.android;
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.application.MobileModule;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
 import samples.android.apidemos.screens.AlertsMenuScreen;
 import samples.android.apidemos.screens.InvokeSearchScreen;
 import samples.android.apidemos.screens.MainMenuScreen;
 import samples.android.apidemos.screens.TwoButtonsAlert;
+import testreport.ScreenshotListener;
 
-//@Listeners(ScreenshotListener.class)
+@Listeners(ScreenshotListener.class)
 public class AndroidBasicInteractionsTest {
 
-    //@BeforeClass
+    @BeforeClass
     public void setUp() {
         System.clearProperty("profile");
         AqualityServices.initInjector(new MobileModule(AqualityServices::getApplication));
     }
 
-    //@AfterClass
+    @AfterClass
     public void tearDown() {
         AqualityServices.getApplication().quit();
     }
 
 
-    //@Test
+    @Test
     public void testSendKeys() {
         new MainMenuScreen().startSearch();
         InvokeSearchScreen searchScreen = new InvokeSearchScreen();
@@ -33,7 +38,7 @@ public class AndroidBasicInteractionsTest {
         Assert.assertEquals(searchScreen.getSearchResult(), query, "Search result don't match to entered query");
     }
 
-    //@Test
+    @Test
     public void testOpensAlert() {
 
         logStep("Open the 'Alert Dialog' activity of the android app");
