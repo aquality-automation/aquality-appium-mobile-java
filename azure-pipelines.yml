@@ -105,8 +105,8 @@ steps:
     #sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
     #xcrun simctl list
 
-    #appium --allow-insecure chromedriver_autodownload &
-    #echo "Appium server started"
+    appium --allow-insecure chromedriver_autodownload &
+    echo "Appium server started"
 
 - task: Maven@3
   displayName: 'Run tests'
