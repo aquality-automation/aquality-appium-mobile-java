@@ -40,7 +40,6 @@ steps:
     ls /Library/Java/JavaVirtualMachines/
 
     ls $ANDROID_HOME/build-tools/
-
     
     #export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home
     #export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
@@ -53,6 +52,18 @@ steps:
     echo $ANDROID_HOME
     echo $JAVA_HOME
     echo $PATH
+
+    echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)'
+    echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n "$(ANDROID_EMU_NAME)" -k 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)' --force
+    echo $ANDROID_HOME/emulator/emulator -list-avds
+    
+    echo "Starting emulator"
+    nohup $ANDROID_HOME/emulator/emulator -avd "$(ANDROID_EMU_NAME)" -no-snapshot > /dev/null 2>&1 &
+    $ANDROID_HOME/platform-tools/adb wait-for-device
+    while [[ $? -ne 0 ]]; do sleep 1; $ANDROID_HOME/platform-tools/adb shell pm list packages; done;
+    $ANDROID_HOME/platform-tools/adb devices
+    echo "Emulator started"
+
 
     echo "Installing Appium"
     node --version
@@ -78,15 +89,6 @@ steps:
     appium --version
     appium-doctor
 
-    echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)'
-    echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n "$(ANDROID_EMU_NAME)" -k 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)' --force
-    echo $ANDROID_HOME/emulator/emulator -list-avds
-    echo "Starting emulator"
-    nohup $ANDROID_HOME/emulator/emulator -avd "$(ANDROID_EMU_NAME)" -no-snapshot > /dev/null 2>&1 &
-    $ANDROID_HOME/platform-tools/adb wait-for-device
-    while [[ $? -ne 0 ]]; do sleep 1; $ANDROID_HOME/platform-tools/adb shell pm list packages; done;
-    $ANDROID_HOME/platform-tools/adb devices
-    echo "Emulator started"
     #sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
     #xcrun simctl list
 
