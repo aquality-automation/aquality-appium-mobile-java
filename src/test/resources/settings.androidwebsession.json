@@ -7,8 +7,10 @@
   "driverSettings": {
     "android": {
       "capabilities": {
-        "deviceName": "Android Emulator",
-        "browserName": "Chrome"
+        "deviceName": "test",
+        "browserName": "Chrome",
+        "uiautomator2ServerInstallTimeout": 30000,
+        "eventTimings": true
       }
     }
   },

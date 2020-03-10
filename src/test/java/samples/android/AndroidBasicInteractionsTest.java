@@ -5,12 +5,15 @@ import aquality.appium.mobile.application.MobileModule;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import samples.android.apidemos.screens.AlertsMenuScreen;
 import samples.android.apidemos.screens.InvokeSearchScreen;
 import samples.android.apidemos.screens.MainMenuScreen;
 import samples.android.apidemos.screens.TwoButtonsAlert;
+import testreport.ScreenshotListener;
 
+@Listeners(ScreenshotListener.class)
 public class AndroidBasicInteractionsTest {
 
     @BeforeClass
