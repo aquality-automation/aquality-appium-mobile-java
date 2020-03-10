@@ -101,7 +101,7 @@ steps:
     mavenPomFile: 'pom.xml'
     goals: 'test'
     publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/(t|T)EST-*.(xml|png)'
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
@@ -111,8 +111,8 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: 'target'
-    Contents: '*.png'
+    SourceFolder: '$(Build.SourcesDirectory)/target/surefire-reports/failure_screenshots'
+    Contents: '**.png'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
