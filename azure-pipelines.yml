@@ -101,12 +101,13 @@ steps:
     mavenPomFile: 'pom.xml'
     goals: 'test'
     publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    testResultsFiles: '**/surefire-reports/(t|T)EST-*.(xml|png)'
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
+  continueOnError: true
 
 - task: CopyFiles@2
   inputs:
