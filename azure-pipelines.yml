@@ -15,22 +15,41 @@ variables:
   IOS_PLATFORM_VERSION: 12.2
   IOS_DEVICE_NAME: iPhone X
 steps:
-# - task: SonarCloudPrepare@1
-#   inputs:
-#     SonarCloud: 'SonarCloud'
-#     organization: 'aqualityautomation'
-#     scannerMode: 'CLI'
-#     configMode: 'file'
-#     extraProperties: |
-#         sonar.coverage.exclusions=**/**
 
-# - task: SonarCloudAnalyze@1
+- task: SonarCloudPrepare@1
+  displayName: 'Prepare SonarCloud analysis'
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'aqualityautomation'
+    scannerMode: 'CLI'
+    configMode: 'file'
+    extraProperties: |
+        sonar.coverage.exclusions=**/**
 
-# - task: SonarCloudPublish@1
-#   inputs:
-#     pollingTimeoutSec: '300'
+- task: Maven@3
+  displayName: 'Compile project'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'clean compile'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+  continueOnError: true
+
+- task: SonarCloudAnalyze@1
+  displayName: 'Run SonarCloud code analysis'
+  continueOnError: true
+
+- task: SonarCloudPublish@1
+  displayName: 'Publish SonarCloud quality gate results'
+  continueOnError: true
 
 - task: NodeTool@0
+  displayName: 'Install Appium and setup emulators'
   inputs:
     versionSpec: '11.15.0'
 
@@ -40,9 +59,6 @@ steps:
     ls /Library/Java/JavaVirtualMachines/
 
     ls $ANDROID_HOME/build-tools/
-    
-    #export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home
-    #export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
     export PATH=$PATH:$JAVA_HOME/bin
 
     echo export "ANDROID_HOME=\$ANDROID_HOME" >> ~/.bash_profile
@@ -67,10 +83,6 @@ steps:
 
     echo "Installing Appium"
     node --version
-
-    #npm config delete prefix
-    #npm config set prefix $NVM_DIR/versions/node/`node --version`
-
 
     npm list --depth 0
     npm install -g appium@v1.17.0-rc.1
@@ -97,6 +109,7 @@ steps:
     echo "Appium server started"
 
 - task: Maven@3
+  displayName: 'Run tests'
   inputs:
     mavenPomFile: 'pom.xml'
     goals: 'test'
@@ -110,12 +123,21 @@ steps:
   continueOnError: true
 
 - task: CopyFiles@2
+  displayName: 'Copy failure screenshots'
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)/target/surefire-reports/failure_screenshots'
     Contents: '**.png'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
+- task: CopyFiles@2
+  displayName: 'Copy test logs'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/target/log'
+    Contents: '**.log'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish copied artifacts'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
