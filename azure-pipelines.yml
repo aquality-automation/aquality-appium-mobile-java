@@ -49,11 +49,12 @@ steps:
   continueOnError: true
 
 - task: NodeTool@0
-  displayName: 'Install Appium and setup emulators'
+  displayName: 'Install Node.js tool'
   inputs:
     versionSpec: '11.15.0'
 
-- script: |
+- script:
+  displayName: 'Install Appium and setup emulators' |
     echo "Configuring Environment"
     echo $JAVA_HOME
     ls /Library/Java/JavaVirtualMachines/
@@ -123,17 +124,12 @@ steps:
   continueOnError: true
 
 - task: CopyFiles@2
-  displayName: 'Copy failure screenshots'
+  displayName: 'Copy failure screenshots and test logs'
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/target/surefire-reports/failure_screenshots'
-    Contents: '**.png'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
-- task: CopyFiles@2
-  displayName: 'Copy test logs'
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/target/log'
-    Contents: '**.log'
+    SourceFolder: '$(Build.SourcesDirectory)/target'
+    Contents: |
+        /surefire-reports/failure_screenshots/*.png
+        /log/*.log
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
