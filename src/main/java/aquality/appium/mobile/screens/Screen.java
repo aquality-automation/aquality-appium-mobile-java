@@ -36,7 +36,7 @@ public abstract class Screen {
      * False - screen is not opened
      */
     public boolean isDisplayed() {
-        return screenLabel.state().waitForDisplayed();
+        return isDisplayed(null);
     }
 
     /**
