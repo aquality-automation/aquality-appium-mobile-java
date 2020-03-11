@@ -9,7 +9,7 @@ public class LocalApplicationFactory extends ApplicationFactory {
     @Override
     public Application getApplication() {
         AppiumServiceBuilder builder = new AppiumServiceBuilder()
-                .withArgument(() -> "--allow-insecure", " chromedriver_autodownload");
+                .withArgument(() -> "--allow-insecure", "chromedriver_autodownload");
         AppiumDriverLocalService service = AppiumDriverLocalService.buildService(builder);
         service.start();
         AppiumDriver driver = getDriver(service.getUrl());

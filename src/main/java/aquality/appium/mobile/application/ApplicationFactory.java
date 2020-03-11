@@ -2,22 +2,26 @@ package aquality.appium.mobile.application;
 
 import aquality.selenium.core.configurations.ITimeoutConfiguration;
 import aquality.selenium.core.localization.ILocalizationManager;
+import aquality.selenium.core.utilities.ElementActionRetrier;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.SessionNotCreatedException;
 import org.openqa.selenium.remote.http.HttpClient;
 import org.openqa.selenium.remote.http.HttpClient.Builder;
 import org.openqa.selenium.remote.http.HttpClient.Factory;
 
 import java.net.URL;
 import java.time.Duration;
+import java.util.Collections;
+import java.util.List;
 
-abstract class ApplicationFactory implements IApplicationFactory {
+public abstract class ApplicationFactory implements IApplicationFactory {
 
-    private IllegalArgumentException getLoggedWrongPlatformNameException(String actualPlatform) {
+    protected IllegalArgumentException getLoggedWrongPlatformNameException(String actualPlatform) {
         String message = AqualityServices.get(ILocalizationManager.class)
                 .getLocalizedMessage("loc.platform.name.wrong", actualPlatform);
         IllegalArgumentException exception = new IllegalArgumentException(message);
@@ -25,10 +29,16 @@ abstract class ApplicationFactory implements IApplicationFactory {
         return exception;
     }
 
-    AppiumDriver getDriver(URL serviceUrl) {
+    protected AppiumDriver getDriver(URL serviceUrl) {
         PlatformName platformName = AqualityServices.getApplicationProfile().getPlatformName();
         Capabilities capabilities = AqualityServices.getApplicationProfile().getDriverSettings().getCapabilities();
         Factory httpClientFactory = new ClientFactory();
+        return new CustomActionRetrier(Collections.singletonList(SessionNotCreatedException.class))
+                .doWithRetry(() -> createSession(platformName, serviceUrl, httpClientFactory, capabilities));
+    }
+
+    protected AppiumDriver createSession(PlatformName platformName, URL serviceUrl, Factory httpClientFactory,
+                                       Capabilities capabilities) {
         AppiumDriver driver;
         switch (platformName) {
             case ANDROID:
@@ -43,7 +53,21 @@ abstract class ApplicationFactory implements IApplicationFactory {
         return driver;
     }
 
-    class ClientFactory implements Factory{
+    protected class CustomActionRetrier extends ElementActionRetrier {
+        private final List<Class<? extends Exception>> handledExceptions;
+
+        CustomActionRetrier(List<Class<? extends Exception>> handledExceptions) {
+            super(AqualityServices.getConfiguration().getRetryConfiguration());
+            this.handledExceptions = handledExceptions;
+        }
+
+        @Override
+        public List<Class<? extends Exception>> getHandledExceptions() {
+            return handledExceptions;
+        }
+    }
+
+    protected class ClientFactory implements Factory {
 
         private final Factory defaultClientFactory = Factory.createDefault();
         private final Duration timeoutCommand = AqualityServices.get(ITimeoutConfiguration.class).getCommand();
@@ -64,7 +88,7 @@ abstract class ApplicationFactory implements IApplicationFactory {
         }
     }
 
-    void logApplicationIsReady() {
+    protected void logApplicationIsReady() {
         AqualityServices.getLocalizedLogger().info("loc.application.ready", AqualityServices.getApplicationProfile().getPlatformName());
     }
 }
