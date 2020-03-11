@@ -105,14 +105,14 @@ steps:
     #sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
     #xcrun simctl list
 
-    #appium --allow-insecure chromedriver_autodownload &
-    #echo "Appium server started"
+    appium --allow-insecure chromedriver_autodownload &
+    echo "Appium server started"
 
 - task: Maven@3
   displayName: 'Run tests'
   inputs:
     mavenPomFile: 'pom.xml'
-    goals: 'test -DisRemote=false'
+    goals: 'test'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
