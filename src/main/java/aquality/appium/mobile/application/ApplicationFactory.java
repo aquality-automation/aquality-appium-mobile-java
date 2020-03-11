@@ -39,6 +39,7 @@ public abstract class ApplicationFactory implements IApplicationFactory {
 
     protected AppiumDriver createSession(PlatformName platformName, URL serviceUrl, Factory httpClientFactory,
                                        Capabilities capabilities) {
+        AqualityServices.getLocalizedLogger().info("loc.application.driver.remote", serviceUrl);
         AppiumDriver driver;
         switch (platformName) {
             case ANDROID:
