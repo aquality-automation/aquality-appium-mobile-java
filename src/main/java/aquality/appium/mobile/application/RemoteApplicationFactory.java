@@ -10,7 +10,6 @@ public class RemoteApplicationFactory extends ApplicationFactory {
     @Override
     public Application getApplication() {
         URL serverUrl = AqualityServices.getApplicationProfile().getRemoteConnectionUrl();
-        AqualityServices.getLocalizedLogger().info("loc.application.driver.remote", serverUrl);
         AppiumDriver driver = getDriver(serverUrl);
         driver.setFileDetector(new LocalFileDetector());
         logApplicationIsReady();

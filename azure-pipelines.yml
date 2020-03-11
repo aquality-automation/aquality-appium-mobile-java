@@ -104,15 +104,15 @@ steps:
 
     #sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
     #xcrun simctl list
-
-    appium --allow-insecure chromedriver_autodownload &
-    echo "Appium server started"
+    
+    #appium --allow-insecure chromedriver_autodownload &
+    #echo "Appium server started"
 
 - task: Maven@3
-  displayName: 'Run tests'
+  displayName: 'Run tests using appium local service'
   inputs:
     mavenPomFile: 'pom.xml'
-    goals: 'test'
+    goals: 'test -DisRemote=false'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
@@ -120,7 +120,23 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
-  continueOnError: true
+
+- script: |
+    appium --allow-insecure chromedriver_autodownload &
+    echo "Appium server started"
+
+- task: Maven@3
+  displayName: 'Run tests using manually started (remote) server'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'test -DisRemote=true'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
 
 - task: CopyFiles@2
   displayName: 'Copy failure screenshots and test logs'
@@ -130,6 +146,7 @@ steps:
         surefire-reports/failure_screenshots/*.png
         log/*.log
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  condition: succeededOrFailed()
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish copied artifacts'
@@ -137,3 +154,4 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+  condition: succeededOrFailed()
