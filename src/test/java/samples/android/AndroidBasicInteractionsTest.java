@@ -2,15 +2,13 @@ package samples.android;
 
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.application.MobileModule;
+import aquality.appium.mobile.elements.interfaces.IRadioButton;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import samples.android.apidemos.screens.AlertsMenuScreen;
-import samples.android.apidemos.screens.InvokeSearchScreen;
-import samples.android.apidemos.screens.MainMenuScreen;
-import samples.android.apidemos.screens.TwoButtonsAlert;
+import samples.android.apidemos.screens.*;
 import testreport.ScreenshotListener;
 
 @Listeners(ScreenshotListener.class)
@@ -36,6 +34,20 @@ public class AndroidBasicInteractionsTest {
         String query = "Hello world!";
         searchScreen.submitSearch(query);
         Assert.assertEquals(searchScreen.getSearchResult(), query, "Search result don't match to entered query");
+    }
+
+    @Test
+    public void testRadioButton() {
+        new MainMenuScreen().openViewControls();
+        ViewControlsScreen screen = new ViewControlsScreen();
+        Assert.assertTrue(screen.isDisplayed(), String.format("%s screen should be opened", screen.getName()));
+        IRadioButton button1 = screen.getRadioButton(1);
+        Assert.assertFalse(button1.isChecked(), "RadioButton should not be checked initially");
+        button1.click();
+        Assert.assertTrue(button1.isChecked(), "RadioButton should be checked after click on it");
+        screen.getRadioButton(2).click();
+        Assert.assertFalse(button1.isChecked(),
+                String.format("RadioButton %s should not be checked after click on another option", button1.getName()));
     }
 
     @Test

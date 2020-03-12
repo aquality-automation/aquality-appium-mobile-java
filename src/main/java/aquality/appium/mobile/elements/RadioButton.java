@@ -19,6 +19,6 @@ public class RadioButton extends Element implements IRadioButton {
 
     @Override
     public boolean isChecked() {
-        return doWithRetry(() -> getElement().isSelected());
+        return doWithRetry(() -> getElement().getAttribute("checked").equals("true"));
     }
 }

@@ -8,6 +8,8 @@ public class MainMenuScreen extends AndroidScreen {
 
     private final String SEARCH_ACTIVITY = ".app.SearchInvoke";
     private final String ALERT_DIALOG_ACTIVITY = ".app.AlertDialogSamples";
+    private final String TEXT_LINK_ACTIVITY = ".text.Link";
+    private final String VIEW_CONTROLS_ACTIVITY = ".view.Controls1";
     private final String PACKAGE = "io.appium.android.apis";
 
     public MainMenuScreen() {
@@ -15,10 +17,22 @@ public class MainMenuScreen extends AndroidScreen {
     }
 
     public void startSearch() {
-        getDriver().startActivity(new Activity(PACKAGE, SEARCH_ACTIVITY));
+        startActivity(SEARCH_ACTIVITY);
     }
 
     public void openAlerts() {
-        getDriver().startActivity(new Activity(PACKAGE, ALERT_DIALOG_ACTIVITY));
+        startActivity(ALERT_DIALOG_ACTIVITY);
+    }
+
+    public void openTextWithLinks() {
+        startActivity(TEXT_LINK_ACTIVITY);
+    }
+
+    public void openViewControls() {
+        startActivity(VIEW_CONTROLS_ACTIVITY);
+    }
+
+    private void startActivity(String activity) {
+        getDriver().startActivity(new Activity(PACKAGE, activity));
     }
 }
