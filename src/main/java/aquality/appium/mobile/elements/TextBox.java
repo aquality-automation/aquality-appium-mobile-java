@@ -52,7 +52,7 @@ public class TextBox extends Element implements ITextBox {
 
     @Override
     public String getValue() {
-        return getAttribute(Attributes.VALUE.toString());
+        return getAttribute(Attributes.VALUE);
     }
 
     @Override

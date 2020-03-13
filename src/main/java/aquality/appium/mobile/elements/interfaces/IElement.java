@@ -1,5 +1,6 @@
 package aquality.appium.mobile.elements.interfaces;
 
+import aquality.appium.mobile.elements.Attributes;
 import aquality.appium.mobile.elements.ElementType;
 import aquality.selenium.core.elements.ElementState;
 import io.appium.java_client.MobileElement;
@@ -88,4 +89,14 @@ public interface IElement extends aquality.selenium.core.elements.interfaces.IEl
      */
     @Override
     MobileElement getElement(Duration timeout);
+
+    /**
+     * Gets attribute value of the element.
+     *
+     * @param attribute Attribute
+     * @return Attribute value
+     */
+    default String getAttribute(Attributes attribute) {
+        return getAttribute(attribute.toString());
+    }
 }

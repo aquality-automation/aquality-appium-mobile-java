@@ -1,6 +1,7 @@
 package aquality.appium.mobile.elements;
 
 public enum Attributes {
+    CHECKED("checked"),
     CLASS("class"),
     DISABLED("disabled"),
     HREF("href"),
