@@ -2,6 +2,7 @@ package samples.android;
 
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.application.MobileModule;
+import aquality.appium.mobile.elements.interfaces.ICheckBox;
 import aquality.appium.mobile.elements.interfaces.IRadioButton;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -38,9 +39,7 @@ public class AndroidBasicInteractionsTest {
 
     @Test
     public void testRadioButton() {
-        new MainMenuScreen().openViewControls();
-        ViewControlsScreen screen = new ViewControlsScreen();
-        Assert.assertTrue(screen.isDisplayed(), String.format("%s screen should be opened", screen.getName()));
+        ViewControlsScreen screen = openViewControlsScreen();
         IRadioButton button1 = screen.getRadioButton(1);
         Assert.assertFalse(button1.isChecked(), "RadioButton should not be checked initially");
         button1.click();
@@ -48,6 +47,31 @@ public class AndroidBasicInteractionsTest {
         screen.getRadioButton(2).click();
         Assert.assertFalse(button1.isChecked(),
                 String.format("RadioButton %s should not be checked after click on another option", button1.getName()));
+    }
+
+    @Test
+    public void testCheckBox() {
+        ViewControlsScreen screen = openViewControlsScreen();
+        ICheckBox checkBox1 = screen.getCheckBox(1);
+        Assert.assertFalse(checkBox1.isChecked(), "Checkbox should not be checked initially");
+        checkBox1.click();
+        Assert.assertTrue(checkBox1.isChecked(), "Checkbox should be checked after first click on it");
+        checkBox1.uncheck();
+        Assert.assertFalse(checkBox1.isChecked(), "Checkbox should not be checked after uncheck");
+        checkBox1.toggle();
+        Assert.assertTrue(checkBox1.isChecked(), "Checkbox should be checked after toggle from unchecked state");
+        checkBox1.toggle();
+        Assert.assertFalse(checkBox1.isChecked(), "Checkbox should not be checked after toggle from checked state");
+        screen.getCheckBox(2).check();
+        Assert.assertFalse(checkBox1.isChecked(), "Checkbox should not be checked after checking other checkbox");
+    }
+
+    private ViewControlsScreen openViewControlsScreen() {
+        ViewControlsScreen screen = new ViewControlsScreen();
+        logStep(String.format("open %s screen", screen.getName()));
+        new MainMenuScreen().openViewControls();
+        Assert.assertTrue(screen.isDisplayed(), String.format("%s screen should be opened", screen.getName()));
+        return screen;
     }
 
     @Test

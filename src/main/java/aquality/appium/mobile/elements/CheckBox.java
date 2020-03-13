@@ -51,6 +51,6 @@ public class CheckBox extends Element implements ICheckBox {
 
     private boolean getState() {
         logElementAction("loc.checkbox.get.state");
-        return getElement().isSelected();
+        return getElement().getAttribute("checked").equals("true");
     }
 }
