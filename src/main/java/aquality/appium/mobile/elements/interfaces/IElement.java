@@ -52,7 +52,7 @@ public interface IElement extends aquality.selenium.core.elements.interfaces.IEl
      * @return found child element
      */
     default <T extends IElement> T findChildElement(By childLoc, ElementType elementType) {
-        return findChildElement(childLoc, null, elementType, ElementState.DISPLAYED);
+        return findChildElement(childLoc, elementType, ElementState.DISPLAYED);
     }
 
     /**

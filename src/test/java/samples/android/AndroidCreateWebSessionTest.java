@@ -1,15 +1,12 @@
 package samples.android;
 
 import aquality.appium.mobile.application.AqualityServices;
-import aquality.appium.mobile.application.MobileModule;
 import aquality.appium.mobile.elements.interfaces.ITextBox;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import testreport.ScreenshotListener;
@@ -18,31 +15,17 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Listeners(ScreenshotListener.class)
-public class AndroidCreateWebSessionTest {
-    private AndroidDriver<WebElement> driver;
-
-    @BeforeClass
-    public void setUp() {
-        System.setProperty("profile", "androidwebsession");
-        AqualityServices.initInjector(new MobileModule(AqualityServices::getApplication));
-        driver = (AndroidDriver<WebElement>) AqualityServices.getApplication().getDriver();
-    }
-
-    @AfterClass
-    public void tearDown() {
-        AqualityServices.getApplication().quit();
-        System.clearProperty("profile");
-    }
-
+public class AndroidCreateWebSessionTest implements IAndroidWebSessionTest {
     @Test
     public void testCreateWebSession() throws URISyntaxException {
-        driver.get(new URI("http://www.google.com").toString());
-        String title = driver.getTitle();
+        AqualityServices.getApplication().getDriver().get(new URI("http://www.google.com").toString());
+        String title = AqualityServices.getApplication().getDriver().getTitle();
         Assert.assertEquals(title, "Google");
     }
 
     @Test
     public void testTextBoxInteraction() {
+        AndroidDriver<AndroidElement> driver = (AndroidDriver<AndroidElement>) AqualityServices.getApplication().getDriver();
         driver.get("https://wikipedia.org");
         ITextBox txbSearch = AqualityServices.getElementFactory().getTextBox(By.id("searchInput"), "Search");
         txbSearch.state().waitForClickable();
