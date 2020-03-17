@@ -256,7 +256,7 @@ public interface IElementFactory extends aquality.selenium.core.elements.interfa
      * @return Child element.
      */
     default <T extends IElement> T findChildElement(IElement parentElement, By childLoc, ElementType type) {
-        return findChildElement(parentElement, childLoc, null, type, ElementState.EXISTS_IN_ANY_STATE);
+        return findChildElement(parentElement, childLoc, type, ElementState.EXISTS_IN_ANY_STATE);
     }
 
     /**
