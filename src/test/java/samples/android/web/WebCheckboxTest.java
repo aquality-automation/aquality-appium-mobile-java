@@ -5,13 +5,10 @@ import aquality.appium.mobile.elements.ElementType;
 import aquality.appium.mobile.elements.interfaces.ICheckBox;
 import aquality.appium.mobile.elements.interfaces.ILabel;
 import org.openqa.selenium.By;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import samples.android.ITestCheckBox;
-import testreport.ScreenshotListener;
 
-@Listeners(ScreenshotListener.class)
-public class WebCheckboxTest implements IAndroidWebSessionTest, ITestCheckBox {
+public class WebCheckboxTest extends AndroidWebTest implements ITestCheckBox {
     private ILabel form = AqualityServices.getElementFactory().getLabel(By.id("checkboxes"), "Checkboxes form");
 
     @Override
@@ -25,7 +22,7 @@ public class WebCheckboxTest implements IAndroidWebSessionTest, ITestCheckBox {
                 "#" + number, ElementType.CHECKBOX);
     }
 
-    @Test
+    @Test(groups = "web")
     public void testCheckBox() {
         ITestCheckBox.super.testCheckBox();
     }

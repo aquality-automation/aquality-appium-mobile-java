@@ -8,7 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class WebLinkTest implements IAndroidWebSessionTest {
+public class WebLinkTest extends AndroidWebTest {
     private ILink link;
 
     @BeforeMethod
@@ -19,12 +19,12 @@ public class WebLinkTest implements IAndroidWebSessionTest {
         link = AqualityServices.getElementFactory().findChildElement(content, By.id("redirect"), ElementType.LINK);
     }
 
-    @Test
+    @Test(groups = "web")
     public void testLinkGetsHref(){
         Assert.assertTrue(link.getHref().contains("redirect"), "Link href mismatch");
     }
 
-    @Test
+    @Test(groups = "web")
     public void testLinkClickable() {
         link.state().waitForClickable();
         link.click();

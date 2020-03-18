@@ -1,4 +1,4 @@
-package samples.android;
+package samples.android.nativeapp;
 
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.application.MobileModule;
@@ -9,7 +9,13 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import samples.android.apidemos.screens.*;
+import samples.android.ITestCheckBox;
+import samples.android.ITestRadioButton;
+import samples.android.nativeapp.apidemos.ApplicationActivity;
+import samples.android.nativeapp.apidemos.screens.AlertsMenuScreen;
+import samples.android.nativeapp.apidemos.screens.InvokeSearchScreen;
+import samples.android.nativeapp.apidemos.screens.TwoButtonsAlert;
+import samples.android.nativeapp.apidemos.screens.ViewControlsScreen;
 import testreport.ScreenshotListener;
 
 @Listeners(ScreenshotListener.class)
@@ -29,9 +35,8 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
 
     @Test
     public void testSendKeys() {
-        new MainMenuScreen().startSearch();
-        InvokeSearchScreen searchScreen = new InvokeSearchScreen();
-        Assert.assertTrue(searchScreen.isDisplayed(), searchScreen.getName() + " should be opened from the menu");
+        InvokeSearchScreen searchScreen = ApplicationActivity.SEARCH.open();
+        Assert.assertTrue(searchScreen.isDisplayed(), String.format("%s should be opened", searchScreen.getName()));
         String query = "Hello world!";
         searchScreen.submitSearch(query);
         Assert.assertEquals(searchScreen.getSearchResult(), query, "Search result don't match to entered query");
@@ -44,7 +49,7 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
 
     @Override
     public IRadioButton getRadioButton(int number) {
-        return new ViewControlsScreen().getRadioButton(number);
+        return ((ViewControlsScreen) ApplicationActivity.VIEW_CONTROLS.getScreen()).getRadioButton(number);
     }
 
     @Test
@@ -59,25 +64,21 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
 
     @Override
     public ICheckBox getCheckBox(int number) {
-        return new ViewControlsScreen().getCheckBox(number);
+        return ((ViewControlsScreen) ApplicationActivity.VIEW_CONTROLS.getScreen()).getCheckBox(number);
     }
 
     private ViewControlsScreen openViewControlsScreen() {
-        ViewControlsScreen screen = new ViewControlsScreen();
-        logStep(String.format("open %s screen", screen.getName()));
-        new MainMenuScreen().openViewControls();
+        ViewControlsScreen screen = ApplicationActivity.VIEW_CONTROLS.open();
         Assert.assertTrue(screen.isDisplayed(), String.format("%s screen should be opened", screen.getName()));
         return screen;
     }
 
     @Test
     public void testOpensAlert() {
-
-        logStep("Open the 'Alert Dialog' activity of the android app");
-        new MainMenuScreen().openAlerts();
+        AlertsMenuScreen menuScreen = ApplicationActivity.ALERT_DIALOGS.open();
 
         logStep("Click button that opens a dialog");
-        new AlertsMenuScreen().openTwoButtonsDialog();
+        menuScreen.openTwoButtonsDialog();
 
         logStep("Check that the dialog is there");
         TwoButtonsAlert alertDialog = new TwoButtonsAlert();

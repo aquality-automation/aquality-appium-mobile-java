@@ -9,8 +9,8 @@ import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class WebTextBoxTest implements IAndroidWebSessionTest {
-    @Test
+public class WebTextBoxTest extends AndroidWebTest {
+    @Test(groups = "web")
     public void testTextBoxInteraction() {
         AndroidDriver<AndroidElement> driver = (AndroidDriver<AndroidElement>) AqualityServices.getApplication().getDriver();
         driver.get("https://wikipedia.org");

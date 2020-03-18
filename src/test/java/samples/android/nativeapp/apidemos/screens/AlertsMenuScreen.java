@@ -1,4 +1,4 @@
-package samples.android.apidemos.screens;
+package samples.android.nativeapp.apidemos.screens;
 
 import aquality.appium.mobile.elements.interfaces.IButton;
 import aquality.appium.mobile.screens.AndroidScreen;

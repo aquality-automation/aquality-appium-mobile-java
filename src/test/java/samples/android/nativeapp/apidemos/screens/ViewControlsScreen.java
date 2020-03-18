@@ -1,4 +1,4 @@
-package samples.android.apidemos.screens;
+package samples.android.nativeapp.apidemos.screens;
 
 import aquality.appium.mobile.elements.interfaces.ICheckBox;
 import aquality.appium.mobile.elements.interfaces.IRadioButton;

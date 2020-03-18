@@ -13,7 +13,7 @@ import samples.android.web.theinternet.DropdownOption;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class WebComboboxTest implements IAndroidWebSessionTest {
+public class WebComboboxTest extends AndroidWebTest {
     private IComboBox comboBox;
 
     @BeforeMethod
@@ -23,21 +23,21 @@ public class WebComboboxTest implements IAndroidWebSessionTest {
         comboBox.state().waitForClickable();
     }
 
-    @Test
+    @Test(groups = "web")
     public void testComboBoxGetsTexts(){
         Assert.assertTrue(comboBox.getTexts().containsAll(
                 Arrays.stream(DropdownOption.values()).map(DropdownOption::getText).collect(Collectors.toList())),
                 "Texts should match to expected");
     }
 
-    @Test
+    @Test(groups = "web")
     public void testComboBoxGetsValues(){
         Assert.assertTrue(comboBox.getValues().containsAll(
                 Arrays.stream(DropdownOption.values()).map(DropdownOption::getValue).collect(Collectors.toList())),
                 "Values should match to expected");
     }
 
-    @Test
+    @Test(groups = "web")
     public void testComboBoxSelectionMethods() {
         Assert.assertEquals(DropdownOption.DEFAULT.getText(), comboBox.getSelectedText(), "Option's text mismatch");
         comboBox.selectByValue(DropdownOption.FIRST.getValue());
@@ -60,7 +60,7 @@ public class WebComboboxTest implements IAndroidWebSessionTest {
         return By.xpath(String.format(".//*[contains(., '%s')]", textPart));
     }
 
-    @Test
+    @Test(groups = "web")
     public void testFindChildElementWithName() {
         Assert.assertEquals(DropdownOption.SECOND.getValue(),
                 comboBox.findChildElement(getChildLocator(DropdownOption.SECOND.getValue()), "2", ElementType.LABEL)
@@ -68,7 +68,7 @@ public class WebComboboxTest implements IAndroidWebSessionTest {
                 "Child option's value mismatch");
     }
 
-    @Test
+    @Test(groups = "web")
     public void testFindChildElementWithoutName() {
         Assert.assertEquals(DropdownOption.FIRST.getText(),
                 comboBox.findChildElement(getChildLocator(DropdownOption.FIRST.getText()), ElementType.LABEL).getText(),
