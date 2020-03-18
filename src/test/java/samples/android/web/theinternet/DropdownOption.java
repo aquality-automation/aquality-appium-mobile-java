@@ -1,4 +1,4 @@
-package samples.android.theinternet;
+package samples.android.web.theinternet;
 
 import org.apache.commons.lang3.ArrayUtils;
 

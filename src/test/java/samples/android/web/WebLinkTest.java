@@ -1,4 +1,4 @@
-package samples.android;
+package samples.android.web;
 
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.elements.ElementType;
@@ -8,7 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class AndroidLinkTest implements IAndroidWebSessionTest {
+public class WebLinkTest implements IAndroidWebSessionTest {
     private ILink link;
 
     @BeforeMethod

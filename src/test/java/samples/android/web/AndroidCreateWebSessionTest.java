@@ -1,4 +1,4 @@
-package samples.android;
+package samples.android.web;
 
 import aquality.appium.mobile.application.AqualityServices;
 import org.testng.Assert;

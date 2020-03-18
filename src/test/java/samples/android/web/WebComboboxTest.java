@@ -1,4 +1,4 @@
-package samples.android;
+package samples.android.web;
 
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.elements.Attributes;
@@ -8,12 +8,12 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import samples.android.theinternet.DropdownOption;
+import samples.android.web.theinternet.DropdownOption;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class AndroidComboboxTest implements IAndroidWebSessionTest {
+public class WebComboboxTest implements IAndroidWebSessionTest {
     private IComboBox comboBox;
 
     @BeforeMethod

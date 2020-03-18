@@ -1,4 +1,4 @@
-package samples.android;
+package samples.android.web;
 
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.elements.interfaces.ITextBox;
@@ -9,7 +9,7 @@ import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class AndroidTextBoxTest implements IAndroidWebSessionTest {
+public class WebTextBoxTest implements IAndroidWebSessionTest {
     @Test
     public void testTextBoxInteraction() {
         AndroidDriver<AndroidElement> driver = (AndroidDriver<AndroidElement>) AqualityServices.getApplication().getDriver();

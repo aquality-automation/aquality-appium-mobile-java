@@ -1,4 +1,4 @@
-package samples.android;
+package samples.android.web;
 
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.application.MobileModule;
