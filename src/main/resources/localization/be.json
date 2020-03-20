@@ -15,6 +15,7 @@
   "loc.platform.name.wrong": "Платформа '%s' не падтрымліваецца.",
   "loc.application.ready": "Праграма на платформе '%1$s' гатовая...",
   "loc.application.implicit.timeout": "Задаем таймаўт implicit(няяўнага) чакання: '%1$s' сек.",
+  "loc.application.android.activity.start": "Стартуем '%1$s' актыўнасць Android праграмы ў пакеце '%2$s'",
   "loc.button": "Кнопка",
   "loc.checkbox": "Чэкбокс",
   "loc.checkbox.get.state": "Атрымліваем стан",
