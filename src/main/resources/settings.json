@@ -20,6 +20,13 @@
       }
     }
   },
+  "localServiceSettings": {
+    "arguments": {
+      "--allow-insecure": "chromedriver_autodownload"
+    },
+    "capabilities": {
+    }
+  },
   "timeouts": {
     "timeoutImplicit" : 0,
     "timeoutCondition" : 15,

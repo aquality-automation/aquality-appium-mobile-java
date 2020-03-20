@@ -13,6 +13,13 @@ public interface IConfigurationsModule extends aquality.selenium.core.configurat
     }
 
     /**
+     * @return class which implements {@link ILocalServiceSettings}
+     */
+    default Class<? extends ILocalServiceSettings> getLocalServiceSettingsImplementation() {
+        return LocalServiceSettings.class;
+    }
+
+    /**
      * @return class which implements {@link IConfiguration}
      */
     default Class<? extends IConfiguration> getConfigurationImplementation() {
