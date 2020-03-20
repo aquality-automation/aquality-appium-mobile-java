@@ -35,7 +35,7 @@ public class CheckBox extends CheckableElement implements ICheckBox {
 
     @Override
     public void toggle() {
-        setState(!isChecked());
+        setState(!super.isChecked());
     }
 
     /**
