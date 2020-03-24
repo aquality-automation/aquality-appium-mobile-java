@@ -90,6 +90,19 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
         alertDialog.close();
     }
 
+    @Test
+    public void testSwipeToElement() {
+        ViewControlsScreen viewControlsScreen = new ViewControlsScreen();
+        openRadioButtonsScreen();
+        viewControlsScreen.scrollToAllInsideScrollViewLabel();
+        Assert.assertEquals(
+                viewControlsScreen.getAllInsideScrollViewLabelText(),
+                "(And all inside of a ScrollView!)",
+                "Label text does not match expected");
+        viewControlsScreen.scrollToDisabledButton();
+        Assert.assertFalse(viewControlsScreen.isDisabledButtonClickable());
+    }
+
     private void logStep(String step) {
         AqualityServices.getLogger().info(step);
     }
