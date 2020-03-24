@@ -2,6 +2,7 @@ package aquality.appium.mobile.application;
 
 import aquality.appium.mobile.configuration.IApplicationProfile;
 import aquality.appium.mobile.configuration.IConfiguration;
+import aquality.appium.mobile.configuration.ILocalServiceSettings;
 import aquality.appium.mobile.elements.interfaces.IElementFactory;
 import aquality.selenium.core.localization.ILocalizedLogger;
 import aquality.selenium.core.logging.Logger;
@@ -158,6 +159,15 @@ public class AqualityServices extends aquality.selenium.core.applications.Aquali
      */
     public static IApplicationProfile getApplicationProfile() {
         return get(IApplicationProfile.class);
+    }
+
+    /**
+     * Gets AppiumDriverLocalService settings.
+     *
+     * @return AppiumDriverLocalService settings.
+     */
+    public static ILocalServiceSettings getLocalServiceSettings() {
+        return get(ILocalServiceSettings.class);
     }
 
     /**
