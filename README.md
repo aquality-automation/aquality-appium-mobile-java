@@ -36,7 +36,7 @@ If the parameter `isRemote` in your settings.json is set to `false`, this means 
 If you don't start an Application directly, it would be started with the first call of any Aquality service or class requiring interacting with the Application.
 
 5. That's it! Now you are able work with Application via AqualityServices or via element services.
-Please take a look at our example tests [here](./src/test/java/samples/android/AndroidBasicInteractionsTest.java)
+Please take a look at our example tests [here](./src/test/java/samples/)
 
 6. To interact with Application's forms and elements, we recommend following the Page/Screen Objects pattern. This approach is fully integrated into our package.
 To start with that, you will need to create a separate class for each window/form of your application, and inherit this class from the [AndroidScreen](./src/main/java/aquality/appium/mobile/screens/AndroidScreen.java) or [IOSScreen](./src/main/java/aquality/appium/mobile/screens/IOSScreen.java) respectively. 
@@ -80,3 +80,6 @@ public class InvokeSearchScreen extends AndroidScreen {
 
 8. We use DI Guice to inject dependencies, so you can simply implement your MobileModule extended from [MobileModule](./src/main/java/aquality/appium/mobile/application/MobileModule.java) and inject it to `AqualityServices.initInjector(yourModule)`.
 
+
+### License
+Library's source code is made available under the [Apache 2.0 license](https://github.com/aquality-automation/aquality-winappdriver-dotnet/blob/master/LICENSE).
