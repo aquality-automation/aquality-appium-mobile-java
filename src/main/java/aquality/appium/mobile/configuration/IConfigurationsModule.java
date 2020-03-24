@@ -19,4 +19,10 @@ public interface IConfigurationsModule extends aquality.selenium.core.configurat
         return Configuration.class;
     }
 
+    /**
+     * @return class which implements {@link IConfiguration}
+     */
+    default Class<? extends ISwipeConfiguration> getSwipeConfigurationImplementation() {
+        return SwipeConfiguration.class;
+    }
 }

@@ -41,4 +41,11 @@ public interface IConfiguration {
      * @return Configuration of element caching.
      */
     IElementCacheConfiguration getElementCacheConfiguration();
+
+    /**
+     * Gets configuration of swipes.
+     *
+     * @return Configuration of swipes.
+     */
+    ISwipeConfiguration getSwipeConfiguration();
 }

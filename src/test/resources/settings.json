@@ -1,8 +1,7 @@
 {
-  "platformName" : "android",
+  "platformName": "android",
   "isRemote": true,
   "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
-
   "driverSettings": {
     "android": {
       "applicationPath": "./src/test/resources/apps/ApiDemos-debug.apk",
@@ -24,10 +23,10 @@
     }
   },
   "timeouts": {
-    "timeoutImplicit" : 0,
-    "timeoutCondition" : 15,
+    "timeoutImplicit": 0,
+    "timeoutCondition": 15,
     "timeoutPollingInterval": 300,
-    "timeoutCommand":120
+    "timeoutCommand": 120
   },
   "retry": {
     "number": 2,
@@ -38,5 +37,9 @@
   },
   "elementCache": {
     "isEnabled": true
+  },
+  "swipe": {
+    "timeout": 1,
+    "retries": 5
   }
 }

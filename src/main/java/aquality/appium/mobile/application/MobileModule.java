@@ -3,6 +3,7 @@ package aquality.appium.mobile.application;
 import aquality.appium.mobile.configuration.IApplicationProfile;
 import aquality.appium.mobile.configuration.IConfiguration;
 import aquality.appium.mobile.configuration.IConfigurationsModule;
+import aquality.appium.mobile.configuration.ISwipeConfiguration;
 import aquality.appium.mobile.elements.IElementsModule;
 import aquality.appium.mobile.elements.interfaces.IElementFactory;
 import aquality.selenium.core.applications.AqualityModule;
@@ -20,5 +21,6 @@ public class MobileModule extends AqualityModule<Application> implements IConfig
         bind(IApplicationProfile.class).to(getApplicationProfileImplementation()).in(Singleton.class);
         bind(IConfiguration.class).to(getConfigurationImplementation());
         bind(IElementFactory.class).to(getElementFactoryImplementation());
+        bind(ISwipeConfiguration.class).to(getSwipeConfigurationImplementation()).in(Singleton.class);
     }
 }
