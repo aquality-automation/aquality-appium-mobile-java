@@ -19,7 +19,7 @@ We use interfaces where is possible, so you can implement your own version of ta
 ```
 <dependency>
     <groupId>com.github.aquality-automation</groupId>
-    <artifactId>aquality-selenium</artifactId>
+    <artifactId>aquality-appium-mobile</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
