@@ -1,7 +1,7 @@
 package samples.android.nativeapp.apidemos.screens;
 
-import aquality.appium.mobile.elements.SwipeDirection;
-import aquality.appium.mobile.elements.actions.SwipeActions;
+import aquality.appium.mobile.actions.SwipeDirection;
+import aquality.appium.mobile.elements.actions.ElementTouchActions;
 import aquality.appium.mobile.elements.interfaces.IButton;
 import aquality.appium.mobile.elements.interfaces.ICheckBox;
 import aquality.appium.mobile.elements.interfaces.ILabel;
@@ -11,9 +11,6 @@ import io.appium.java_client.MobileBy;
 import org.openqa.selenium.By;
 
 public class ViewControlsScreen extends AndroidScreen {
-    public ViewControlsScreen() {
-        super(By.id("android:id/content"), "View/Controls");
-    }
 
     public IRadioButton getRadioButton(int number) {
         return getElementFactory().getRadioButton(
@@ -27,29 +24,29 @@ public class ViewControlsScreen extends AndroidScreen {
                 String.valueOf(number));
     }
 
-    private ILabel lblAllInsideScrollView() {
-        return getElementFactory().getLabel(
-                MobileBy.AccessibilityId("(And all inside of a ScrollView!)"),
-                "All inside of Scroll View");
-    }
+    private final IButton btnDisabled = getElementFactory().getButton(MobileBy.id("button_disabled"), "Disabled");
 
-    private IButton btnDisabled() {
-        return getElementFactory().getButton(MobileBy.id("button_disabled"), "Disabled");
+    public ViewControlsScreen() {
+        super(By.id("android:id/content"), "View/Controls");
     }
 
     public void scrollToAllInsideScrollViewLabel() {
-        SwipeActions.scrollToElement(lblAllInsideScrollView(), SwipeDirection.DOWN);
+        new ElementTouchActions().scrollToElement(lblAllInsideScrollView, SwipeDirection.DOWN);
     }
 
     public String getAllInsideScrollViewLabelText() {
-        return lblAllInsideScrollView().getText();
+        return lblAllInsideScrollView.getText();
     }
 
     public void scrollToDisabledButton() {
-        SwipeActions.scrollToElement(btnDisabled(), SwipeDirection.UP);
+        new ElementTouchActions().scrollToElement(btnDisabled, SwipeDirection.UP);
     }
 
     public boolean isDisabledButtonClickable() {
-        return btnDisabled().state().isClickable();
+        return btnDisabled.state().isClickable();
     }
+
+    private final ILabel lblAllInsideScrollView = getElementFactory().getLabel(
+            MobileBy.AccessibilityId("(And all inside of a ScrollView!)"),
+            "All inside of Scroll View");
 }
