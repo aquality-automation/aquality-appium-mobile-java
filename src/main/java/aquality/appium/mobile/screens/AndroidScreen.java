@@ -25,10 +25,9 @@ public class AndroidScreen extends Screen {
     }
 
     protected void startActivity(Activity activity) {
-        AqualityServices.getLogger().info(
-                String.format("Starting the '%s' activity of the android app at package '%s'",
+        AqualityServices.getLocalizedLogger().info("loc.application.android.activity.start",
                         activity.getAppActivity(),
-                        activity.getAppPackage()));
+                        activity.getAppPackage());
         getDriver().startActivity(activity);
     }
 }
