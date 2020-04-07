@@ -31,7 +31,7 @@ public class ViewControlsScreen extends AndroidScreen {
     }
 
     public void scrollToAllInsideScrollViewLabel() {
-        new ElementTouchActions().scrollToElement(lblAllInsideScrollView, SwipeDirection.DOWN);
+        lblAllInsideScrollView.getTouchActions().scrollToElement(SwipeDirection.DOWN);
     }
 
     public String getAllInsideScrollViewLabelText() {
@@ -39,7 +39,7 @@ public class ViewControlsScreen extends AndroidScreen {
     }
 
     public void scrollToDisabledButton() {
-        new ElementTouchActions().scrollToElement(btnDisabled, SwipeDirection.UP);
+        btnDisabled.getTouchActions().scrollToElement(SwipeDirection.UP);
     }
 
     public boolean isDisabledButtonClickable() {
