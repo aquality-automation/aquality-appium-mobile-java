@@ -1,7 +1,7 @@
 package aquality.appium.mobile.elements.actions;
 
+import aquality.appium.mobile.actions.ITouchActions;
 import aquality.appium.mobile.actions.SwipeDirection;
-import aquality.appium.mobile.actions.TouchActions;
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.configuration.ISwipeConfiguration;
 import aquality.appium.mobile.elements.interfaces.IElement;
@@ -9,51 +9,54 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 
 public class ElementTouchActions implements IElementTouchActions {
+    private IElement element;
+    private Point scrollDownStartPoint;
+    private Point scrollDownEndPoint;
+    private Point swipeLeftStartPoint;
+    private Point swipeLeftEndPoint;
+    private Point scrollUpStartPoint;
+    private Point scrollUpEndPoint;
+    private Point swipeRightStartPoint;
+    private Point swipeRightEndPoint;
 
-    private final Point scrollDownStartPoint = recalculatePointCoordinates(
-            getBottomRightCornerPoint(),
-            AqualityServices.get(ISwipeConfiguration.class).getHorizontalSwipeBottomPointXCoefficient(),
-            AqualityServices.get(ISwipeConfiguration.class).getHorizontalSwipeBottomPointYCoefficient());
-
-    private final Point scrollDownEndPoint = recalculatePointCoordinates(
-            getBottomRightCornerPoint(),
-            AqualityServices.get(ISwipeConfiguration.class).getHorizontalSwipeTopPointXCoefficient(),
-            AqualityServices.get(ISwipeConfiguration.class).getHorizontalSwipeTopPointYCoefficient());
-
-    private final Point swipeLeftStartPoint = recalculatePointCoordinates(
-            getBottomRightCornerPoint(),
-            AqualityServices.get(ISwipeConfiguration.class).getVerticalSwipeRightPointXCoefficient(),
-            AqualityServices.get(ISwipeConfiguration.class).getVerticalSwipeRightPointYCoefficient());
-
-    private final Point swipeLeftEndPoint = recalculatePointCoordinates(
-            getBottomRightCornerPoint(),
-            AqualityServices.get(ISwipeConfiguration.class).getVerticalSwipeLeftPointXCoefficient(),
-            AqualityServices.get(ISwipeConfiguration.class).getVerticalSwipeLeftPointYCoefficient());
-
-    private final Point scrollUpStartPoint = scrollDownEndPoint;
-
-    private final Point scrollUpEndPoint = scrollDownStartPoint;
-
-    private final Point swipeRightStartPoint = swipeLeftEndPoint;
-
-    private final Point swipeRightEndPoint = swipeLeftStartPoint;
-
-    @Override
-    public void swipe(IElement element, Point endPoint) {
-        Point elementCenter = getElementCenter(element);
-        getTouchActions().swipe(elementCenter, endPoint);
+    public ElementTouchActions(IElement element) {
+        this.element = element;
+        this.scrollDownStartPoint = recalculatePointCoordinates(
+                getBottomRightCornerPoint(),
+                getISwipeConfiguration().getHorizontalSwipeBottomPointXCoefficient(),
+                getISwipeConfiguration().getHorizontalSwipeBottomPointYCoefficient());
+        this.scrollDownEndPoint = recalculatePointCoordinates(
+                getBottomRightCornerPoint(),
+                getISwipeConfiguration().getHorizontalSwipeTopPointXCoefficient(),
+                getISwipeConfiguration().getHorizontalSwipeTopPointYCoefficient());
+        this.swipeLeftStartPoint = recalculatePointCoordinates(
+                getBottomRightCornerPoint(),
+                getISwipeConfiguration().getVerticalSwipeRightPointXCoefficient(),
+                getISwipeConfiguration().getVerticalSwipeRightPointYCoefficient());
+        this.swipeLeftEndPoint = recalculatePointCoordinates(
+                getBottomRightCornerPoint(),
+                getISwipeConfiguration().getVerticalSwipeLeftPointXCoefficient(),
+                getISwipeConfiguration().getVerticalSwipeLeftPointYCoefficient());
+        this.scrollUpStartPoint = this.scrollDownEndPoint;
+        this.scrollUpEndPoint = this.scrollDownStartPoint;
+        this.swipeRightStartPoint = this.swipeLeftEndPoint;
+        this.swipeRightEndPoint = this.swipeLeftStartPoint;
     }
 
     @Override
-    public void swipeWithLongPress(IElement element, Point endPoint) {
-        Point elementCenter = getElementCenter(element);
-        getTouchActions().swipeWithLongPress(elementCenter, endPoint);
+    public void swipe(Point endPoint) {
+        AqualityServices.getTouchActions().swipe(element.getElement().getCenter(), endPoint);
     }
 
     @Override
-    public void scrollToElement(IElement element, SwipeDirection direction) {
+    public void swipeWithLongPress(Point endPoint) {
+        AqualityServices.getTouchActions().swipeWithLongPress(element.getElement().getCenter(), endPoint);
+    }
+
+    @Override
+    public void scrollToElement(SwipeDirection direction) {
         int numberOfRetries = AqualityServices.get(ISwipeConfiguration.class).getRetries();
-        TouchActions touchActions = getTouchActions();
+        ITouchActions touchActions = AqualityServices.getTouchActions();
         while (numberOfRetries > 0) {
             if (!element.state().isDisplayed()) {
                 switch (direction) {
@@ -79,27 +82,7 @@ public class ElementTouchActions implements IElementTouchActions {
     }
 
     /**
-     * returns new instance of aquality.appium.mobile.actions.TouchActions.
-     */
-    private TouchActions getTouchActions() {
-        return new TouchActions();
-    }
-
-    /**
-     * returns the the center of provided element as Point.
-     *
-     * @param element element.
-     */
-    private Point getElementCenter(IElement element) {
-        Dimension elementSize = element.getElement().getSize();
-        Point elementLocation = element.getElement().getLocation();
-        int centerX = elementLocation.getX() - elementSize.width / 2;
-        int centerY = elementLocation.getY() - elementSize.height / 2;
-        return new Point(centerX, centerY);
-    }
-
-    /**
-     * returns Point in the bottom right corner of the screen.
+     * Returns Point in the bottom right corner of the screen.
      */
     private Point getBottomRightCornerPoint() {
         Dimension screenSize = AqualityServices.getApplication().getDriver().manage().window().getSize();
@@ -118,5 +101,14 @@ public class ElementTouchActions implements IElementTouchActions {
         return new Point(
                 (int) (point.getX() * coefficientX),
                 (int) (point.getY() * coefficientY));
+    }
+
+    /**
+     * Returns ISwipeConfiguration class.
+     *
+     * @return ISwipeConfiguration class
+     */
+    private ISwipeConfiguration getISwipeConfiguration() {
+        return AqualityServices.get(ISwipeConfiguration.class);
     }
 }
