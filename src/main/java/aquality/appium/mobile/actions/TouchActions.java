@@ -2,44 +2,42 @@ package aquality.appium.mobile.actions;
 
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.configuration.ISwipeConfiguration;
-import aquality.selenium.core.logging.Logger;
+import aquality.selenium.core.utilities.IElementActionRetrier;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.Point;
-
+import java.util.function.UnaryOperator;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 
 public class TouchActions implements ITouchActions {
 
     @Override
     public void swipe(Point startPoint, Point endPoint) {
-        Logger.getInstance().info(String.format(
-                "Swiping: from coordinates x:%s y:%s to x:%s y:%s",
+        AqualityServices.getLocalizedLogger().info(
+                "loc.action.swipe",
                 startPoint.getX(),
                 startPoint.getY(),
                 endPoint.getX(),
-                endPoint.getY()));
-        getTouchAction().press(PointOption.point(startPoint))
-                .waitAction(waitOptions(AqualityServices.get(ISwipeConfiguration.class).getTimeout()))
-                .moveTo(PointOption.point(endPoint)).release().perform();
+                endPoint.getY());
+        performTouchAction(touchAction -> touchAction.press(PointOption.point(startPoint))
+                .waitAction(waitOptions(AqualityServices.get(ISwipeConfiguration.class).getTimeout())), endPoint);
     }
 
     @Override
     public void swipeWithLongPress(Point startPoint, Point endPoint) {
-        Logger.getInstance().info(String.format(
-                "Swiping: from coordinates x:%s y:%s to x:%s y:%s",
+        AqualityServices.getLocalizedLogger().info(
+                "loc.action.swipeLongPress",
                 startPoint.getX(),
                 startPoint.getY(),
                 endPoint.getX(),
-                endPoint.getY()));
-        getTouchAction().longPress(PointOption.point(startPoint))
-                .moveTo(PointOption.point(endPoint)).release().perform();
+                endPoint.getY());
+        performTouchAction(touchAction -> touchAction.longPress(PointOption.point(startPoint))
+                .waitAction(waitOptions(AqualityServices.get(ISwipeConfiguration.class).getTimeout())), endPoint);
     }
 
-    /**
-     * returns new instance of io.appium.java_client.TouchAction.
-     */
-    private TouchAction<?> getTouchAction() {
-        return new TouchAction<>(AqualityServices.getApplication().getDriver());
+    private void performTouchAction(UnaryOperator<TouchAction<?>> function, Point endPoint) {
+        TouchAction<?> touchAction = new TouchAction<>(AqualityServices.getApplication().getDriver());
+        AqualityServices.get(IElementActionRetrier.class).doWithRetry(() ->
+                function.apply(touchAction).moveTo(PointOption.point(endPoint)).release().perform());
     }
 }
