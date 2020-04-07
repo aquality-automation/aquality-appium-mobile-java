@@ -2,6 +2,7 @@ package aquality.appium.mobile.elements.interfaces;
 
 import aquality.appium.mobile.elements.Attributes;
 import aquality.appium.mobile.elements.ElementType;
+import aquality.appium.mobile.elements.actions.IElementTouchActions;
 import aquality.selenium.core.elements.ElementState;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
@@ -99,4 +100,11 @@ public interface IElement extends aquality.selenium.core.elements.interfaces.IEl
     default String getAttribute(Attributes attribute) {
         return getAttribute(attribute.toString());
     }
+
+    /**
+     * Gets the the utility used to perform touch actions for element.
+     *
+     * @return instance of element touch actions.
+     */
+    IElementTouchActions getTouchActions();
 }
