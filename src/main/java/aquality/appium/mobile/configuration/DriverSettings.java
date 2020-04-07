@@ -28,13 +28,13 @@ public class DriverSettings implements IDriverSettings {
         Map<String, Object> capabilitiesFromSettings = getCapabilitiesFromSettings();
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilitiesFromSettings.forEach(capabilities::setCapability);
-        if(hasApplicationPath()) {
+        if (hasApplicationPath()) {
             capabilities.setCapability(APP_CAPABILITY_KEY, getAbsolutePath(getApplicationPath()));
         }
         return capabilities;
     }
 
-    private Map<String, Object> getCapabilitiesFromSettings(){
+    private Map<String, Object> getCapabilitiesFromSettings() {
         return settingsFile.getMap(getDriverCapabilitiesJsonPath());
     }
 
@@ -58,11 +58,11 @@ public class DriverSettings implements IDriverSettings {
         return String.valueOf(settingsFile.getValue(getDriverSettingsPath() + "/" + APPLICATION_PATH_KEY));
     }
 
-    private String getDriverCapabilitiesJsonPath(){
+    private String getDriverCapabilitiesJsonPath() {
         return getDriverSettingsPath() + "/capabilities";
     }
 
-    private String getDriverSettingsPath(){
+    private String getDriverSettingsPath() {
         return String.format("/driverSettings/%1$s", platformName.toString().toLowerCase());
     }
 }

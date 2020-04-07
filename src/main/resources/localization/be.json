@@ -37,5 +37,7 @@
   "loc.text.typing" : "Уводзім '%s'",
   "loc.text.focusing": "Факусуемся на полі",
   "loc.text.unfocusing": "Адводзім фокус з поля",
-  "loc.text.masked_value": "********"
+  "loc.text.masked_value": "********",
+  "loc.action.swipe": "Праводзім па экране з каардынатаў (x:%1$s; y:%2$s) у (x:%3$s; y:%4$s)",
+  "loc.action.swipeLongPress": "Праводзім па экране доўгім націскам з каардынатаў (x:%1$s; y:%2$s) у (x:%3$s; y:%4$s)"
 }

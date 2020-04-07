@@ -37,5 +37,7 @@
   "loc.text.typing": "Typing '%s'",
   "loc.text.focusing": "Focusing on field",
   "loc.text.unfocusing": "Unfocusing from field",
-  "loc.text.masked_value": "********"
+  "loc.text.masked_value": "********",
+  "loc.action.swipe": "Swiping from coordinates (x:%1$s; y:%2$s) to (x:%3$s; y:%4$s)",
+  "loc.action.swipeLongPress": "Swiping using long press from coordinates (x:%1$s; y:%2$s) to (x:%3$s; y:%4$s)"
 }

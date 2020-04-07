@@ -37,5 +37,7 @@
   "loc.text.typing": "Ввод текста '%s'",
   "loc.text.focusing": "Наведение курсора на поле",
   "loc.text.unfocusing": "Сдвиг курсора с поля",
-  "loc.text.masked_value": "********"
+  "loc.text.masked_value": "********",
+  "loc.action.swipe": "Проводим по экрану из координат (x:%1$s; y:%2$s) в (x:%3$s; y:%4$s)",
+  "loc.action.swipeLongPress": "Проводим по экрану долгим нажатием из координат (x:%1$s; y:%2$s) в (x:%3$s; y:%4$s)"
 }
