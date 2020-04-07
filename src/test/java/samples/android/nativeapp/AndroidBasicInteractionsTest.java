@@ -105,13 +105,13 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
         ViewTabsScrollableScreen viewTabsScrollableScreen = ApplicationActivity.VIEW_TABS_SCROLLABLE.open();
         Assert.assertTrue(viewTabsScrollableScreen.isDisplayed(),
                 String.format("%s screen should be opened", viewTabsScrollableScreen.getName()));
-        viewTabsScrollableScreen.swipeTab(5, 1);
-        viewTabsScrollableScreen.selectTab(9);
+        viewTabsScrollableScreen.swipeTab(4, 1);
+        viewTabsScrollableScreen.selectTab(7);
         Assert.assertEquals(
-                viewTabsScrollableScreen.getTabContentText(9),
-                "Content for tab with tag Tab 9",
+                viewTabsScrollableScreen.getTabContentText(7),
+                "Content for tab with tag Tab 7",
                 "Label text does not match expected");
-        viewTabsScrollableScreen.swipeTab(6, 9);
+        viewTabsScrollableScreen.swipeTab(5, 7);
         viewTabsScrollableScreen.selectTab(4);
         Assert.assertEquals(
                 viewTabsScrollableScreen.getTabContentText(4),
