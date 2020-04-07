@@ -1,5 +1,6 @@
 package aquality.appium.mobile.application;
 
+import aquality.appium.mobile.actions.ITouchActions;
 import aquality.appium.mobile.configuration.IApplicationProfile;
 import aquality.appium.mobile.configuration.IConfiguration;
 import aquality.appium.mobile.configuration.IConfigurationsModule;
@@ -24,5 +25,6 @@ public class MobileModule extends AqualityModule<Application> implements IConfig
         bind(IConfiguration.class).to(getConfigurationImplementation());
         bind(IElementFactory.class).to(getElementFactoryImplementation());
         bind(ISwipeConfiguration.class).to(getSwipeConfigurationImplementation()).in(Singleton.class);
+        bind(ITouchActions.class).to(getTouchActionsImplementation()).in(Singleton.class);
     }
 }

@@ -19,7 +19,7 @@ public class SwipeConfiguration implements ISwipeConfiguration {
 
     @Inject
     public SwipeConfiguration(ISettingsFile settingsFile) {
-        this.retries = Integer.parseInt(settingsFile.getValue("/swipe/retries").toString());
+        this.retries = (int) settingsFile.getValue("/swipe/retries");
         this.timeout = Duration.ofSeconds(Long.parseLong(settingsFile.getValue("/swipe/timeout").toString()));
         this.horizontalSwipeTopPointXCoefficient = Double.parseDouble(
                 settingsFile.getValue("/swipe/horizontalSwipeTopPointXCoefficient").toString());

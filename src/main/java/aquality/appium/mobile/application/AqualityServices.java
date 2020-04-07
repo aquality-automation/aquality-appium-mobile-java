@@ -1,5 +1,6 @@
 package aquality.appium.mobile.application;
 
+import aquality.appium.mobile.actions.ITouchActions;
 import aquality.appium.mobile.configuration.IApplicationProfile;
 import aquality.appium.mobile.configuration.IConfiguration;
 import aquality.appium.mobile.configuration.ILocalServiceSettings;
@@ -177,5 +178,14 @@ public class AqualityServices extends aquality.selenium.core.applications.Aquali
      */
     public static IConfiguration getConfiguration() {
         return get(IConfiguration.class);
+    }
+
+    /**
+     * Gets the the utility used to perform touch actions.
+     *
+     * @return instance of touch actions.
+     */
+    public static ITouchActions getTouchActions() {
+        return get(ITouchActions.class);
     }
 }
