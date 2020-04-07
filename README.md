@@ -2,6 +2,8 @@
 
 [![Build Status](https://dev.azure.com/aquality-automation/aquality-automation/_apis/build/status/aquality-automation.aquality-appium-mobile-java?branchName=master)](https://dev.azure.com/aquality-automation/aquality-automation/_build/latest?definitionId=6&branchName=master)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=aquality-automation_aquality-appium-mobile-java&metric=alert_status)](https://sonarcloud.io/dashboard?id=aquality-automation_aquality-appium-mobile-java)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.aquality-automation/aquality-appium-mobile/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.aquality-automation/aquality-appium-mobile)
+
 
 ### Overview
 
@@ -20,7 +22,7 @@ We use interfaces where is possible, so you can implement your own version of ta
 <dependency>
     <groupId>com.github.aquality-automation</groupId>
     <artifactId>aquality-appium-mobile</artifactId>
-    <version>1.0.0</version>
+    <version>LATEST</version>
 </dependency>
 ```
 
