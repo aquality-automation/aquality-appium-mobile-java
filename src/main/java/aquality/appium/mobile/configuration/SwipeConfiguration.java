@@ -22,21 +22,21 @@ public class SwipeConfiguration implements ISwipeConfiguration {
         this.retries = (int) settingsFile.getValue("/swipe/retries");
         this.timeout = Duration.ofSeconds(Long.parseLong(settingsFile.getValue("/swipe/timeout").toString()));
         this.horizontalSwipeTopPointXCoefficient = getSwipeCoefficient(
-                settingsFile.getValue("/swipe/horizontalSwipeTopPointXCoefficient").toString());
+                settingsFile, "horizontalSwipeTopPointXCoefficient");
         this.horizontalSwipeBottomPointXCoefficient = getSwipeCoefficient(
-                settingsFile.getValue("/swipe/horizontalSwipeBottomPointXCoefficient").toString());
+                settingsFile, "horizontalSwipeBottomPointXCoefficient");
         this.horizontalSwipeTopPointYCoefficient = getSwipeCoefficient(
-                settingsFile.getValue("/swipe/horizontalSwipeTopPointYCoefficient").toString());
+                settingsFile, "horizontalSwipeTopPointYCoefficient");
         this.horizontalSwipeBottomPointYCoefficient = getSwipeCoefficient(
-                settingsFile.getValue("/swipe/horizontalSwipeBottomPointYCoefficient").toString());
+                settingsFile, "horizontalSwipeBottomPointYCoefficient");
         this.verticalSwipeLeftPointXCoefficient = getSwipeCoefficient(
-                settingsFile.getValue("/swipe/verticalSwipeLeftPointXCoefficient").toString());
+                settingsFile, "verticalSwipeLeftPointXCoefficient");
         this.verticalSwipeRightPointXCoefficient = getSwipeCoefficient(
-                settingsFile.getValue("/swipe/verticalSwipeRightPointXCoefficient").toString());
+                settingsFile, "verticalSwipeRightPointXCoefficient");
         this.verticalSwipeLeftPointYCoefficient = getSwipeCoefficient(
-                settingsFile.getValue("/swipe/verticalSwipeLeftPointYCoefficient").toString());
+                settingsFile, "verticalSwipeLeftPointYCoefficient");
         this.verticalSwipeRightPointYCoefficient = getSwipeCoefficient(
-                settingsFile.getValue("/swipe/verticalSwipeRightPointYCoefficient").toString());
+                settingsFile, "verticalSwipeRightPointYCoefficient");
     }
 
     @Override
@@ -89,7 +89,7 @@ public class SwipeConfiguration implements ISwipeConfiguration {
         return this.verticalSwipeRightPointYCoefficient;
     }
 
-    private double getSwipeCoefficient(String name) {
-        return Double.parseDouble(name);
+    private double getSwipeCoefficient(ISettingsFile settingsFile, String swipeCoefficientKey) {
+        return Double.parseDouble(settingsFile.getValue(String.format("/swipe/%s", swipeCoefficientKey)).toString());
     }
 }
