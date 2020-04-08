@@ -34,7 +34,6 @@ public class ViewTabsScrollableScreen extends AndroidScreen {
 
     public String getTabContentText(int tabNumber) {
         return getTabContent(tabNumber).getText();
-
     }
 
     public void selectTab(int tabNumber) {

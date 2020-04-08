@@ -31,11 +31,10 @@ public class TouchActions implements ITouchActions {
                 startPoint.getY(),
                 endPoint.getX(),
                 endPoint.getY());
-        performTouchAction(touchAction -> touchAction.longPress(PointOption.point(startPoint))
-                .waitAction(waitOptions(AqualityServices.get(ISwipeConfiguration.class).getTimeout())), endPoint);
+        performTouchAction(touchAction -> touchAction.longPress(PointOption.point(startPoint)), endPoint);
     }
 
-    private void performTouchAction(UnaryOperator<TouchAction<?>> function, Point endPoint) {
+    protected void performTouchAction(UnaryOperator<TouchAction<?>> function, Point endPoint) {
         TouchAction<?> touchAction = new TouchAction<>(AqualityServices.getApplication().getDriver());
         AqualityServices.get(IElementActionRetrier.class).doWithRetry(() ->
                 function.apply(touchAction).moveTo(PointOption.point(endPoint)).release().perform());

@@ -1,5 +1,6 @@
 package aquality.appium.mobile.application;
 
+import aquality.appium.mobile.actions.IActionsModule;
 import aquality.appium.mobile.actions.ITouchActions;
 import aquality.appium.mobile.configuration.IApplicationProfile;
 import aquality.appium.mobile.configuration.IConfiguration;
@@ -12,7 +13,7 @@ import aquality.selenium.core.applications.AqualityModule;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
-public class MobileModule extends AqualityModule<Application> implements IConfigurationsModule, IElementsModule {
+public class MobileModule extends AqualityModule<Application> implements IConfigurationsModule, IElementsModule, IActionsModule {
     public MobileModule(Provider<Application> applicationProvider) {
         super(applicationProvider);
     }

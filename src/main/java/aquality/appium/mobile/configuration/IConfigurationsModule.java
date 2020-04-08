@@ -1,8 +1,5 @@
 package aquality.appium.mobile.configuration;
 
-import aquality.appium.mobile.actions.ITouchActions;
-import aquality.appium.mobile.actions.TouchActions;
-
 /**
  * Describes implementations of configurations to be registered in DI container.
  */
@@ -34,12 +31,5 @@ public interface IConfigurationsModule extends aquality.selenium.core.configurat
      */
     default Class<? extends ISwipeConfiguration> getSwipeConfigurationImplementation() {
         return SwipeConfiguration.class;
-    }
-
-    /**
-     * @return class which implements {@link ITouchActions}
-     */
-    default Class<? extends ITouchActions> getTouchActionsImplementation() {
-        return TouchActions.class;
     }
 }
