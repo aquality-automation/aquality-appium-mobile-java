@@ -14,8 +14,8 @@ variables:
   XCODE_VERSION: 10.2
   IOS_PLATFORM_VERSION: 12.2
   IOS_DEVICE_NAME: iPhone X
-steps:
 
+steps:
 - task: SonarCloudPrepare@1
   displayName: 'Prepare SonarCloud analysis'
   inputs:

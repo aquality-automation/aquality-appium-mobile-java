@@ -49,8 +49,8 @@ public class ScreenFactoryTest {
 
     @AfterTest
     public void tearDown() {
-        System.clearProperty("platformName");
-        System.clearProperty("packageNameWithScreens");
+        System.clearProperty(PLATFORM_NAME_VARIABLE_NAME);
+        System.clearProperty(PACKAGE_NAME_WITH_SCREENS_VARIABLE_NAME);
         AqualityServices.initInjector(new MobileModule(AqualityServices::getApplication));
     }
 }
