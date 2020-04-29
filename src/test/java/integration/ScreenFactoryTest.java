@@ -7,7 +7,7 @@ import aquality.appium.mobile.screens.IOSScreen;
 import integration.screens.IFakeLoginScreen;
 import integration.screens.ILoginScreen;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 public class ScreenFactoryTest {
@@ -47,8 +47,8 @@ public class ScreenFactoryTest {
         Assert.assertThrows(IllegalArgumentException.class, () -> AqualityServices.getScreenFactory().getScreen(ILoginScreen.class));
     }
 
-    @AfterTest
-    public void tearDown() {
+    @AfterClass
+    public void afterAll() {
         System.clearProperty(PLATFORM_NAME_VARIABLE_NAME);
         System.clearProperty(PACKAGE_NAME_WITH_SCREENS_VARIABLE_NAME);
         AqualityServices.initInjector(new MobileModule(AqualityServices::getApplication));
