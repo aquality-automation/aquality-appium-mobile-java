@@ -15,10 +15,8 @@ public class ScreenFactoryProvider implements IScreenFactoryProvider {
 
     @Override
     public IScreenFactory getScreenFactory() {
-        if (applicationProfile.getPlatformName() == PlatformName.ANDROID) {
-            return new AndroidScreenFactory();
-        } else {
-            return new IOSScreenFactory();
-        }
+        return applicationProfile.getPlatformName() == PlatformName.ANDROID
+                ? new AndroidScreenFactory()
+                : new IOSScreenFactory();
     }
 }
