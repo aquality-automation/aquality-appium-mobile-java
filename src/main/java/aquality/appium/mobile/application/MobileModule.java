@@ -11,6 +11,7 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 public class MobileModule extends AqualityModule<Application> implements IConfigurationsModule, IElementsModule {
+
     public MobileModule(Provider<Application> applicationProvider) {
         super(applicationProvider);
     }

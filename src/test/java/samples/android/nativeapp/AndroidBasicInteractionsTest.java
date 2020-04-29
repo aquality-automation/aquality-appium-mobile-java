@@ -32,11 +32,10 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
         AqualityServices.getApplication().quit();
     }
 
-
     @Test
     public void testSendKeys() {
         InvokeSearchScreen searchScreen = ApplicationActivity.SEARCH.open();
-        Assert.assertTrue(searchScreen.isDisplayed(), String.format("%s should be opened", searchScreen.getName()));
+        Assert.assertTrue(searchScreen.state().isDisplayed(), String.format("%s should be opened", searchScreen.getName()));
         String query = "Hello world!";
         searchScreen.submitSearch(query);
         Assert.assertEquals(searchScreen.getSearchResult(), query, "Search result don't match to entered query");
@@ -69,7 +68,7 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
 
     private ViewControlsScreen openViewControlsScreen() {
         ViewControlsScreen screen = ApplicationActivity.VIEW_CONTROLS.open();
-        Assert.assertTrue(screen.isDisplayed(), String.format("%s screen should be opened", screen.getName()));
+        Assert.assertTrue(screen.state().isDisplayed(), String.format("%s screen should be opened", screen.getName()));
         return screen;
     }
 
