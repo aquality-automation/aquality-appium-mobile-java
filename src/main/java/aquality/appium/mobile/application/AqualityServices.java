@@ -4,9 +4,8 @@ import aquality.appium.mobile.configuration.IApplicationProfile;
 import aquality.appium.mobile.configuration.IConfiguration;
 import aquality.appium.mobile.configuration.ILocalServiceSettings;
 import aquality.appium.mobile.elements.interfaces.IElementFactory;
-import aquality.appium.mobile.screens.screenfactory.AndroidScreenFactory;
-import aquality.appium.mobile.screens.screenfactory.IOSScreenFactory;
 import aquality.appium.mobile.screens.screenfactory.IScreenFactory;
+import aquality.appium.mobile.screens.screenfactory.IScreenFactoryProvider;
 import aquality.selenium.core.localization.ILocalizedLogger;
 import aquality.selenium.core.logging.Logger;
 import aquality.selenium.core.waitings.IConditionalWait;
@@ -163,12 +162,7 @@ public class AqualityServices extends aquality.selenium.core.applications.Aquali
      * @return Factory of screens.
      */
     public static IScreenFactory getScreenFactory() {
-        // TODO: resolve factory DI container
-        if (getApplicationProfile().getPlatformName() == PlatformName.ANDROID) {
-            return new AndroidScreenFactory();
-        } else {
-            return new IOSScreenFactory();
-        }
+        return get(IScreenFactoryProvider.class).getScreenFactory();
     }
 
     /**
