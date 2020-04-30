@@ -5,7 +5,6 @@ pool:
   vmImage: 'macOS 10.14'
 
 variables:
-  isRemote: false
   ANDROID_EMU_NAME: test
   ANDROID_EMU_ABI: x86
   ANDROID_EMU_TARGET: android-28
@@ -82,7 +81,7 @@ steps:
       echo "Installing Appium"
       node --version
       npm list --depth 0
-      npm install -g appium@v1.17.0-rc.1
+      npm install -g appium@v1.17.0
       # --chromedriver-skip-install
       ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
       chmod +x /usr/local/bin/appium
