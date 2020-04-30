@@ -46,32 +46,18 @@ public abstract class Screen<T extends AppiumDriver> implements IScreen {
         }
     }
 
-    /**
-     * Locator for specified screen
-     */
     public By getLocator() {
         return locator;
     }
 
-    /**
-     * Name of specified screen
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Size of the element described by screen locator.
-     */
     public Dimension getSize() {
        return screenLabel.getElement().getSize();
     }
-
-    /**
-     * Provides ability to define of element's state (whether it is displayed, exists or not) and respective waiting functions
-     *
-     * @return provider to define element's state
-     */
+    
     public IElementStateProvider state() {
         return screenLabel.state();
     }
