@@ -51,7 +51,6 @@ public class ScreenFactoryTest {
     public void afterAll() {
         System.clearProperty(PLATFORM_NAME_VARIABLE_NAME);
         System.clearProperty(SCREENS_LOCATION_VARIABLE_NAME);
-        AqualityServices.initInjector(new MobileModule(AqualityServices::getApplication));
     }
 }
 
