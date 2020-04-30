@@ -57,7 +57,7 @@ public abstract class Screen<T extends AppiumDriver> implements IScreen {
     public Dimension getSize() {
        return screenLabel.getElement().getSize();
     }
-    
+
     public IElementStateProvider state() {
         return screenLabel.state();
     }
