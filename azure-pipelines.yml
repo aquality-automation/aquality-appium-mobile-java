@@ -5,7 +5,6 @@ pool:
   vmImage: 'macOS-latest'
 
 variables:
-  isRemote: false
   ANDROID_EMU_NAME: test
   ANDROID_EMU_ABI: x86
   ANDROID_EMU_TARGET: android-28
@@ -47,63 +46,61 @@ steps:
     displayName: 'Publish SonarCloud quality gate results'
     continueOnError: true
 
-  #- task: NodeTool@0
-  #  displayName: 'Install Node.js tool to setup Appium and emulators'
-  #  inputs:
-  #    versionSpec: '11.15.0'
+  - task: CmdLine@2
+    displayName: 'Configure Appium and Android SDK'
+    inputs:
+      script: |
+        echo "Configuring Environment"
+        echo $JAVA_HOME
+        ls /Library/Java/JavaVirtualMachines/
 
-  - script: |
-      echo "Configuring Environment"
-      echo $JAVA_HOME
-      ls /Library/Java/JavaVirtualMachines/
+        ls $ANDROID_HOME/build-tools/
+        export PATH=$PATH:$JAVA_HOME/bin
 
-      ls $ANDROID_HOME/build-tools/
-      export PATH=$PATH:$JAVA_HOME/bin
+        echo export "ANDROID_HOME=\$ANDROID_HOME" >> ~/.bash_profile
+        export PATH=$PATH:$ANDROID_HOME
 
-      echo export "ANDROID_HOME=\$ANDROID_HOME" >> ~/.bash_profile
-      export PATH=$PATH:$ANDROID_HOME
+        mvn -version
+        echo $ANDROID_HOME
+        echo $JAVA_HOME
+        echo $PATH
 
-      mvn -version
-      echo $ANDROID_HOME
-      echo $JAVA_HOME
-      echo $PATH
+        echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)'
+        echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n "$(ANDROID_EMU_NAME)" -k 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)' --force
+        echo $ANDROID_HOME/emulator/emulator -list-avds
 
-      echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)'
-      echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n "$(ANDROID_EMU_NAME)" -k 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)' --force
-      echo $ANDROID_HOME/emulator/emulator -list-avds
+        echo "Starting emulator"
+        nohup $ANDROID_HOME/emulator/emulator -avd "$(ANDROID_EMU_NAME)" -no-snapshot > /dev/null 2>&1 &
+        $ANDROID_HOME/platform-tools/adb wait-for-device
+        while [[ $? -ne 0 ]]; do sleep 1; $ANDROID_HOME/platform-tools/adb shell pm list packages; done;
+        $ANDROID_HOME/platform-tools/adb devices
+        echo "Emulator started"
 
-      echo "Starting emulator"
-      nohup $ANDROID_HOME/emulator/emulator -avd "$(ANDROID_EMU_NAME)" -no-snapshot > /dev/null 2>&1 &
-      $ANDROID_HOME/platform-tools/adb wait-for-device
-      while [[ $? -ne 0 ]]; do sleep 1; $ANDROID_HOME/platform-tools/adb shell pm list packages; done;
-      $ANDROID_HOME/platform-tools/adb devices
-      echo "Emulator started"
+        echo "Installing Appium"
+        node --version
+        npm list --depth 0
+        npm install -g appium@v1.17.0
+        # --chromedriver-skip-install
+        ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
+        chmod +x /usr/local/bin/appium
+        export PATH=$PATH:/usr/local/bin/appium
 
-      echo "Installing Appium"
-      node --version
-      npm list --depth 0
-      npm install -g appium@v1.17.0
-      # --chromedriver-skip-install
-      ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
-      chmod +x /usr/local/bin/appium
-      export PATH=$PATH:/usr/local/bin/appium
+        echo "Installing and Running Appium doctor"
+        npm install -g appium-doctor
+        ln -fs /usr/local/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
+        chmod +x /usr/local/bin/appium-doctor
+        export PATH=$PATH:/usr/local/bin/appium-doctor
 
-      echo "Installing and Running Appium doctor"
-      npm install -g appium-doctor
-      ln -fs /usr/local/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
-      chmod +x /usr/local/bin/appium-doctor
-      export PATH=$PATH:/usr/local/bin/appium-doctor
+        npm list --depth 0
 
-      npm list --depth 0
+        appium --version
+        appium-doctor
 
-      appium --version
-      appium-doctor
+        #sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
+        #xcrun simctl list
 
-      #sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
-      #xcrun simctl list
-
-      #appium --allow-insecure chromedriver_autodownload &
-      #echo "Appium server started"
+        #appium --allow-insecure chromedriver_autodownload &
+        #echo "Appium server started"
 
   - task: Maven@3
     displayName: 'Run tests using appium local service'
@@ -118,10 +115,13 @@ steps:
       effectivePomSkip: false
       sonarQubeRunAnalysis: false
 
-  - script: |
-      echo "##vso[task.setvariable variable=isRemote;]true"
-      appium --allow-insecure chromedriver_autodownload &
-      echo "Appium server started"
+  - task: CmdLine@2
+      displayName: 'Start Appium server'
+      inputs:
+        script: |
+          echo "##vso[task.setvariable variable=isRemote;]true"
+          appium --allow-insecure chromedriver_autodownload &
+          echo "Appium server started"
 
   - task: Maven@3
     displayName: 'Run tests using manually started (remote) server'
