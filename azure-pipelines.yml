@@ -2,9 +2,10 @@ trigger:
   - master
 
 pool:
-  vmImage: 'macOS 10.14'
+  vmImage: 'macOS-latest'
 
 variables:
+  isRemote: false
   ANDROID_EMU_NAME: test
   ANDROID_EMU_ABI: x86
   ANDROID_EMU_TARGET: android-28
@@ -46,10 +47,10 @@ steps:
     displayName: 'Publish SonarCloud quality gate results'
     continueOnError: true
 
-  - task: NodeTool@0
-    displayName: 'Install Node.js tool to setup Appium and emulators'
-    inputs:
-      versionSpec: '11.15.0'
+  #- task: NodeTool@0
+  #  displayName: 'Install Node.js tool to setup Appium and emulators'
+  #  inputs:
+  #    versionSpec: '11.15.0'
 
   - script: |
       echo "Configuring Environment"
