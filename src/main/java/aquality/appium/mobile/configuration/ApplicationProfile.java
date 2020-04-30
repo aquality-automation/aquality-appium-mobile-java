@@ -44,7 +44,7 @@ public class ApplicationProfile implements IApplicationProfile {
     }
 
     @Override
-    public String getPackageNameWithScreens() {
-        return (String) settingsFile.getValue("/packageNameWithScreens");
+    public String getScreensLocation() {
+        return (String) settingsFile.getValue("/screensLocation");
     }
 }

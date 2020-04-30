@@ -34,12 +34,12 @@ public abstract class ScreenFactory<TPlatformScreen extends Screen> implements I
             return reflections.getSubTypesOf(getPlatformClass());
         } catch (ReflectionsException e) {
             throw new IllegalArgumentException(String.format("Could not find package \"%s\" with Screens. " +
-                    "Please specify value \"packageNameWithScreens\" in settings file.", getPackageWithScreens()), e);
+                    "Please specify value \"screensLocation\" in settings file.", getPackageWithScreens()), e);
         }
     }
 
     private String getPackageWithScreens() {
-        return AqualityServices.get(IApplicationProfile.class).getPackageNameWithScreens();
+        return AqualityServices.get(IApplicationProfile.class).getScreensLocation();
     }
 
     protected abstract Class<TPlatformScreen> getPlatformClass();

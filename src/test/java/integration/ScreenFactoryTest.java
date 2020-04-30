@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 public class ScreenFactoryTest {
 
     private static final String PLATFORM_NAME_VARIABLE_NAME = "platformName";
-    private static final String PACKAGE_NAME_WITH_SCREENS_VARIABLE_NAME = "packageNameWithScreens";
+    private static final String SCREENS_LOCATION_VARIABLE_NAME = "screensLocation";
 
     @Test
     public void shouldBePossibleToGetScreenViaFactory() {
@@ -40,9 +40,9 @@ public class ScreenFactoryTest {
     }
 
     @Test
-    public void shouldThrowIllegalArgumentExceptionOnNotValidPackageNameWithScreensValue()
+    public void shouldThrowIllegalArgumentExceptionOnNotValidScreensLocationValue()
     {
-        System.setProperty(PACKAGE_NAME_WITH_SCREENS_VARIABLE_NAME, "fake.package");
+        System.setProperty(SCREENS_LOCATION_VARIABLE_NAME, "fake.package");
         AqualityServices.initInjector(new MobileModule(AqualityServices::getApplication));
         Assert.assertThrows(IllegalArgumentException.class, () -> AqualityServices.getScreenFactory().getScreen(ILoginScreen.class));
     }
@@ -50,7 +50,7 @@ public class ScreenFactoryTest {
     @AfterClass
     public void afterAll() {
         System.clearProperty(PLATFORM_NAME_VARIABLE_NAME);
-        System.clearProperty(PACKAGE_NAME_WITH_SCREENS_VARIABLE_NAME);
+        System.clearProperty(SCREENS_LOCATION_VARIABLE_NAME);
         AqualityServices.initInjector(new MobileModule(AqualityServices::getApplication));
     }
 }

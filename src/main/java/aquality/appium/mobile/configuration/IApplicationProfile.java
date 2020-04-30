@@ -37,5 +37,5 @@ public interface IApplicationProfile {
      *
      * @return name of package like *my.package.screens*
      */
-    String getPackageNameWithScreens();
+    String getScreensLocation();
 }
