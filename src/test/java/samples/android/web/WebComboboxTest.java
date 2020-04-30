@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class WebComboboxTest extends AndroidWebTest {
+
     private IComboBox comboBox;
 
     @BeforeMethod
@@ -23,21 +24,21 @@ public class WebComboboxTest extends AndroidWebTest {
         comboBox.state().waitForClickable();
     }
 
-    @Test(groups = "web")
+    @Test
     public void testComboBoxGetsTexts(){
         Assert.assertTrue(comboBox.getTexts().containsAll(
                 Arrays.stream(DropdownOption.values()).map(DropdownOption::getText).collect(Collectors.toList())),
                 "Texts should match to expected");
     }
 
-    @Test(groups = "web")
+    @Test
     public void testComboBoxGetsValues(){
         Assert.assertTrue(comboBox.getValues().containsAll(
                 Arrays.stream(DropdownOption.values()).map(DropdownOption::getValue).collect(Collectors.toList())),
                 "Values should match to expected");
     }
 
-    @Test(groups = "web")
+    @Test
     public void testComboBoxSelectionMethods() {
         Assert.assertEquals(DropdownOption.DEFAULT.getText(), comboBox.getSelectedText(), "Option's text mismatch");
         comboBox.selectByValue(DropdownOption.FIRST.getValue());
@@ -56,11 +57,7 @@ public class WebComboboxTest extends AndroidWebTest {
         Assert.assertEquals(DropdownOption.FIRST.getText(), comboBox.getSelectedText(), "Option's text mismatch");
     }
 
-    private By getChildLocator(String textPart) {
-        return By.xpath(String.format(".//*[contains(., '%s')]", textPart));
-    }
-
-    @Test(groups = "web")
+    @Test
     public void testFindChildElementWithName() {
         Assert.assertEquals(DropdownOption.SECOND.getValue(),
                 comboBox.findChildElement(getChildLocator(DropdownOption.SECOND.getValue()), "2", ElementType.LABEL)
@@ -68,10 +65,14 @@ public class WebComboboxTest extends AndroidWebTest {
                 "Child option's value mismatch");
     }
 
-    @Test(groups = "web")
+    @Test
     public void testFindChildElementWithoutName() {
         Assert.assertEquals(DropdownOption.FIRST.getText(),
                 comboBox.findChildElement(getChildLocator(DropdownOption.FIRST.getText()), ElementType.LABEL).getText(),
                 "Child option's text mismatch");
+    }
+
+    private By getChildLocator(String textPart) {
+        return By.xpath(String.format(".//*[contains(., '%s')]", textPart));
     }
 }

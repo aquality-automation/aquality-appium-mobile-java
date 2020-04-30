@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import samples.android.ITestRadioButton;
 
 public class WebRadioButtonTest extends AndroidWebTest implements ITestRadioButton {
+
     @Override
     public void openRadioButtonsScreen() {
         AqualityServices.getApplication().getDriver().get("http://www.echoecho.com/htmlforms10.htm");
@@ -19,7 +20,7 @@ public class WebRadioButtonTest extends AndroidWebTest implements ITestRadioButt
                 "#" + number);
     }
 
-    @Test(groups = "web")
+    @Test
     @Override
     public void testRadioButton() {
         ITestRadioButton.super.testRadioButton();

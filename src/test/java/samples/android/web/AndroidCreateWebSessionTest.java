@@ -5,7 +5,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class AndroidCreateWebSessionTest extends AndroidWebTest {
-    @Test(groups = "web")
+
+    @Test
     public void testCreateWebSession() {
         AqualityServices.getApplication().getDriver().get("http://www.google.com");
         String title = AqualityServices.getApplication().getDriver().getTitle();

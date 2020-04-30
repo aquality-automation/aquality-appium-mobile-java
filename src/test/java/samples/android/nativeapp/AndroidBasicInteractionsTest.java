@@ -21,6 +21,31 @@ import testreport.ScreenshotListener;
 @Listeners(ScreenshotListener.class)
 public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioButton {
 
+    @Override
+    public void openRadioButtonsScreen() {
+        openViewControlsScreen();
+    }
+
+    @Override
+    public IRadioButton getRadioButton(int number) {
+        return ((ViewControlsScreen) ApplicationActivity.VIEW_CONTROLS.getScreen()).getRadioButton(number);
+    }
+
+    @Override
+    public void openCheckBoxesScreen() {
+        openViewControlsScreen();
+    }
+
+    private void openViewControlsScreen() {
+        ViewControlsScreen screen = ApplicationActivity.VIEW_CONTROLS.open();
+        Assert.assertTrue(screen.state().isDisplayed(), String.format("%s screen should be opened", screen.getName()));
+    }
+
+    @Override
+    public ICheckBox getCheckBox(int number) {
+        return ((ViewControlsScreen) ApplicationActivity.VIEW_CONTROLS.getScreen()).getCheckBox(number);
+    }
+
     @BeforeClass
     public void setUp() {
         System.clearProperty("profile");
@@ -41,35 +66,9 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
         Assert.assertEquals(searchScreen.getSearchResult(), query, "Search result don't match to entered query");
     }
 
-    @Override
-    public void openRadioButtonsScreen() {
-        openViewControlsScreen();
-    }
-
-    @Override
-    public IRadioButton getRadioButton(int number) {
-        return ((ViewControlsScreen) ApplicationActivity.VIEW_CONTROLS.getScreen()).getRadioButton(number);
-    }
-
     @Test
     public void testRadioButton() {
         ITestRadioButton.super.testRadioButton();
-    }
-
-    @Override
-    public void openCheckBoxesScreen() {
-        openViewControlsScreen();
-    }
-
-    @Override
-    public ICheckBox getCheckBox(int number) {
-        return ((ViewControlsScreen) ApplicationActivity.VIEW_CONTROLS.getScreen()).getCheckBox(number);
-    }
-
-    private ViewControlsScreen openViewControlsScreen() {
-        ViewControlsScreen screen = ApplicationActivity.VIEW_CONTROLS.open();
-        Assert.assertTrue(screen.state().isDisplayed(), String.format("%s screen should be opened", screen.getName()));
-        return screen;
     }
 
     @Test
