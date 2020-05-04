@@ -31,4 +31,11 @@ public interface IApplicationProfile {
      * @return address of appium server.
      */
     URL getRemoteConnectionUrl();
+
+    /**
+     * Gets name of package with screens for ScreenFactory.
+     *
+     * @return name of package like *my.package.screens*
+     */
+    String getScreensLocation();
 }

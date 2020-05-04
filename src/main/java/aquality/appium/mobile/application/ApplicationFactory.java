@@ -55,15 +55,15 @@ public abstract class ApplicationFactory implements IApplicationFactory {
     }
 
     protected class CustomActionRetrier extends ElementActionRetrier {
-        private final List<Class<? extends Exception>> handledExceptions;
+        private final List<Class<? extends Throwable>> handledExceptions;
 
-        CustomActionRetrier(List<Class<? extends Exception>> handledExceptions) {
+        CustomActionRetrier(List<Class<? extends Throwable>> handledExceptions) {
             super(AqualityServices.getConfiguration().getRetryConfiguration());
             this.handledExceptions = handledExceptions;
         }
 
         @Override
-        public List<Class<? extends Exception>> getHandledExceptions() {
+        public List<Class<? extends Throwable>> getHandledExceptions() {
             return handledExceptions;
         }
     }

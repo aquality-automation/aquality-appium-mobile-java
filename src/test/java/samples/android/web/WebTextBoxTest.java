@@ -10,9 +10,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class WebTextBoxTest extends AndroidWebTest {
+
     private static final String VALUE_TO_SUBMIT = "quality assurance";
 
-    @Test(groups = "web")
+    @Test
     public void testTextBoxInteraction() {
         AqualityServices.getApplication().getDriver().get("https://wikipedia.org");
         ITextBox txbSearch = AqualityServices.getElementFactory().getTextBox(By.id("searchInput"), "Search");
@@ -40,6 +41,7 @@ public class WebTextBoxTest extends AndroidWebTest {
         Assert.assertFalse(isKeyboardShown(false), "Keyboard should not be shown when unfocus successful");
     }
 
+    @SuppressWarnings("unchecked")
     private boolean isKeyboardShown(boolean expectedStateToWait) {
         boolean waitResult = AqualityServices.getConditionalWait()
                 .waitFor(driver -> ((AndroidDriver<AndroidElement>)driver).isKeyboardShown() == expectedStateToWait,

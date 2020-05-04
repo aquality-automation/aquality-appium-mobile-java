@@ -7,7 +7,8 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.By;
 
-public class AndroidScreen extends Screen {
+public abstract class AndroidScreen extends Screen<AndroidDriver<AndroidElement>> {
+
     /**
      * Constructor with parameters
      *
@@ -19,9 +20,8 @@ public class AndroidScreen extends Screen {
     }
 
     @Override
-    protected AndroidDriver<AndroidElement> getDriver(){
-        ensureApplicationPlatformCorrect(PlatformName.ANDROID);
-        return (AndroidDriver<AndroidElement>) AqualityServices.getApplication().getDriver();
+    protected PlatformName getPlatform() {
+        return PlatformName.ANDROID;
     }
 
     protected void startActivity(Activity activity) {

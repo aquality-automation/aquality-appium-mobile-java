@@ -82,6 +82,70 @@ public class InvokeSearchScreen extends AndroidScreen {
 
 8. We use DI Guice to inject dependencies, so you can simply implement your MobileModule extended from [MobileModule](./src/main/java/aquality/appium/mobile/application/MobileModule.java) and inject it to `AqualityServices.initInjector(yourModule)`.
 
+### ScreenFactory
+
+When you automate tests for both iOS and Android platforms it is good to have only one set of tests and different implementations of screens. `ScreenFactory` allows to do this. You can define interfaces for your screens and have different implementations for iOS and Android platforms. And then use `ScreenFactory` to resolve necessary screen depending on the chosen platform.
+
+1. Set `screensLocation` property in `settings.json`. It is a name of package where you define screens.
+
+2. Define interfaces for the screens:
+
+```java
+package aquality.appium.mobile.template.screens.interfaces;
+
+public interface ILoginScreen extends IScreen {
+
+    ILoginScreen setUsername(final String username);
+
+    ILoginScreen setPassword(final String password);
+
+    void tapLogin();
+}
+```
+
+3. Implement interface (Android example):
+
+```java
+package aquality.appium.mobile.template.screens.android;
+
+import aquality.appium.mobile.screens.AndroidScreen;
+import aquality.appium.mobile.template.screens.interfaces.ILoginScreen;
+
+import static io.appium.java_client.MobileBy.AccessibilityId;
+import static org.openqa.selenium.By.xpath;
+
+public class LoginScreen extends AndroidScreen implements ILoginScreen {
+
+    public LoginScreen() {
+        super(xpath("//android.widget.TextView[@text='Login']"), "Login");
+    }
+
+    @Override
+    public ILoginScreen setUsername(final String username) {
+        getElementFactory().getTextBox(AccessibilityId("username"), "Username").sendKeys(username);
+        return this;
+    }
+
+    @Override
+    public ILoginScreen setPassword(final String password) {
+        getElementFactory().getTextBox(AccessibilityId("password"), "Password").typeSecret(password);
+        return this;
+    }
+
+    @Override
+    public void tapLogin() {
+        getElementFactory().getButton(AccessibilityId("loginBtn"), "Login").click();
+    }
+}
+```
+
+4. Resolve screen in test:
+
+```java
+ILoginScreen loginScreen = AqualityServices.getScreenFactory().getScreen(ILoginScreen.class);
+```
+
+You can find an example in [aquality-appium-mobile-java-template](https://github.com/aquality-automation/aquality-appium-mobile-java-template) repository.
 
 ### License
 Library's source code is made available under the [Apache 2.0 license](https://github.com/aquality-automation/aquality-winappdriver-dotnet/blob/master/LICENSE).
