@@ -74,7 +74,6 @@ jobs:
           echo export "ANDROID_HOME=\$ANDROID_HOME" >> ~/.bash_profile
           export PATH=$PATH:$ANDROID_HOME
 
-          mvn -version
           echo $ANDROID_HOME
           echo $JAVA_HOME
           echo $PATH
@@ -92,6 +91,7 @@ jobs:
 
           echo "Installing Appium"
           node --version
+          npm -version
           npm list --depth 0
           npm install -g appium@v1.17.0
           # --chromedriver-skip-install
@@ -100,7 +100,8 @@ jobs:
           export PATH=$PATH:/usr/local/bin/appium
 
           echo "Installing and Running Appium doctor"
-          npm install -g appium-doctor
+          npm install -g request@2.34.0
+          npm install -g appium-doctor@1.15.1
           ln -fs /usr/local/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
           chmod +x /usr/local/bin/appium-doctor
           export PATH=$PATH:/usr/local/bin/appium-doctor
