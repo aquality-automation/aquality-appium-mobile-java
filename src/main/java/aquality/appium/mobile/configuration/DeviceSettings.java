@@ -20,7 +20,9 @@ public class DeviceSettings implements IDeviceSettings {
 
     private ISettingsFile getDevicesSettingsFile() {
         String devicesProfileName = System.getProperty("devicesProfile");
-        String devicesProfile = devicesProfileName == null ? "devices.json" : "devices." + devicesProfileName + ".json";
+        String devicesProfile = devicesProfileName == null
+                ? "devices.json"
+                : "devices.".concat(devicesProfileName).concat(".json");
         return new JsonSettingsFile(devicesProfile);
     }
 
