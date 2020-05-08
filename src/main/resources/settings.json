@@ -10,8 +10,7 @@
       "applicationPath": "./src/test/resources/apps/ApiDemos-debug.apk",
       "capabilities": {
         "platformName": "Android",
-        "automationName": "UiAutomator2",
-        "deviceName": "Android Emulator"
+        "automationName": "UiAutomator2"
       }
     },
     "ios": {
@@ -19,8 +18,7 @@
       "applicationPath": "./src/test/resources/apps/TestApp.app.zip",
       "capabilities": {
         "platformName": "iOS",
-        "automationName": "XCUITest",
-        "deviceName": "iOS Simulator"
+        "automationName": "XCUITest"
       }
     }
   },

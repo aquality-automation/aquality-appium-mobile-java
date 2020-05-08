@@ -9,6 +9,7 @@
       "deviceKey": "Nexus",
       "applicationPath": "./src/test/resources/apps/ApiDemos-debug.apk",
       "capabilities": {
+        "platformName": "Android",
         "automationName": "UIAutomator2",
         "eventTimings": true,
         "uiautomator2ServerInstallTimeout": 30000
@@ -18,8 +19,8 @@
       "deviceKey": "iPhone_11",
       "applicationPath": "./src/test/resources/apps/TestApp.app.zip",
       "capabilities": {
-        "automationName": "XCUITest",
-        "platformName": "iOS"
+        "platformName": "iOS",
+        "automationName": "XCUITest"
       }
     }
   },
