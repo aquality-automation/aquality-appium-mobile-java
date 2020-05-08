@@ -52,9 +52,9 @@ jobs:
 
   variables:
     ANDROID_EMU_NAME: test
-    ANDROID_EMU_ABI: x86
-    ANDROID_EMU_TARGET: android-28
+    ANDROID_EMU_TARGET: android-29
     ANDROID_EMU_TAG: google_apis
+    ANDROID_EMU_ABI: x86
     XCODE_VERSION: 10.2
     IOS_PLATFORM_VERSION: 12.2
     IOS_DEVICE_NAME: iPhone X
@@ -65,21 +65,19 @@ jobs:
       inputs:
         script: |
           echo "Configuring Environment"
-          echo $JAVA_HOME
           ls /Library/Java/JavaVirtualMachines/
-
           ls $ANDROID_HOME/build-tools/
           export PATH=$PATH:$JAVA_HOME/bin
 
           echo export "ANDROID_HOME=\$ANDROID_HOME" >> ~/.bash_profile
           export PATH=$PATH:$ANDROID_HOME
 
-          echo $ANDROID_HOME
-          echo $JAVA_HOME
-          echo $PATH
+          echo "ANDROID_HOME: ${ANDROID_HOME}"
+          echo "JAVA_HOME: ${JAVA_HOME}"
+          echo "PATH: ${PATH}"
 
-          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)'
-          echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n "$(ANDROID_EMU_NAME)" -k 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)' --force
+          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager "system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)"
+          echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n "$(ANDROID_EMU_NAME)" -k "system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)" --force
           echo $ANDROID_HOME/emulator/emulator -list-avds
 
           echo "Starting emulator"
