@@ -16,7 +16,7 @@ public class DeviceSettingsTest {
     private static final String DEVICE_KEY_PROPERTY_KEY = "driverSettings.android.deviceKey";
 
     @Test
-    public void testShouldPossibleToGetDeviceCapabilities() {
+    public void testShouldBePossibleToGetDeviceCapabilities() {
         IDeviceSettings deviceSettings = new DeviceSettings("iPhone_11");
         Capabilities capabilities = deviceSettings.getCapabilities();
         Assert.assertNotNull(capabilities);
@@ -24,7 +24,7 @@ public class DeviceSettingsTest {
     }
 
     @Test
-    public void testShouldPossibleToGetEmptyCapabilitiesWhenDeviceKeyIsNull() {
+    public void testShouldBePossibleToGetEmptyCapabilitiesWhenDeviceKeyIsNull() {
         IDeviceSettings deviceSettings = new DeviceSettings(null);
         Capabilities capabilities = deviceSettings.getCapabilities();
         Assert.assertNotNull(capabilities);
