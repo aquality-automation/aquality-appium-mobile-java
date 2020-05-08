@@ -1,17 +1,17 @@
 {
   "iPhone_NAME": {
     "capabilities": {
-      "platformVersion": "",
-      "deviceName": "",
-      "udid": "",
-      "wdaLocalPort": ""
+      "platformVersion": "<iOS_platform_version>",
+      "deviceName": "<iOS_device_name>",
+      "udid": "<iOS_device_udidi>",
+      "wdaLocalPort": "<wda_local_port>"
     }
   },
   "Android_NAME": {
     "capabilities": {
-      "deviceName": "",
-      "udid": "",
-      "systemPort": ""
+      "deviceName": "<Android_device_name>",
+      "udid": "<Android_device_udid>",
+      "systemPort": "<appium_system_port>"
     }
   }
 }

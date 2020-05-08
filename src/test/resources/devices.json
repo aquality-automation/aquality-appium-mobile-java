@@ -10,14 +10,14 @@
   "Nexus": {
     "capabilities": {
       "deviceName": "Nexus",
-      "udid": "devoce_udid",
+      "udid": "device_udid",
       "systemPort": "8082"
     }
   },
   "Samsung_Galaxy": {
     "capabilities": {
       "deviceName": "Samsung Galaxy",
-      "udid": "devoce_udid",
+      "udid": "device_udid",
       "systemPort": "8082"
     }
   }

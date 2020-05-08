@@ -10,7 +10,7 @@
   "Nexus": {
     "capabilities": {
       "deviceName": "Nexus test",
-      "udid": "devoce_udid",
+      "udid": "device_udid",
       "systemPort": "8082"
     }
   }
