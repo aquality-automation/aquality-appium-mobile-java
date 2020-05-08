@@ -3,6 +3,7 @@
   "isRemote": true,
   "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
   "screensLocation": "integration",
+  "deviceKey": "iPhone_11",
 
   "driverSettings": {
     "android": {

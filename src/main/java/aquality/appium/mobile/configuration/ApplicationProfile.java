@@ -29,7 +29,12 @@ public class ApplicationProfile implements IApplicationProfile {
 
     @Override
     public IDriverSettings getDriverSettings() {
-        return new DriverSettings(settingsFile, getPlatformName());
+        return new DriverSettings(settingsFile, getPlatformName(), getDeviceKey());
+    }
+
+    @Override
+    public String getDeviceKey() {
+        return (String) settingsFile.getValueOrDefault("/deviceKey", null);
     }
 
     @Override

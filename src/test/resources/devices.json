@@ -1,0 +1,17 @@
+{
+  "iPhone_11": {
+    "capabilities": {
+      "platformVersion": "13.3",
+      "deviceName": "iPhone 11",
+      "udid": "device_udid",
+      "wdaLocalPort": "8081"
+    }
+  },
+  "Nexus": {
+    "capabilities": {
+      "deviceName": "Nexus",
+      "udid": "devoce_udid",
+      "systemPort": "8082"
+    }
+  }
+}
