@@ -47,6 +47,7 @@ public class DeviceSettingsTest {
     @Test
     public void testShouldBePossibleToGetDefaultDeviceSettingsForIosPlatform() {
         System.setProperty(PLATFORM_NAME_PROPERTY_KEY, "ios");
+        System.setProperty(DEVICE_KEY_PROPERTY_KEY, "iPhone_11");
         Capabilities capabilities = AqualityServices.get(IApplicationProfile.class).getDriverSettings().getCapabilities();
         Assert.assertEquals("iPhone 11", capabilities.getCapability("deviceName"));
     }
@@ -54,6 +55,7 @@ public class DeviceSettingsTest {
     @Test
     public void testShouldBePossibleToGetDefaultDeviceSettingsForAndroidPlatform() {
         System.setProperty(PLATFORM_NAME_PROPERTY_KEY, "android");
+        System.setProperty(DEVICE_KEY_PROPERTY_KEY, "Nexus");
         Capabilities capabilities = AqualityServices.get(IApplicationProfile.class).getDriverSettings().getCapabilities();
         Assert.assertEquals("Nexus", capabilities.getCapability("deviceName"));
     }

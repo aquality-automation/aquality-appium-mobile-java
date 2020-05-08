@@ -1,10 +1,21 @@
 {
+  "iOS_Simulator": {
+    "capabilities": {
+      "platformVersion": "13.3",
+      "deviceName": "iPhone 11"
+    }
+  },
   "iPhone_11": {
     "capabilities": {
       "platformVersion": "13.3",
       "deviceName": "iPhone 11",
       "udid": "device_udid",
       "wdaLocalPort": "8081"
+    }
+  },
+  "Android_Emulator": {
+    "capabilities": {
+      "deviceName": "Android Emulator"
     }
   },
   "Nexus": {
