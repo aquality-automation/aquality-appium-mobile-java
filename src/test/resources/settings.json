@@ -3,25 +3,23 @@
   "isRemote": true,
   "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
   "screensLocation": "integration",
-  "deviceKey": "iPhone_11",
 
   "driverSettings": {
     "android": {
+      "deviceKey": "Nexus",
       "applicationPath": "./src/test/resources/apps/ApiDemos-debug.apk",
       "capabilities": {
-        "deviceName": "Android Emulator",
         "automationName": "UIAutomator2",
         "eventTimings": true,
         "uiautomator2ServerInstallTimeout": 30000
       }
     },
     "ios": {
+      "deviceKey": "iPhone_11",
       "applicationPath": "./src/test/resources/apps/TestApp.app.zip",
       "capabilities": {
-        "deviceName": "iOS Simulator",
         "automationName": "XCUITest",
-        "platformName": "iOS",
-        "udid": "<SIMULATOR_ID/DEVICE_ID>"
+        "platformName": "iOS"
       }
     }
   },

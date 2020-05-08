@@ -11,8 +11,9 @@ import org.testng.annotations.Test;
 
 public class DeviceSettingsTest {
 
+    private static final String PLATFORM_NAME_PROPERTY_KEY = "platformName";
     private static final String DEVICES_PROFILE_PROPERTY_KEY = "devicesProfile";
-    private static final String DEVICE_KEY_PROPERTY_KEY = "deviceKey";
+    private static final String DEVICE_KEY_PROPERTY_KEY = "driverSettings.android.deviceKey";
 
     @Test
     public void testShouldPossibleToGetDeviceCapabilities() {
@@ -44,21 +45,31 @@ public class DeviceSettingsTest {
     }
 
     @Test
-    public void testShouldBePossibleToGetDeviceSettingsFromApplicationProfile() {
+    public void testShouldBePossibleToGetDefaultDeviceSettingsForIosPlatform() {
+        System.setProperty(PLATFORM_NAME_PROPERTY_KEY, "ios");
         Capabilities capabilities = AqualityServices.get(IApplicationProfile.class).getDriverSettings().getCapabilities();
         Assert.assertEquals("iPhone 11", capabilities.getCapability("deviceName"));
     }
 
     @Test
-    public void testShouldBePossibleToOverrideDeviceKey() {
-        System.setProperty(DEVICE_KEY_PROPERTY_KEY, "Nexus");
+    public void testShouldBePossibleToGetDefaultDeviceSettingsForAndroidPlatform() {
+        System.setProperty(PLATFORM_NAME_PROPERTY_KEY, "android");
         Capabilities capabilities = AqualityServices.get(IApplicationProfile.class).getDriverSettings().getCapabilities();
         Assert.assertEquals("Nexus", capabilities.getCapability("deviceName"));
+    }
+
+    @Test
+    public void testShouldBePossibleToOverrideDefaultDevice() {
+        System.setProperty(PLATFORM_NAME_PROPERTY_KEY, "android");
+        System.setProperty(DEVICE_KEY_PROPERTY_KEY, "Samsung_Galaxy");
+        Capabilities capabilities = AqualityServices.get(IApplicationProfile.class).getDriverSettings().getCapabilities();
+        Assert.assertEquals("Samsung Galaxy", capabilities.getCapability("deviceName"));
     }
 
     @AfterClass
     public void afterAll() {
         System.clearProperty(DEVICES_PROFILE_PROPERTY_KEY);
         System.clearProperty(DEVICE_KEY_PROPERTY_KEY);
+        System.clearProperty(PLATFORM_NAME_PROPERTY_KEY);
     }
 }

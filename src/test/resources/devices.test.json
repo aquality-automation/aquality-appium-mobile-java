@@ -6,5 +6,12 @@
       "udid": "device_udid",
       "wdaLocalPort": "8085"
     }
+  },
+  "Nexus": {
+    "capabilities": {
+      "deviceName": "Nexus test",
+      "udid": "devoce_udid",
+      "systemPort": "8082"
+    }
   }
 }

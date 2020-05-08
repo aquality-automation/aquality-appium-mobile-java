@@ -3,10 +3,10 @@
   "isRemote": false,
   "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
   "screensLocation": "<NAME_OF_PACKAGE_WITH_SCREENS>",
-  "deviceKey": "<KEY_OF_DEVICE_FROM_DEVICES_JSON>",
 
   "driverSettings": {
     "android": {
+      "deviceKey": "<KEY_OF_ANDROID_DEVICE_FROM_DEVICES_JSON>",
       "applicationPath": "./src/test/resources/apps/ApiDemos-debug.apk",
       "capabilities": {
         "platformName": "Android",
@@ -15,6 +15,7 @@
       }
     },
     "ios": {
+      "deviceKey": "<KEY_OF_IOS_DEVICE_FROM_DEVICES_JSON>",
       "applicationPath": "./src/test/resources/apps/TestApp.app.zip",
       "capabilities": {
         "platformName": "iOS",

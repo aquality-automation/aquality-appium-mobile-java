@@ -153,7 +153,7 @@ Our library allows you to run tests on different devices and store their setting
 
 You have to add [devices.json](./src/test/resources/devices.json) file to resources where you can define a set of devices which you use to run tests.
 
-It is possible to set default device in [settings.json](./src/test/resources/settings.json) by defining `deviceKey` property which is a key of device settings from `devices.json` file.
+It is possible to set default device for each platform in [settings.json](./src/test/resources/settings.json) by defining `deviceKey` property which is a key of device settings from `devices.json` file.
 
 You can also create several profiles with devices by adding files with suffixes `devices.<devicesProfile>.json` (like `devices.set1.json`) and then specify profile using maven args `-DdevicesProfile=set1`.
 

@@ -17,15 +17,14 @@ public class DriverSettings implements IDriverSettings {
 
     private static final String APPLICATION_PATH_KEY = "applicationPath";
     private static final String APP_CAPABILITY_KEY = "app";
+    private static final String DEVICE_KEY_KEY = "deviceKey";
 
     private final ISettingsFile settingsFile;
     private final PlatformName platformName;
-    private final String deviceKey;
 
-    public DriverSettings(ISettingsFile settingsFile, PlatformName platformName, String deviceKey) {
+    public DriverSettings(ISettingsFile settingsFile, PlatformName platformName) {
         this.settingsFile = settingsFile;
         this.platformName = platformName;
-        this.deviceKey = deviceKey;
     }
 
     @Override
@@ -64,6 +63,7 @@ public class DriverSettings implements IDriverSettings {
     }
 
     private Capabilities getDeviceCapabilities() {
+        String deviceKey = String.valueOf(settingsFile.getValue(getDriverSettingsPath(DEVICE_KEY_KEY)));
         IDeviceSettings deviceSettings = new DeviceSettings(deviceKey);
         return deviceSettings.getCapabilities();
     }

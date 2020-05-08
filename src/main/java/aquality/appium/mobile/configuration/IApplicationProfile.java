@@ -26,13 +26,6 @@ public interface IApplicationProfile {
     IDriverSettings getDriverSettings();
 
     /**
-     * Gets key of device settings from devices.json.
-     *
-     * @return Device key.
-     */
-    String getDeviceKey();
-
-    /**
      * Gets appium server URL.
      *
      * @return address of appium server.
