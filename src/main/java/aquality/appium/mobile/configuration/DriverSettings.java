@@ -63,7 +63,7 @@ public class DriverSettings implements IDriverSettings {
     }
 
     private Capabilities getDeviceCapabilities() {
-        String deviceKey = String.valueOf(settingsFile.getValue(getDriverSettingsPath(DEVICE_KEY_KEY)));
+        String deviceKey = (String) settingsFile.getValueOrDefault(getDriverSettingsPath(DEVICE_KEY_KEY), null);
         IDeviceSettings deviceSettings = new DeviceSettings(deviceKey);
         return deviceSettings.getCapabilities();
     }
