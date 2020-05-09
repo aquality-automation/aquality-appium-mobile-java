@@ -52,9 +52,7 @@ jobs:
 
   variables:
     ANDROID_EMU_NAME: test
-    ANDROID_EMU_ABI: x86
-    ANDROID_EMU_TARGET: android-28
-    ANDROID_EMU_TAG: google_apis
+    ANDROID_SDK_ID: system-images;android-28;google_apis_playstore;x86
     XCODE_VERSION: 10.2
     IOS_PLATFORM_VERSION: 12.2
     IOS_DEVICE_NAME: iPhone X
@@ -65,22 +63,17 @@ jobs:
       inputs:
         script: |
           echo "Configuring Environment"
-          echo $JAVA_HOME
-          ls /Library/Java/JavaVirtualMachines/
-
-          ls $ANDROID_HOME/build-tools/
           export PATH=$PATH:$JAVA_HOME/bin
-
           echo export "ANDROID_HOME=\$ANDROID_HOME" >> ~/.bash_profile
           export PATH=$PATH:$ANDROID_HOME
 
-          echo $ANDROID_HOME
-          echo $JAVA_HOME
-          echo $PATH
+          echo "ANDROID_HOME: ${ANDROID_HOME}"
+          echo "JAVA_HOME: ${JAVA_HOME}"
+          echo "PATH: ${PATH}"
 
-          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)'
-          echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n "$(ANDROID_EMU_NAME)" -k 'system-images;$(ANDROID_EMU_TARGET);$(ANDROID_EMU_TAG);$(ANDROID_EMU_ABI)' --force
-          echo $ANDROID_HOME/emulator/emulator -list-avds
+          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager "$(ANDROID_SDK_ID)"
+          echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n "$(ANDROID_EMU_NAME)" -k "$(ANDROID_SDK_ID)" -f
+          $ANDROID_HOME/emulator/emulator -list-avds
 
           echo "Starting emulator"
           nohup $ANDROID_HOME/emulator/emulator -avd "$(ANDROID_EMU_NAME)" -no-snapshot > /dev/null 2>&1 &
@@ -90,14 +83,12 @@ jobs:
           echo "Emulator started"
 
           echo "Installing Appium"
-          node --version
-          npm -version
-          npm list --depth 0
           npm install -g appium@v1.17.0
-          # --chromedriver-skip-install
           ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
           chmod +x /usr/local/bin/appium
           export PATH=$PATH:/usr/local/bin/appium
+          appium --version
+          echo "Appium installed"
 
           echo "Installing and Running Appium doctor"
           npm install -g request@2.34.0
@@ -105,11 +96,8 @@ jobs:
           ln -fs /usr/local/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
           chmod +x /usr/local/bin/appium-doctor
           export PATH=$PATH:/usr/local/bin/appium-doctor
-
-          npm list --depth 0
-
-          appium --version
           appium-doctor
+          echo "Appium doctor installed and executed"
 
           #sudo xcode-select -s /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
           #xcrun simctl list
