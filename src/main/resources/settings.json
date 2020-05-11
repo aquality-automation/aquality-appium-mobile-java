@@ -45,16 +45,18 @@
   "elementCache": {
     "isEnabled": true
   },
-  "swipe": {
-    "timeout": 1,
-    "retries": 5,
-    "horizontalSwipeBottomCoefficient": 0.8,
-    "horizontalSwipeTopCoefficient": 0.2,
-    "horizontalSwipeLeftCoefficient": 0.5,
-    "horizontalSwipeRightCoefficient": 0.5,
-    "verticalSwipeTopCoefficient": 0.5,
-    "verticalSwipeBottomCoefficient": 0.5,
-    "verticalSwipeLeftCoefficient": 0.2,
-    "verticalSwipeRightCoefficient": 0.8
+  "touchActions": {
+    "swipe": {
+      "timeout": 1,
+      "retries": 5,
+      "horizontalSwipeTopPointXCoefficient": 0.5,
+      "horizontalSwipeBottomPointXCoefficient": 0.5,
+      "horizontalSwipeTopPointYCoefficient": 0.2,
+      "horizontalSwipeBottomPointYCoefficient": 0.8,
+      "verticalSwipeLeftPointXCoefficient": 0.2,
+      "verticalSwipeRightPointXCoefficient": 0.8,
+      "verticalSwipeLeftPointYCoefficient": 0.5,
+      "verticalSwipeRightPointYCoefficient": 0.5
+    }
   }
 }
