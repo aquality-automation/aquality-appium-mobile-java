@@ -27,9 +27,9 @@ public interface IConfigurationsModule extends aquality.selenium.core.configurat
     }
 
     /**
-     * @return class which implements {@link ISwipeConfiguration}
+     * @return class which implements {@link ITouchActionsConfiguration}
      */
-    default Class<? extends ISwipeConfiguration> getSwipeConfigurationImplementation() {
-        return SwipeConfiguration.class;
+    default Class<? extends ITouchActionsConfiguration> getTouchActionsConfigurationImplementation() {
+        return TouchActionsConfiguration.class;
     }
 }

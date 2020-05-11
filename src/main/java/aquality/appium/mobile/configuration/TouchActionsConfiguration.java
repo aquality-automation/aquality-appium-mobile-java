@@ -5,9 +5,9 @@ import com.google.inject.Inject;
 
 import java.time.Duration;
 
-public class SwipeConfiguration implements ISwipeConfiguration {
-    private final int retries;
-    private final Duration timeout;
+public class TouchActionsConfiguration implements ITouchActionsConfiguration {
+    private final int swipeRetries;
+    private final Duration swipeTimeout;
     private final double horizontalSwipeTopPointXCoefficient;
     private final double horizontalSwipeBottomPointXCoefficient;
     private final double horizontalSwipeTopPointYCoefficient;
@@ -18,9 +18,9 @@ public class SwipeConfiguration implements ISwipeConfiguration {
     private final double verticalSwipeRightPointYCoefficient;
 
     @Inject
-    public SwipeConfiguration(ISettingsFile settingsFile) {
-        this.retries = (int) settingsFile.getValue("/swipe/retries");
-        this.timeout = Duration.ofSeconds(Long.parseLong(settingsFile.getValue("/swipe/timeout").toString()));
+    public TouchActionsConfiguration(ISettingsFile settingsFile) {
+        this.swipeRetries = (int) settingsFile.getValue("/touchActions/swipe/retries");
+        this.swipeTimeout = Duration.ofSeconds(Long.parseLong(settingsFile.getValue("/touchActions/swipe/timeout").toString()));
         this.horizontalSwipeTopPointXCoefficient = getSwipeCoefficient(
                 settingsFile, "horizontalSwipeTopPointXCoefficient");
         this.horizontalSwipeBottomPointXCoefficient = getSwipeCoefficient(
@@ -40,13 +40,13 @@ public class SwipeConfiguration implements ISwipeConfiguration {
     }
 
     @Override
-    public int getRetries() {
-        return this.retries;
+    public int getSwipeRetries() {
+        return this.swipeRetries;
     }
 
     @Override
-    public Duration getTimeout() {
-        return this.timeout;
+    public Duration getSwipeTimeout() {
+        return this.swipeTimeout;
     }
 
     @Override
@@ -90,6 +90,6 @@ public class SwipeConfiguration implements ISwipeConfiguration {
     }
 
     private double getSwipeCoefficient(ISettingsFile settingsFile, String swipeCoefficientKey) {
-        return Double.parseDouble(settingsFile.getValue(String.format("/swipe/%s", swipeCoefficientKey)).toString());
+        return Double.parseDouble(settingsFile.getValue(String.format("/touchActions/swipe/%s", swipeCoefficientKey)).toString());
     }
 }

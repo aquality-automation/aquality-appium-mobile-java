@@ -3,22 +3,22 @@ package aquality.appium.mobile.configuration;
 import java.time.Duration;
 
 /**
- * Describes Swipe settings.
+ * Describes Touch Actions settings.
  */
-public interface ISwipeConfiguration {
+public interface ITouchActionsConfiguration {
     /**
      * Gets number of retries to perform swipe.
      *
      * @return arguments map.
      */
-    int getRetries();
+    int getSwipeRetries();
 
     /**
      * Gets the timeout to perform a swipe.
      *
      * @return timeout to perform swipe.
      */
-    Duration getTimeout();
+    Duration getSwipeTimeout();
 
     /**
      * Gets the coefficient to calculate the 'x' coordinate of top point for swipe action.

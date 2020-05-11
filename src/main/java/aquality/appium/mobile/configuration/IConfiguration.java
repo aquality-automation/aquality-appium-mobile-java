@@ -43,9 +43,9 @@ public interface IConfiguration {
     IElementCacheConfiguration getElementCacheConfiguration();
 
     /**
-     * Gets configuration of swipes.
+     * Gets configuration of touch actions.
      *
-     * @return Configuration of swipes.
+     * @return Configuration of touch actions.
      */
-    ISwipeConfiguration getSwipeConfiguration();
+    ITouchActionsConfiguration getTouchActionsConfiguration();
 }

@@ -13,18 +13,19 @@ public class Configuration implements IConfiguration {
     private final IApplicationProfile applicationProfile;
     private final ILoggerConfiguration loggerConfiguration;
     private final IElementCacheConfiguration elementCacheConfiguration;
-    private final ISwipeConfiguration swipeConfiguration;
+    private final ITouchActionsConfiguration touchActionsConfiguration;
 
     @Inject
     public Configuration(ITimeoutConfiguration timeoutConfiguration, IRetryConfiguration retryConfiguration,
                          IApplicationProfile applicationProfile, ILoggerConfiguration loggerConfiguration,
-                         IElementCacheConfiguration elementCacheConfiguration, ISwipeConfiguration swipeConfiguration) {
+                         IElementCacheConfiguration elementCacheConfiguration,
+                         ITouchActionsConfiguration touchActionsConfiguration) {
         this.timeoutConfiguration = timeoutConfiguration;
         this.retryConfiguration = retryConfiguration;
         this.applicationProfile = applicationProfile;
         this.loggerConfiguration = loggerConfiguration;
         this.elementCacheConfiguration = elementCacheConfiguration;
-        this.swipeConfiguration = swipeConfiguration;
+        this.touchActionsConfiguration = touchActionsConfiguration;
     }
 
     @Override
@@ -53,7 +54,7 @@ public class Configuration implements IConfiguration {
     }
 
     @Override
-    public ISwipeConfiguration getSwipeConfiguration() {
-        return swipeConfiguration;
+    public ITouchActionsConfiguration getTouchActionsConfiguration() {
+        return touchActionsConfiguration;
     }
 }
