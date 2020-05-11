@@ -1,7 +1,6 @@
 package samples.android.nativeapp.apidemos.screens;
 
 import aquality.appium.mobile.actions.SwipeDirection;
-import aquality.appium.mobile.elements.actions.ElementTouchActions;
 import aquality.appium.mobile.elements.interfaces.IButton;
 import aquality.appium.mobile.elements.interfaces.ICheckBox;
 import aquality.appium.mobile.elements.interfaces.ILabel;

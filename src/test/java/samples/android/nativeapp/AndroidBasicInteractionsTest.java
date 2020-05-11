@@ -101,7 +101,7 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
     @Test
     public void testHorizontalSwipeToElement() {
         ViewTabsScrollableScreen viewTabsScrollableScreen = ApplicationActivity.VIEW_TABS_SCROLLABLE.open();
-        Assert.assertTrue(viewTabsScrollableScreen.isDisplayed(),
+        Assert.assertTrue(viewTabsScrollableScreen.state().isDisplayed(),
                 String.format("%s screen should be opened", viewTabsScrollableScreen.getName()));
         viewTabsScrollableScreen.swipeTab(4, 1);
         viewTabsScrollableScreen.selectTab(7);

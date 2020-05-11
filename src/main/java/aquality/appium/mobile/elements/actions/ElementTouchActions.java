@@ -3,7 +3,7 @@ package aquality.appium.mobile.elements.actions;
 import aquality.appium.mobile.actions.ITouchActions;
 import aquality.appium.mobile.actions.SwipeDirection;
 import aquality.appium.mobile.application.AqualityServices;
-import aquality.appium.mobile.configuration.ISwipeConfiguration;
+import aquality.appium.mobile.configuration.ITouchActionsConfiguration;
 import aquality.appium.mobile.elements.interfaces.IElement;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
@@ -23,20 +23,20 @@ public class ElementTouchActions implements IElementTouchActions {
         this.element = element;
         this.scrollDownStartPoint = recalculatePointCoordinates(
                 getBottomRightCornerPoint(),
-                getISwipeConfiguration().getHorizontalSwipeBottomPointXCoefficient(),
-                getISwipeConfiguration().getHorizontalSwipeBottomPointYCoefficient());
+                getITouchActionsConfiguration().getHorizontalSwipeBottomPointXCoefficient(),
+                getITouchActionsConfiguration().getHorizontalSwipeBottomPointYCoefficient());
         this.scrollDownEndPoint = recalculatePointCoordinates(
                 getBottomRightCornerPoint(),
-                getISwipeConfiguration().getHorizontalSwipeTopPointXCoefficient(),
-                getISwipeConfiguration().getHorizontalSwipeTopPointYCoefficient());
+                getITouchActionsConfiguration().getHorizontalSwipeTopPointXCoefficient(),
+                getITouchActionsConfiguration().getHorizontalSwipeTopPointYCoefficient());
         this.swipeLeftStartPoint = recalculatePointCoordinates(
                 getBottomRightCornerPoint(),
-                getISwipeConfiguration().getVerticalSwipeRightPointXCoefficient(),
-                getISwipeConfiguration().getVerticalSwipeRightPointYCoefficient());
+                getITouchActionsConfiguration().getVerticalSwipeRightPointXCoefficient(),
+                getITouchActionsConfiguration().getVerticalSwipeRightPointYCoefficient());
         this.swipeLeftEndPoint = recalculatePointCoordinates(
                 getBottomRightCornerPoint(),
-                getISwipeConfiguration().getVerticalSwipeLeftPointXCoefficient(),
-                getISwipeConfiguration().getVerticalSwipeLeftPointYCoefficient());
+                getITouchActionsConfiguration().getVerticalSwipeLeftPointXCoefficient(),
+                getITouchActionsConfiguration().getVerticalSwipeLeftPointYCoefficient());
         this.scrollUpStartPoint = this.scrollDownEndPoint;
         this.scrollUpEndPoint = this.scrollDownStartPoint;
         this.swipeRightStartPoint = this.swipeLeftEndPoint;
@@ -55,7 +55,7 @@ public class ElementTouchActions implements IElementTouchActions {
 
     @Override
     public void scrollToElement(SwipeDirection direction) {
-        int numberOfRetries = AqualityServices.get(ISwipeConfiguration.class).getRetries();
+        int numberOfRetries = AqualityServices.get(ITouchActionsConfiguration.class).getSwipeRetries();
         ITouchActions touchActions = AqualityServices.getTouchActions();
         while (numberOfRetries > 0) {
             if (!element.state().isDisplayed()) {
@@ -104,11 +104,11 @@ public class ElementTouchActions implements IElementTouchActions {
     }
 
     /**
-     * Returns ISwipeConfiguration class.
+     * Returns ITouchActionsConfiguration class.
      *
-     * @return ISwipeConfiguration class
+     * @return ITouchActionsConfiguration class
      */
-    private ISwipeConfiguration getISwipeConfiguration() {
-        return AqualityServices.get(ISwipeConfiguration.class);
+    private ITouchActionsConfiguration getITouchActionsConfiguration() {
+        return AqualityServices.get(ITouchActionsConfiguration.class);
     }
 }

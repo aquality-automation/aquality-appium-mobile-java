@@ -1,7 +1,7 @@
 package aquality.appium.mobile.actions;
 
 import aquality.appium.mobile.application.AqualityServices;
-import aquality.appium.mobile.configuration.ISwipeConfiguration;
+import aquality.appium.mobile.configuration.ITouchActionsConfiguration;
 import aquality.selenium.core.utilities.IElementActionRetrier;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
@@ -19,8 +19,10 @@ public class TouchActions implements ITouchActions {
                 startPoint.getY(),
                 endPoint.getX(),
                 endPoint.getY());
-        performTouchAction(touchAction -> touchAction.press(PointOption.point(startPoint))
-                .waitAction(waitOptions(AqualityServices.get(ISwipeConfiguration.class).getTimeout())), endPoint);
+        performTouchAction(touchAction -> touchAction
+                .press(PointOption.point(startPoint))
+                .waitAction(waitOptions(AqualityServices.get(ITouchActionsConfiguration.class).getSwipeTimeout())),
+                endPoint);
     }
 
     @Override
