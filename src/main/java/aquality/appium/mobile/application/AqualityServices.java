@@ -5,13 +5,17 @@ import aquality.appium.mobile.configuration.IApplicationProfile;
 import aquality.appium.mobile.configuration.IConfiguration;
 import aquality.appium.mobile.configuration.ILocalServiceSettings;
 import aquality.appium.mobile.elements.interfaces.IElementFactory;
+import aquality.appium.mobile.screens.screenfactory.IScreenFactory;
+import aquality.appium.mobile.screens.screenfactory.IScreenFactoryProvider;
 import aquality.selenium.core.localization.ILocalizedLogger;
 import aquality.selenium.core.logging.Logger;
 import aquality.selenium.core.waitings.IConditionalWait;
 import com.google.inject.Injector;
 
 public class AqualityServices extends aquality.selenium.core.applications.AqualityServices<Application> {
+
     private static final ThreadLocal<AqualityServices> INSTANCE_CONTAINER = ThreadLocal.withInitial(AqualityServices::new);
+
     private IApplicationFactory applicationFactory;
 
     private AqualityServices() {
@@ -151,6 +155,15 @@ public class AqualityServices extends aquality.selenium.core.applications.Aquali
      */
     public static IElementFactory getElementFactory() {
         return get(IElementFactory.class);
+    }
+
+    /**
+     * Gets factory to create screens.
+     *
+     * @return Factory of screens.
+     */
+    public static IScreenFactory getScreenFactory() {
+        return get(IScreenFactoryProvider.class).getScreenFactory();
     }
 
     /**

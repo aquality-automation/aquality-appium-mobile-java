@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 import samples.android.ITestCheckBox;
 
 public class WebCheckboxTest extends AndroidWebTest implements ITestCheckBox {
-    private ILabel form = AqualityServices.getElementFactory().getLabel(By.id("checkboxes"), "Checkboxes form");
 
     @Override
     public void openCheckBoxesScreen() {
@@ -18,11 +17,12 @@ public class WebCheckboxTest extends AndroidWebTest implements ITestCheckBox {
 
     @Override
     public ICheckBox getCheckBox(int number) {
+        ILabel form = AqualityServices.getElementFactory().getLabel(By.id("checkboxes"), "Checkboxes form");
         return AqualityServices.getElementFactory().findChildElement(form, By.xpath(String.format(".//input[%d]", number)),
                 "#" + number, ElementType.CHECKBOX);
     }
 
-    @Test(groups = "web")
+    @Test
     public void testCheckBox() {
         ITestCheckBox.super.testCheckBox();
     }

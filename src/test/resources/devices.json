@@ -1,0 +1,35 @@
+{
+  "iOS_Simulator": {
+    "capabilities": {
+      "platformVersion": "13.3",
+      "deviceName": "iPhone 11"
+    }
+  },
+  "iPhone_11": {
+    "capabilities": {
+      "platformVersion": "13.3",
+      "deviceName": "iPhone 11",
+      "udid": "device_udid",
+      "wdaLocalPort": "8081"
+    }
+  },
+  "Android_Emulator": {
+    "capabilities": {
+      "deviceName": "Android Emulator"
+    }
+  },
+  "Nexus": {
+    "capabilities": {
+      "deviceName": "Nexus",
+      "udid": "device_udid",
+      "systemPort": "8082"
+    }
+  },
+  "Samsung_Galaxy": {
+    "capabilities": {
+      "deviceName": "Samsung Galaxy",
+      "udid": "device_udid",
+      "systemPort": "8082"
+    }
+  }
+}

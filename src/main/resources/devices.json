@@ -1,0 +1,28 @@
+{
+  "iOS_Simulator": {
+    "capabilities": {
+      "platformVersion": "<iOS_platform_version>",
+      "deviceName": "<iOS_simulator_name>"
+    }
+  },
+  "iPhone_NAME": {
+    "capabilities": {
+      "platformVersion": "<iOS_platform_version>",
+      "deviceName": "<iOS_device_name>",
+      "udid": "<iOS_device_udidi>",
+      "wdaLocalPort": "<wda_local_port>"
+    }
+  },
+  "Android_Emulator": {
+    "capabilities": {
+      "deviceName": "<Android_emulator_name>"
+    }
+  },
+  "Android_NAME": {
+    "capabilities": {
+      "deviceName": "<Android_device_name>",
+      "udid": "<Android_device_udid>",
+      "systemPort": "<appium_system_port>"
+    }
+  }
+}

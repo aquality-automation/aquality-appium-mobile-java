@@ -2,21 +2,23 @@
   "platformName" : "android",
   "isRemote": false,
   "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
+  "screensLocation": "<NAME_OF_PACKAGE_WITH_SCREENS>",
 
   "driverSettings": {
     "android": {
+      "deviceKey": "<KEY_OF_ANDROID_DEVICE_FROM_DEVICES_JSON>",
       "applicationPath": "./src/test/resources/apps/ApiDemos-debug.apk",
       "capabilities": {
-        "deviceName": "Android Emulator"
+        "platformName": "Android",
+        "automationName": "UiAutomator2"
       }
     },
     "ios": {
+      "deviceKey": "<KEY_OF_IOS_DEVICE_FROM_DEVICES_JSON>",
       "applicationPath": "./src/test/resources/apps/TestApp.app.zip",
       "capabilities": {
-        "deviceName": "iOS Simulator",
-        "automationName": "XCUITest",
         "platformName": "iOS",
-        "udid": "<SIMULATOR_ID/DEVICE_ID>"
+        "automationName": "XCUITest"
       }
     }
   },
@@ -28,10 +30,10 @@
     }
   },
   "timeouts": {
-    "timeoutImplicit" : 0,
-    "timeoutCondition" : 15,
+    "timeoutImplicit": 0,
+    "timeoutCondition": 15,
     "timeoutPollingInterval": 300,
-    "timeoutCommand":120
+    "timeoutCommand": 120
   },
   "retry": {
     "number": 2,
@@ -41,13 +43,13 @@
     "language": "en"
   },
   "elementCache": {
-    "isEnabled": false
+    "isEnabled": true
   },
   "swipe": {
     "timeout": 1,
     "retries": 5,
-    "horizontalSwipeTopCoefficient": 0.2,
     "horizontalSwipeBottomCoefficient": 0.8,
+    "horizontalSwipeTopCoefficient": 0.2,
     "horizontalSwipeLeftCoefficient": 0.5,
     "horizontalSwipeRightCoefficient": 0.5,
     "verticalSwipeTopCoefficient": 0.5,

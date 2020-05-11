@@ -42,4 +42,9 @@ public class ApplicationProfile implements IApplicationProfile {
             throw new InvalidArgumentException(String.format("Address %1$s provided in configuration by key %2$s is not valid", address, key));
         }
     }
+
+    @Override
+    public String getScreensLocation() {
+        return (String) settingsFile.getValue("/screensLocation");
+    }
 }

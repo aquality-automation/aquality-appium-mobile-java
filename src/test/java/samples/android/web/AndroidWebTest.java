@@ -2,21 +2,19 @@ package samples.android.web;
 
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.application.MobileModule;
-import org.testng.annotations.AfterGroups;
-import org.testng.annotations.BeforeGroups;
-import org.testng.annotations.Listeners;
+import org.testng.annotations.*;
 import testreport.ScreenshotListener;
 
 @Listeners(ScreenshotListener.class)
 public abstract class AndroidWebTest {
 
-    @BeforeGroups("web")
+    @BeforeClass
     void setUp() {
         System.setProperty("profile", "androidwebsession");
         AqualityServices.initInjector(new MobileModule(AqualityServices::getApplication));
     }
 
-    @AfterGroups("web")
+    @AfterClass
     void tearDown() {
         AqualityServices.getApplication().quit();
         System.clearProperty("profile");
