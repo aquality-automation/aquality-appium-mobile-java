@@ -7,8 +7,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Attribute that identifies platform of screen.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface ScreenPlatform {
+
+    /**
+     * Name of platform that screen relates to.
+     */
     PlatformName platform();
 }
