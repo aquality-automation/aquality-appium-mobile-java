@@ -38,8 +38,8 @@ public class ScreenFactory implements IScreenFactory {
     private Set<Class<?>> getPlatformClasses() {
         Reflections reflections = new Reflections(getPackageWithScreens());
         try {
-            return reflections.getTypesAnnotatedWith(ScreenPlatform.class).stream()
-                    .filter(clazz -> clazz.getAnnotation(ScreenPlatform.class).platform() == applicationProfile.getPlatformName())
+            return reflections.getTypesAnnotatedWith(ScreenType.class).stream()
+                    .filter(clazz -> clazz.getAnnotation(ScreenType.class).platform() == applicationProfile.getPlatformName())
                     .collect(Collectors.toSet());
         } catch (ReflectionsException e) {
             throw new IllegalArgumentException(String.format("Could not find package \"%s\" with Screens. " +

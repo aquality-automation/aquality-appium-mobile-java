@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface ScreenPlatform {
+public @interface ScreenType {
 
     /**
      * Name of platform that screen relates to.
