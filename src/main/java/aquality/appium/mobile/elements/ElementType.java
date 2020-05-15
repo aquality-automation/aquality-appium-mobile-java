@@ -11,12 +11,13 @@ public enum ElementType {
     RADIOBUTTON(IRadioButton.class),
     TEXTBOX(ITextBox.class);
 
-    private Class<? extends IElement> clazz;
+    private final Class<? extends IElement> clazz;
 
     <T extends IElement> ElementType(Class<T> clazz){
         this.clazz = clazz;
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends IElement> Class<T> getClazz() {
         return (Class<T>) clazz;
     }

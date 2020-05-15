@@ -6,9 +6,9 @@ package aquality.appium.mobile.screens.screenfactory;
 public interface IScreensModule {
 
     /**
-     * @return class which implements {@link IScreenFactoryProvider}
+     * @return class which implements {@link IScreenFactory}
      */
-    default Class<? extends IScreenFactoryProvider> getScreenFactoryProviderImplementation() {
-        return ScreenFactoryProvider.class;
+    default Class<? extends IScreenFactory> getScreenFactoryImplementation() {
+        return ScreenFactory.class;
     }
 }
