@@ -84,57 +84,87 @@ public class InvokeSearchScreen extends AndroidScreen {
 
 ### ScreenFactory
 
-When you automate tests for both iOS and Android platforms it is good to have only one set of tests and different implementations of screens. `ScreenFactory` allows to do this. You can define interfaces for your screens and have different implementations for iOS and Android platforms. And then use `ScreenFactory` to resolve necessary screen depending on the chosen platform.
+When you automate tests for both iOS and Android platforms it is good to have only one set of tests and different implementations of screens. `ScreenFactory` allows to do this. You can define abstract classes for your screens and have different implementations for iOS and Android platforms. After that you can use `ScreenFactory` to resolve a necessary screen depending on the chosen platform.
 
 1. Set `screensLocation` property in `settings.json`. It is a name of package where you define screens.
 
-2. Define interfaces for the screens:
+2. Define abstract classes for the screens:
 
 ```java
-package aquality.appium.mobile.template.screens.interfaces;
+package aquality.appium.mobile.template.screens.login;
 
-public interface ILoginScreen extends IScreen {
+import aquality.appium.mobile.elements.interfaces.IButton;
+import aquality.appium.mobile.elements.interfaces.ITextBox;
+import aquality.appium.mobile.screens.Screen;
+import org.openqa.selenium.By;
 
-    ILoginScreen setUsername(final String username);
+public abstract class LoginScreen extends Screen {
 
-    ILoginScreen setPassword(final String password);
+    private final ITextBox usernameTxb;
+    private final ITextBox passwordTxb;
+    private final IButton loginBtn;
 
-    void tapLogin();
+    protected LoginScreen(By locator) {
+        super(locator, "Login");
+        usernameTxb = getElementFactory().getTextBox(getUsernameTxbLoc(), "Username");
+        passwordTxb = getElementFactory().getTextBox(getPasswordTxbLoc(), "Password");
+        loginBtn = getElementFactory().getButton(getLoginBtnLoc(), "Login");
+    }
+
+    protected abstract By getUsernameTxbLoc();
+
+    protected abstract By getPasswordTxbLoc();
+
+    protected abstract By getLoginBtnLoc();
+
+    public LoginScreen setUsername(final String username) {
+        usernameTxb.sendKeys(username);
+        return this;
+    }
+
+    public LoginScreen setPassword(final String password) {
+        passwordTxb.typeSecret(password);
+        return this;
+    }
+
+    public void tapLogin() {
+        loginBtn.click();
+    }
 }
 ```
 
 3. Implement interface (Android example):
 
 ```java
-package aquality.appium.mobile.template.screens.android;
+package aquality.appium.mobile.template.screens.login;
 
-import aquality.appium.mobile.screens.AndroidScreen;
-import aquality.appium.mobile.template.screens.interfaces.ILoginScreen;
+import aquality.appium.mobile.application.PlatformName;
+import aquality.appium.mobile.screens.screenfactory.ScreenType;
+import org.openqa.selenium.By;
 
 import static io.appium.java_client.MobileBy.AccessibilityId;
 import static org.openqa.selenium.By.xpath;
 
-public class LoginScreen extends AndroidScreen implements ILoginScreen {
+@ScreenType(platform = PlatformName.ANDROID)
+public class AndroidLoginScreen extends LoginScreen {
 
-    public LoginScreen() {
-        super(xpath("//android.widget.TextView[@text='Login']"), "Login");
+    public AndroidLoginScreen() {
+        super(xpath("//android.widget.TextView[@text='Login']"));
     }
 
     @Override
-    public ILoginScreen setUsername(final String username) {
-        getElementFactory().getTextBox(AccessibilityId("username"), "Username").sendKeys(username);
-        return this;
+    protected By getUsernameTxbLoc() {
+        return AccessibilityId("username");
     }
 
     @Override
-    public ILoginScreen setPassword(final String password) {
-        getElementFactory().getTextBox(AccessibilityId("password"), "Password").typeSecret(password);
-        return this;
+    protected By getPasswordTxbLoc() {
+        return AccessibilityId("password");
     }
 
     @Override
-    public void tapLogin() {
-        getElementFactory().getButton(AccessibilityId("loginBtn"), "Login").click();
+    protected By getLoginBtnLoc() {
+        return AccessibilityId("loginBtn");
     }
 }
 ```
@@ -142,7 +172,7 @@ public class LoginScreen extends AndroidScreen implements ILoginScreen {
 4. Resolve screen in test:
 
 ```java
-ILoginScreen loginScreen = AqualityServices.getScreenFactory().getScreen(ILoginScreen.class);
+LoginScreen loginScreen = AqualityServices.getScreenFactory().getScreen(LoginScreen.class);
 ```
 
 You can find an example in [aquality-appium-mobile-java-template](https://github.com/aquality-automation/aquality-appium-mobile-java-template) repository.
