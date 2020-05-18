@@ -22,11 +22,11 @@ We use interfaces where is possible, so you can implement your own version of ta
 <dependency>
     <groupId>com.github.aquality-automation</groupId>
     <artifactId>aquality-appium-mobile</artifactId>
-    <version>LATEST</version>
+    <version>${LATEST_VERSION}</version>
 </dependency>
 ```
 
-2. Configure path to your application at settings.json:
+2. Configure the path to your application at settings.json:
  - Copy [settings.json](./src/main/resources/settings.json) into the resources directory of your project. 
  - Open settings.json and find `applicationPath` option under the `driverSettings` section of desired platform. Replace the value with full or relative path to your app, e.g. `./src/test/resources/apps/ApiDemos-debug.apk`.
 
@@ -34,6 +34,7 @@ We use interfaces where is possible, so you can implement your own version of ta
 If the parameter `isRemote` in your settings.json is set to `false`, this means that AppiumDriverLocalService would be used to setup Appium server using Node.js. This option requires specific version of node.js to be preinstalled on your machine (Please read more [here](http://appium.io/docs/en/contributing-to-appium/appium-from-source/#nodejs) )
 
 4. (optional) Launch an application directly by calling `AqualityServices.getApplication();`. 
+
 > Note: 
 If you don't start an Application directly, it would be started with the first call of any Aquality service or class requiring interacting with the Application.
 
@@ -41,10 +42,9 @@ If you don't start an Application directly, it would be started with the first c
 Please take a look at our example tests [here](./src/test/java/samples/)
 
 6. To interact with Application's forms and elements, we recommend following the Page/Screen Objects pattern. This approach is fully integrated into our package.
-To start with that, you will need to create a separate class for each window/form of your application, and inherit this class from the [AndroidScreen](./src/main/java/aquality/appium/mobile/screens/AndroidScreen.java) or [IOSScreen](./src/main/java/aquality/appium/mobile/screens/IOSScreen.java) respectively. 
+To start with that, you will need to create a separate class for each window/form of your application, and inherit this class from the [Screen](./src/main/java/aquality/appium/mobile/screens/Screen.java). 
 
-> We recommend to use separate Screen class for each form of your application. You can take advantage of inheritance and composition pattern. We also suggest not to mix app different platforms in single class: take advantage of interfaces instead, adding the default implementation to them if is needed.
-
+> We recommend to use separate Screen class for each form of your application. You can take advantage of inheritance and composition pattern. We also suggest not to mix app different platforms in single class: take advantage of interfaces instead, adding the default implementation to them if it is needed.
 
 7. From the Screen Object perspective, each Screen consists of elements on it (e.g. Buttons, TextBox, Labels and so on). 
 To interact with elements, on your form class create fields of type IButton, ITextBox, ILabel, and initialize them using the `getElementFactory()`. Created elements have a various methods to interact with them. We recommend combining actions into a business-level methods:
@@ -77,7 +77,6 @@ public class InvokeSearchScreen extends AndroidScreen {
         return lblSearchResult.getText();
     }
 }
-
 ```
 
 8. We use DI Guice to inject dependencies, so you can simply implement your MobileModule extended from [MobileModule](./src/main/java/aquality/appium/mobile/application/MobileModule.java) and inject it to `AqualityServices.initInjector(yourModule)`.
