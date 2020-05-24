@@ -1,9 +1,11 @@
 package integration.screens;
 
-import aquality.appium.mobile.screens.AndroidScreen;
+import aquality.appium.mobile.application.PlatformName;
+import aquality.appium.mobile.screens.screenfactory.ScreenType;
 import org.openqa.selenium.By;
 
-public class AndroidLoginScreen extends AndroidScreen implements ILoginScreen {
+@ScreenType(platform = PlatformName.ANDROID)
+public class AndroidLoginScreen extends LoginScreen {
 
     /**
      * Constructor with parameters

@@ -5,7 +5,6 @@ import aquality.appium.mobile.elements.interfaces.IButton;
 import aquality.appium.mobile.elements.interfaces.ICheckBox;
 import aquality.appium.mobile.elements.interfaces.ILabel;
 import aquality.appium.mobile.elements.interfaces.IRadioButton;
-import aquality.appium.mobile.screens.AndroidScreen;
 import io.appium.java_client.MobileBy;
 import org.openqa.selenium.By;
 

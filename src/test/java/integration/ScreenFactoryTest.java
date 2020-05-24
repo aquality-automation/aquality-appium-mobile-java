@@ -2,10 +2,10 @@ package integration;
 
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.application.MobileModule;
-import aquality.appium.mobile.screens.AndroidScreen;
-import aquality.appium.mobile.screens.IOSScreen;
-import integration.screens.IFakeLoginScreen;
-import integration.screens.ILoginScreen;
+import integration.screens.AndroidLoginScreen;
+import integration.screens.FakeLoginScreen;
+import integration.screens.IOSLoginScreen;
+import integration.screens.LoginScreen;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
@@ -17,26 +17,26 @@ public class ScreenFactoryTest {
 
     @Test
     public void shouldBePossibleToGetScreenViaFactory() {
-        Assert.assertNotNull(AqualityServices.getScreenFactory().getScreen(ILoginScreen.class));
+        Assert.assertNotNull(AqualityServices.getScreenFactory().getScreen(LoginScreen.class));
     }
 
     @Test
     public void shouldBePossibleToGetAndroidScreenViaFactory() {
         System.setProperty(PLATFORM_NAME_VARIABLE_NAME, "android");
         AqualityServices.initInjector(new MobileModule(AqualityServices::getApplication));
-        Assert.assertTrue(AqualityServices.getScreenFactory().getScreen(ILoginScreen.class) instanceof AndroidScreen);
+        Assert.assertTrue(AqualityServices.getScreenFactory().getScreen(LoginScreen.class) instanceof AndroidLoginScreen);
     }
 
     @Test
     public void shouldBePossibleToGetIOSScreenViaFactory() {
         System.setProperty(PLATFORM_NAME_VARIABLE_NAME, "ios");
         AqualityServices.initInjector(new MobileModule(AqualityServices::getApplication));
-        Assert.assertTrue(AqualityServices.getScreenFactory().getScreen(ILoginScreen.class) instanceof IOSScreen);
+        Assert.assertTrue(AqualityServices.getScreenFactory().getScreen(LoginScreen.class) instanceof IOSLoginScreen);
     }
 
     @Test
     public void shouldThrowIllegalArgumentExceptionOnNotImplementedScreenInterface() {
-        Assert.assertThrows(IllegalArgumentException.class, () -> AqualityServices.getScreenFactory().getScreen(IFakeLoginScreen.class));
+        Assert.assertThrows(IllegalArgumentException.class, () -> AqualityServices.getScreenFactory().getScreen(FakeLoginScreen.class));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class ScreenFactoryTest {
     {
         System.setProperty(SCREENS_LOCATION_VARIABLE_NAME, "fake.package");
         AqualityServices.initInjector(new MobileModule(AqualityServices::getApplication));
-        Assert.assertThrows(IllegalArgumentException.class, () -> AqualityServices.getScreenFactory().getScreen(ILoginScreen.class));
+        Assert.assertThrows(IllegalArgumentException.class, () -> AqualityServices.getScreenFactory().getScreen(LoginScreen.class));
     }
 
     @AfterClass

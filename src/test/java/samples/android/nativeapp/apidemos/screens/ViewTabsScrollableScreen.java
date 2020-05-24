@@ -2,7 +2,6 @@ package samples.android.nativeapp.apidemos.screens;
 
 import aquality.appium.mobile.elements.interfaces.IButton;
 import aquality.appium.mobile.elements.interfaces.ILabel;
-import aquality.appium.mobile.screens.AndroidScreen;
 import io.appium.java_client.MobileBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
