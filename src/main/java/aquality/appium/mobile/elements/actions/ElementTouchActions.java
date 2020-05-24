@@ -23,20 +23,20 @@ public class ElementTouchActions implements IElementTouchActions {
         this.element = element;
         this.scrollDownStartPoint = recalculatePointCoordinates(
                 getBottomRightCornerPoint(),
-                getITouchActionsConfiguration().getHorizontalSwipeBottomPointXCoefficient(),
-                getITouchActionsConfiguration().getHorizontalSwipeBottomPointYCoefficient());
+                (1 - getConfiguration().getSwipeHorizontalOffset()),
+                (1 - getConfiguration().getSwipeVerticalOffset()));
         this.scrollDownEndPoint = recalculatePointCoordinates(
                 getBottomRightCornerPoint(),
-                getITouchActionsConfiguration().getHorizontalSwipeTopPointXCoefficient(),
-                getITouchActionsConfiguration().getHorizontalSwipeTopPointYCoefficient());
+                getConfiguration().getSwipeHorizontalOffset(),
+                getConfiguration().getSwipeVerticalOffset());
         this.swipeLeftStartPoint = recalculatePointCoordinates(
                 getBottomRightCornerPoint(),
-                getITouchActionsConfiguration().getVerticalSwipeRightPointXCoefficient(),
-                getITouchActionsConfiguration().getVerticalSwipeRightPointYCoefficient());
+                (1 - getConfiguration().getSwipeVerticalOffset()),
+                (1 - getConfiguration().getSwipeHorizontalOffset()));
         this.swipeLeftEndPoint = recalculatePointCoordinates(
                 getBottomRightCornerPoint(),
-                getITouchActionsConfiguration().getVerticalSwipeLeftPointXCoefficient(),
-                getITouchActionsConfiguration().getVerticalSwipeLeftPointYCoefficient());
+                getConfiguration().getSwipeVerticalOffset(),
+                getConfiguration().getSwipeHorizontalOffset());
         this.scrollUpStartPoint = this.scrollDownEndPoint;
         this.scrollUpEndPoint = this.scrollDownStartPoint;
         this.swipeRightStartPoint = this.swipeLeftEndPoint;
@@ -92,15 +92,15 @@ public class ElementTouchActions implements IElementTouchActions {
     /**
      * Returns the point with recalculated coordinates.
      *
-     * @param point        point to recalculate coordinates
-     * @param coefficientX coefficient to recalculate the point's x coordinate. Example: x' = x * coefficientX
-     * @param coefficientY coefficient to recalculate the point's y coordinate. Example: y' = y * coefficientY
-     * @return point with recalculated coordinates according to the xCoefficient and yCoefficient
+     * @param point            point to recalculate coordinates
+     * @param horizontalOffset coefficient to recalculate the point with horizontal offset.
+     * @param verticalOffset   coefficient to recalculate the point with vertical offset.
+     * @return point with recalculated coordinates with horizontal and vertical offset.
      */
-    private Point recalculatePointCoordinates(Point point, double coefficientX, double coefficientY) {
+    private Point recalculatePointCoordinates(Point point, double horizontalOffset, double verticalOffset) {
         return new Point(
-                (int) (point.getX() * coefficientX),
-                (int) (point.getY() * coefficientY));
+                (int) (point.getX() * horizontalOffset),
+                (int) (point.getY() * verticalOffset));
     }
 
     /**
@@ -108,7 +108,7 @@ public class ElementTouchActions implements IElementTouchActions {
      *
      * @return ITouchActionsConfiguration class
      */
-    private ITouchActionsConfiguration getITouchActionsConfiguration() {
+    private ITouchActionsConfiguration getConfiguration() {
         return AqualityServices.get(ITouchActionsConfiguration.class);
     }
 }

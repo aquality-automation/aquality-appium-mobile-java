@@ -16,7 +16,7 @@ public interface ITouchActions {
     void swipe(Point startPoint, Point endPoint);
 
     /**
-     * Performs long press action and moves cursor from a start point to an end end point imitating the swipe action
+     * Performs long press action and moves cursor from a start point to an end end point imitating the swipe action.
      *
      * @param startPoint point on screen to swipe from.
      * @param endPoint   point on screen to swipe to.

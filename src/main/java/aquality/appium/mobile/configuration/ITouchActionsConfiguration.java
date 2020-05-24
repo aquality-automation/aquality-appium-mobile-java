@@ -14,66 +14,43 @@ public interface ITouchActionsConfiguration {
     int getSwipeRetries();
 
     /**
-     * Gets the timeout to perform a swipe.
+     * Gets the number of seconds required to perform a swipe action.
      *
-     * @return timeout to perform swipe.
+     * @return number of seconds required to perform a swipe action.
      */
-    Duration getSwipeTimeout();
+    Duration getSwipeDuration();
 
     /**
-     * Gets the coefficient to calculate the 'x' coordinate of top point for swipe action.
+     * Gets the offset coefficient to adjust the start/end point for swipe action relatively to the parallel screen edge.
+     * Example for swipe down action:
+     * The offset coefficient is used to calculate start/end point's Y coordinate.
+     * If offset coefficient == 0.2, then the start point's Y coordinate == screen's length * (1 - 0.2).
+     * If offset coefficient == 0.2, then the end point's Y coordinate == screen's length * 0.2.
+     * The vice versa for swipe up action.
+     * Example for swipe left action:
+     * The offset coefficient is used to calculate start/end point's X coordinate.
+     * If offset coefficient == 0.2, then the start point's X coordinate == screen's width * (1 - 0.2).
+     * If offset coefficient == 0.2, then the end point's X coordinate == screen's width * 0.2.
+     * The vice versa for swipe right action.
      *
-     * @return coefficient to calculate the 'x' coordinate of top point for swipe action
+     * @return offset coefficient to adjust the start/end point for swipe action relatively to the parallel screen edge
      */
-    double getHorizontalSwipeTopPointXCoefficient();
+    double getSwipeVerticalOffset();
 
     /**
-     * Gets the coefficient to calculate the 'x' coordinate of bottom point for swipe action.
+     * Gets the offset coefficient to adjust the start/end point for swipe action relatively to the perpendicular screen edge.
+     * Example for swipe down action:
+     * The offset coefficient is used to calculate start/end point's X coordinate.
+     * If offset coefficient == 0.5, then the start point's X coordinate == screen's width * (1 - 0.5).
+     * If offset coefficient == 0.5, then the end point's X coordinate == screen's width * 0.5.
+     * The vice versa for swipe up action.
+     * Example for swipe left action:
+     * The offset coefficient is used to calculate start/end point's X coordinate.
+     * If offset coefficient == 0.5, then the start point's Y coordinate == screen's length * (1 - 0.5).
+     * If offset coefficient == 0.5, then the end point's Y coordinate == screen's length * 0.5.
+     * The vice versa for swipe right action.
      *
-     * @return coefficient to calculate the 'x' coordinate of bottom point for swipe action
+     * @return offset coefficient to adjust the start/end point for swipe action relatively to the perpendicular screen edge
      */
-    double getHorizontalSwipeBottomPointXCoefficient();
-
-    /**
-     * Gets the coefficient to calculate the 'y' coordinate of top point for swipe action.
-     *
-     * @return coefficient to calculate the 'y' coordinate of top point for swipe action
-     */
-    double getHorizontalSwipeTopPointYCoefficient();
-
-    /**
-     * Gets the coefficient to calculate the 'y' coordinate of bottom point for swipe action.
-     *
-     * @return coefficient to calculate the 'y' coordinate of bottom point for swipe action
-     */
-    double getHorizontalSwipeBottomPointYCoefficient();
-
-    /**
-     * Gets the coefficient to calculate the 'x' coordinate of top point for swipe action.
-     *
-     * @return timeout to perform swipe.
-     */
-    double getVerticalSwipeLeftPointXCoefficient();
-
-    /**
-     * Gets the coefficient to calculate the 'x' coordinate of right-hand point for swipe action.
-     *
-     * @return coefficient to calculate the 'x' coordinate of right-hand point for swipe action
-     */
-    double getVerticalSwipeRightPointXCoefficient();
-
-    /**
-     * Gets the coefficient to calculate the 'y' coordinate of left-hand point for swipe action.
-     *
-     * @return coefficient to calculate the 'y' coordinate of left-hand point for swipe action
-     */
-    double getVerticalSwipeLeftPointYCoefficient();
-
-
-    /**
-     * Gets the coefficient to calculate the 'y' coordinate of right-hand point for swipe action.
-     *
-     * @return coefficient to calculate the 'y' coordinate of right-hand point for swipe action
-     */
-    double getVerticalSwipeRightPointYCoefficient();
+    double getSwipeHorizontalOffset();
 }

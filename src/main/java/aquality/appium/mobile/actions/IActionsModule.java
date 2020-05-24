@@ -1,9 +1,11 @@
 package aquality.appium.mobile.actions;
 
+import aquality.appium.mobile.configuration.IConfigurationsModule;
+
 /**
  * Describes implementations of actions services to be registered in DI container.
  */
-public interface IActionsModule extends aquality.selenium.core.configurations.IConfigurationsModule {
+public interface IActionsModule extends IConfigurationsModule {
 
     /**
      * @return class which implements {@link ITouchActions}

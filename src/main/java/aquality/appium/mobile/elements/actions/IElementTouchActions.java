@@ -13,19 +13,19 @@ public interface IElementTouchActions {
      *
      * @param endPoint point on screen to swipe to.
      */
-    void swipe(Point endPoint);
+    void swipe(final Point endPoint);
 
     /**
      * Swipes from element to end point using LongPress.
      *
      * @param endPoint point on screen to swipe to.
      */
-    void swipeWithLongPress(Point endPoint);
+    void swipeWithLongPress(final Point endPoint);
 
     /**
      * Scrolls current screen in provided direction until element is displayed.
      *
      * @param direction direction to swipe.
      */
-    void scrollToElement(SwipeDirection direction);
+    void scrollToElement(final SwipeDirection direction);
 }

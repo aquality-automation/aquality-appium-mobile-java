@@ -1,9 +1,8 @@
 {
-  "platformName" : "android",
+  "platformName": "android",
   "isRemote": false,
   "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
   "screensLocation": "<NAME_OF_PACKAGE_WITH_SCREENS>",
-
   "driverSettings": {
     "android": {
       "deviceKey": "<KEY_OF_ANDROID_DEVICE_FROM_DEVICES_JSON>",
@@ -47,16 +46,10 @@
   },
   "touchActions": {
     "swipe": {
-      "timeout": 1,
+      "duration": 1,
       "retries": 5,
-      "horizontalSwipeTopPointXCoefficient": 0.5,
-      "horizontalSwipeBottomPointXCoefficient": 0.5,
-      "horizontalSwipeTopPointYCoefficient": 0.2,
-      "horizontalSwipeBottomPointYCoefficient": 0.8,
-      "verticalSwipeLeftPointXCoefficient": 0.2,
-      "verticalSwipeRightPointXCoefficient": 0.8,
-      "verticalSwipeLeftPointYCoefficient": 0.5,
-      "verticalSwipeRightPointYCoefficient": 0.5
+      "verticalOffset": 0.2,
+      "horizontalOffset": 0.5
     }
   }
 }

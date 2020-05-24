@@ -1,9 +1,8 @@
 {
-  "platformName" : "android",
+  "platformName": "android",
   "isRemote": true,
   "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
   "screensLocation": "integration",
-
   "driverSettings": {
     "android": {
       "capabilities": {
@@ -22,10 +21,10 @@
     }
   },
   "timeouts": {
-    "timeoutImplicit" : 0,
-    "timeoutCondition" : 15,
+    "timeoutImplicit": 0,
+    "timeoutCondition": 15,
     "timeoutPollingInterval": 300,
-    "timeoutCommand":120
+    "timeoutCommand": 120
   },
   "retry": {
     "number": 2,
@@ -39,16 +38,10 @@
   },
   "touchActions": {
     "swipe": {
-      "timeout": 1,
+      "duration": 1,
       "retries": 5,
-      "horizontalSwipeTopPointXCoefficient": 0.5,
-      "horizontalSwipeBottomPointXCoefficient": 0.5,
-      "horizontalSwipeTopPointYCoefficient": 0.2,
-      "horizontalSwipeBottomPointYCoefficient": 0.8,
-      "verticalSwipeLeftPointXCoefficient": 0.2,
-      "verticalSwipeRightPointXCoefficient": 0.8,
-      "verticalSwipeLeftPointYCoefficient": 0.5,
-      "verticalSwipeRightPointYCoefficient": 0.5
+      "verticalOffset": 0.2,
+      "horizontalOffset": 0.5
     }
   }
 }

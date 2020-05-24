@@ -20,8 +20,8 @@ public class TouchActions implements ITouchActions {
                 endPoint.getX(),
                 endPoint.getY());
         performTouchAction(touchAction -> touchAction
-                .press(PointOption.point(startPoint))
-                .waitAction(waitOptions(AqualityServices.get(ITouchActionsConfiguration.class).getSwipeTimeout())),
+                        .press(PointOption.point(startPoint))
+                        .waitAction(waitOptions(AqualityServices.get(ITouchActionsConfiguration.class).getSwipeDuration())),
                 endPoint);
     }
 
