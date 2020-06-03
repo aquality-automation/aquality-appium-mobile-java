@@ -29,7 +29,7 @@ public class MobileModule extends AqualityModule<Application> implements IConfig
         bind(IConfiguration.class).to(getConfigurationImplementation());
         bind(IElementFactory.class).to(getElementFactoryImplementation());
         bind(IScreenFactory.class).to(getScreenFactoryImplementation());
-        bind(ITouchActionsConfiguration.class).to(getTouchActionsConfigurationImplementation()).in(Singleton.class);
-        bind(ITouchActions.class).to(getTouchActionsImplementation()).in(Singleton.class);
+        bind(ITouchActionsConfiguration.class).to(getTouchActionsConfigurationImplementation());
+        bind(ITouchActions.class).to(getTouchActionsImplementation());
     }
 }
