@@ -2,6 +2,8 @@ package aquality.appium.mobile.elements;
 
 import aquality.appium.mobile.application.Application;
 import aquality.appium.mobile.application.AqualityServices;
+import aquality.appium.mobile.elements.actions.ElementTouchActions;
+import aquality.appium.mobile.elements.actions.IElementTouchActions;
 import aquality.appium.mobile.elements.interfaces.IElement;
 import aquality.appium.mobile.elements.interfaces.IElementFactory;
 import aquality.selenium.core.configurations.IElementCacheConfiguration;
@@ -85,5 +87,10 @@ public abstract class Element extends aquality.selenium.core.elements.Element im
     public void sendKeys(Keys key) {
         logElementAction("loc.text.sending.keys", Keys.class.getSimpleName().concat(".").concat(key.name()));
         doWithRetry(() -> getElement().sendKeys(key));
+    }
+
+    @Override
+    public IElementTouchActions getTouchActions() {
+        return new ElementTouchActions(this);
     }
 }

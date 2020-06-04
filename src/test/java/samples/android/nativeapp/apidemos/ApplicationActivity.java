@@ -8,6 +8,7 @@ import samples.android.nativeapp.apidemos.screens.AlertsMenuScreen;
 import samples.android.nativeapp.apidemos.screens.AndroidScreen;
 import samples.android.nativeapp.apidemos.screens.InvokeSearchScreen;
 import samples.android.nativeapp.apidemos.screens.ViewControlsScreen;
+import samples.android.nativeapp.apidemos.screens.ViewTabsScrollableScreen;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -15,7 +16,8 @@ public enum ApplicationActivity {
 
     SEARCH(".app.SearchInvoke", InvokeSearchScreen.class),
     ALERT_DIALOGS(".app.AlertDialogSamples", AlertsMenuScreen.class),
-    VIEW_CONTROLS(".view.Controls1", ViewControlsScreen.class);
+    VIEW_CONTROLS(".view.Controls1", ViewControlsScreen.class),
+    VIEW_TABS_SCROLLABLE(".view.Tabs5", ViewTabsScrollableScreen.class);
 
     private static final String PACKAGE = "io.appium.android.apis";
 

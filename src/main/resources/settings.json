@@ -1,9 +1,8 @@
 {
-  "platformName" : "android",
+  "platformName": "android",
   "isRemote": false,
   "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
   "screensLocation": "<NAME_OF_PACKAGE_WITH_SCREENS>",
-
   "driverSettings": {
     "android": {
       "deviceKey": "<KEY_OF_ANDROID_DEVICE_FROM_DEVICES_JSON>",
@@ -44,5 +43,13 @@
   },
   "elementCache": {
     "isEnabled": true
+  },
+  "touchActions": {
+    "swipe": {
+      "duration": 1,
+      "retries": 5,
+      "verticalOffset": 0.2,
+      "horizontalOffset": 0.5
+    }
   }
 }

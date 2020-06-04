@@ -12,10 +12,7 @@ import org.testng.annotations.Test;
 import samples.android.ITestCheckBox;
 import samples.android.ITestRadioButton;
 import samples.android.nativeapp.apidemos.ApplicationActivity;
-import samples.android.nativeapp.apidemos.screens.AlertsMenuScreen;
-import samples.android.nativeapp.apidemos.screens.InvokeSearchScreen;
-import samples.android.nativeapp.apidemos.screens.TwoButtonsAlert;
-import samples.android.nativeapp.apidemos.screens.ViewControlsScreen;
+import samples.android.nativeapp.apidemos.screens.*;
 import testreport.ScreenshotListener;
 
 @Listeners(ScreenshotListener.class)
@@ -86,6 +83,38 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
 
         logStep("Close the dialog");
         alertDialog.close();
+    }
+
+    @Test
+    public void testVerticalSwipeToElement() {
+        ViewControlsScreen viewControlsScreen = new ViewControlsScreen();
+        openRadioButtonsScreen();
+        viewControlsScreen.scrollToAllInsideScrollViewLabel();
+        Assert.assertEquals(
+                viewControlsScreen.getAllInsideScrollViewLabelText(),
+                "(And all inside of a ScrollView!)",
+                "Label text does not match expected");
+        viewControlsScreen.scrollToDisabledButton();
+        Assert.assertFalse(viewControlsScreen.isDisabledButtonClickable());
+    }
+
+    @Test
+    public void testHorizontalSwipeToElement() {
+        ViewTabsScrollableScreen viewTabsScrollableScreen = ApplicationActivity.VIEW_TABS_SCROLLABLE.open();
+        Assert.assertTrue(viewTabsScrollableScreen.state().isDisplayed(),
+                String.format("%s screen should be opened", viewTabsScrollableScreen.getName()));
+        viewTabsScrollableScreen.swipeTab(4, 1);
+        viewTabsScrollableScreen.selectTab(7);
+        Assert.assertEquals(
+                viewTabsScrollableScreen.getTabContentText(7),
+                "Content for tab with tag Tab 7",
+                "Label text does not match expected");
+        viewTabsScrollableScreen.swipeTab(5, 7);
+        viewTabsScrollableScreen.selectTab(4);
+        Assert.assertEquals(
+                viewTabsScrollableScreen.getTabContentText(4),
+                "Content for tab with tag Tab 4",
+                "Label text does not match expected");
     }
 
     private void logStep(String step) {

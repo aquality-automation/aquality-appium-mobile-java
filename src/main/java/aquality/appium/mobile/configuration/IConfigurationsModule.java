@@ -26,4 +26,10 @@ public interface IConfigurationsModule extends aquality.selenium.core.configurat
         return Configuration.class;
     }
 
+    /**
+     * @return class which implements {@link ITouchActionsConfiguration}
+     */
+    default Class<? extends ITouchActionsConfiguration> getTouchActionsConfigurationImplementation() {
+        return TouchActionsConfiguration.class;
+    }
 }
