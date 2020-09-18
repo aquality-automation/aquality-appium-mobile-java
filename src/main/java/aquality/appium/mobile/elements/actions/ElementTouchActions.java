@@ -57,27 +57,24 @@ public class ElementTouchActions implements IElementTouchActions {
     public void scrollToElement(SwipeDirection direction) {
         int numberOfRetries = AqualityServices.get(ITouchActionsConfiguration.class).getSwipeRetries();
         ITouchActions touchActions = AqualityServices.getTouchActions();
-        while (numberOfRetries > 0) {
-            if (!element.state().isDisplayed()) {
-                switch (direction) {
-                    case DOWN:
-                        touchActions.swipe(scrollDownStartPoint, scrollDownEndPoint);
-                        break;
-                    case UP:
-                        touchActions.swipe(scrollUpStartPoint, scrollUpEndPoint);
-                        break;
-                    case LEFT:
-                        touchActions.swipe(swipeLeftStartPoint, swipeLeftEndPoint);
-                        break;
-                    case RIGHT:
-                        touchActions.swipe(swipeRightStartPoint, swipeRightEndPoint);
-                        break;
-                    default:
-                        throw new IllegalArgumentException(
-                                String.format("'%s' direction does not exist", direction.toString()));
-                }
+        while (numberOfRetries-- > 0 && !element.state().isDisplayed()) {
+            switch (direction) {
+                case DOWN:
+                    touchActions.swipe(scrollDownStartPoint, scrollDownEndPoint);
+                    break;
+                case UP:
+                    touchActions.swipe(scrollUpStartPoint, scrollUpEndPoint);
+                    break;
+                case LEFT:
+                    touchActions.swipe(swipeLeftStartPoint, swipeLeftEndPoint);
+                    break;
+                case RIGHT:
+                    touchActions.swipe(swipeRightStartPoint, swipeRightEndPoint);
+                    break;
+                default:
+                    throw new IllegalArgumentException(
+                            String.format("'%s' direction does not exist", direction.toString()));
             }
-            numberOfRetries--;
         }
     }
 
