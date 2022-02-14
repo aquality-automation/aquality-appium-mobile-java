@@ -11,7 +11,7 @@
         "platformName": "Android",
         "automationName": "UIAutomator2",
         "chromeOptions": {
-          "w3c": false
+          "w3c": true
         },
         "uiautomator2ServerInstallTimeout": 30000,
         "eventTimings": true
