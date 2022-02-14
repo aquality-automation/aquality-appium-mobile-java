@@ -193,7 +193,9 @@ public class AqualityServices extends aquality.selenium.core.applications.Aquali
     }
 
     /**
-     * Touch actions are deprecated.
+     * Gets the utility used to perform touch actions.
+     *
+     * @deprecated Touch actions are deprecated.
      * Please use W3C Actions instead or the corresponding
      * extension methods for the driver (if available).
      *

@@ -78,7 +78,9 @@ public interface IElement extends aquality.selenium.core.elements.interfaces.IEl
     }
 
     /**
-     * Touch actions are deprecated.
+     * Gets the utility used to perform touch actions for element.
+     *
+     * @deprecated Touch actions are deprecated.
      * Please use W3C Actions instead or the corresponding
      * extension methods for the driver (if available).
      *

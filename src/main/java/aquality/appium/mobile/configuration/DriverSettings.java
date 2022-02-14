@@ -33,7 +33,7 @@ public class DriverSettings implements IDriverSettings {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilitiesFromSettings.forEach((key, value) -> {
             if (key.endsWith("Options") || key.endsWith("options")) {
-                value = settingsFile.getMap(getDriverSettingsPath("capabilities", key));;
+                value = settingsFile.getMap(getDriverSettingsPath("capabilities", key));
             }
             capabilities.setCapability(key, value);
         });
