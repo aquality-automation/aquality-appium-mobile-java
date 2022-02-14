@@ -5,24 +5,24 @@ import aquality.appium.mobile.elements.interfaces.IButton;
 import aquality.appium.mobile.elements.interfaces.ICheckBox;
 import aquality.appium.mobile.elements.interfaces.ILabel;
 import aquality.appium.mobile.elements.interfaces.IRadioButton;
-import io.appium.java_client.MobileBy;
+import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.By;
 
 public class ViewControlsScreen extends AndroidScreen {
 
     public IRadioButton getRadioButton(int number) {
         return getElementFactory().getRadioButton(
-                MobileBy.AccessibilityId(String.format("RadioButton %d", number)),
+                AppiumBy.accessibilityId(String.format("RadioButton %d", number)),
                 String.valueOf(number));
     }
 
     public ICheckBox getCheckBox(int number) {
         return getElementFactory().getCheckBox(
-                MobileBy.AccessibilityId(String.format("Checkbox %d", number)),
+                AppiumBy.accessibilityId(String.format("Checkbox %d", number)),
                 String.valueOf(number));
     }
 
-    private final IButton btnDisabled = getElementFactory().getButton(MobileBy.id("button_disabled"), "Disabled");
+    private final IButton btnDisabled = getElementFactory().getButton(By.id("button_disabled"), "Disabled");
 
     public ViewControlsScreen() {
         super(By.id("android:id/content"), "View/Controls");
@@ -45,6 +45,6 @@ public class ViewControlsScreen extends AndroidScreen {
     }
 
     private final ILabel lblAllInsideScrollView = getElementFactory().getLabel(
-            MobileBy.AccessibilityId("(And all inside of a ScrollView!)"),
+            AppiumBy.accessibilityId("(And all inside of a ScrollView!)"),
             "All inside of Scroll View");
 }

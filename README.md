@@ -22,7 +22,7 @@ We use interfaces where is possible, so you can implement your own version of ta
 <dependency>
     <groupId>com.github.aquality-automation</groupId>
     <artifactId>aquality-appium-mobile</artifactId>
-    <version>${LATEST_VERSION}</version>
+    <version>3.0.0-beta</version>
 </dependency>
 ```
 
@@ -141,7 +141,7 @@ import aquality.appium.mobile.application.PlatformName;
 import aquality.appium.mobile.screens.screenfactory.ScreenType;
 import org.openqa.selenium.By;
 
-import static io.appium.java_client.MobileBy.AccessibilityId;
+import static io.appium.java_client.AppiumBy.AccessibilityId;
 import static org.openqa.selenium.By.xpath;
 
 @ScreenType(platform = PlatformName.ANDROID)

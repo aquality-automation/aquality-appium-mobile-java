@@ -3,6 +3,7 @@ package aquality.appium.mobile.actions;
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.configuration.ITouchActionsConfiguration;
 import aquality.selenium.core.utilities.IElementActionRetrier;
+import io.appium.java_client.PerformsTouchActions;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.Point;
@@ -37,7 +38,7 @@ public class TouchActions implements ITouchActions {
     }
 
     protected void performTouchAction(UnaryOperator<TouchAction<?>> function, Point endPoint) {
-        TouchAction<?> touchAction = new TouchAction<>(AqualityServices.getApplication().getDriver());
+        TouchAction<?> touchAction = new TouchAction<>((PerformsTouchActions) AqualityServices.getApplication().getDriver());
         AqualityServices.get(IElementActionRetrier.class).doWithRetry(() ->
                 function.apply(touchAction).moveTo(PointOption.point(endPoint)).release().perform());
     }

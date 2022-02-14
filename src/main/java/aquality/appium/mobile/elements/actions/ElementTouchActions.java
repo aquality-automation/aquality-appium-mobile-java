@@ -45,12 +45,12 @@ public class ElementTouchActions implements IElementTouchActions {
 
     @Override
     public void swipe(Point endPoint) {
-        AqualityServices.getTouchActions().swipe(element.getElement().getCenter(), endPoint);
+        AqualityServices.getTouchActions().swipe(element.getCenter(), endPoint);
     }
 
     @Override
     public void swipeWithLongPress(Point endPoint) {
-        AqualityServices.getTouchActions().swipeWithLongPress(element.getElement().getCenter(), endPoint);
+        AqualityServices.getTouchActions().swipeWithLongPress(element.getCenter(), endPoint);
     }
 
     @Override

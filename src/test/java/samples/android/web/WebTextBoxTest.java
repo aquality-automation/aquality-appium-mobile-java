@@ -3,7 +3,6 @@ package samples.android.web;
 import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.elements.interfaces.ITextBox;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
@@ -44,7 +43,7 @@ public class WebTextBoxTest extends AndroidWebTest {
     @SuppressWarnings("unchecked")
     private boolean isKeyboardShown(boolean expectedStateToWait) {
         boolean waitResult = AqualityServices.getConditionalWait()
-                .waitFor(driver -> ((AndroidDriver<AndroidElement>)driver).isKeyboardShown() == expectedStateToWait,
+                .waitFor(driver -> ((AndroidDriver)driver).isKeyboardShown() == expectedStateToWait,
                         AqualityServices.getConfiguration().getTimeoutConfiguration().getCommand(),
                         AqualityServices.getConfiguration().getTimeoutConfiguration().getPollingInterval().multipliedBy(10),
                         String.format("is keyboard shown condition should be %s", expectedStateToWait));
