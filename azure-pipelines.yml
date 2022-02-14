@@ -80,7 +80,7 @@ jobs:
           echo "Emulator started"
 
           echo "Installing Appium"
-          npm install -g appium@next
+          npm install -g appium@beta
           ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
           chmod +x /usr/local/bin/appium
           export PATH=$PATH:/usr/local/bin/appium
