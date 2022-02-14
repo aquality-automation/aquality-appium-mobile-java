@@ -1,7 +1,7 @@
 {
   "platformName": "android",
   "isRemote": true,
-  "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
+  "remoteConnectionUrl": "http://127.0.0.1:4723",
   "screensLocation": "integration",
   "driverSettings": {
     "android": {
@@ -10,9 +10,6 @@
         "browserName": "Chrome",
         "platformName": "Android",
         "automationName": "UIAutomator2",
-        "chromeOptions": {
-          "w3c": true
-        },
         "uiautomator2ServerInstallTimeout": 30000,
         "eventTimings": true
       }

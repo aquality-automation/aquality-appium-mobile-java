@@ -1,7 +1,7 @@
 {
   "platformName": "android",
   "isRemote": false,
-  "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
+  "remoteConnectionUrl": "http://127.0.0.1:4723",
   "screensLocation": "<NAME_OF_PACKAGE_WITH_SCREENS>",
   "driverSettings": {
     "android": {
