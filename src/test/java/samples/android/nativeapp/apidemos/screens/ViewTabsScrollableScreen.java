@@ -30,6 +30,11 @@ public class ViewTabsScrollableScreen extends AndroidScreen {
         getTab(startTabNumber).getTouchActions().swipe(endTabPoint);
     }
 
+    public void swipeTabWithLongPress(int startTabNumber, int endTabNumber) {
+        Point endTabPoint = getTab(endTabNumber).getCenter();
+        getTab(startTabNumber).getTouchActions().swipeWithLongPress(endTabPoint);
+    }
+
     public String getTabContentText(int tabNumber) {
         return getTabContent(tabNumber).getText();
     }

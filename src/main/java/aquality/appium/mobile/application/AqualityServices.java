@@ -49,7 +49,7 @@ public class AqualityServices extends aquality.selenium.core.applications.Aquali
 
     /**
      * Resolves required service from DI container.
-     * Note that the service should be binded in {@link MobileModule}.
+     * Note that the service should be bound in {@link MobileModule}.
      *
      * @param type class of required service.
      * @param <T>  type of required service.
@@ -111,7 +111,7 @@ public class AqualityServices extends aquality.selenium.core.applications.Aquali
     /**
      * Reinitializes the dependency injector with custom {@link MobileModule}.
      *
-     * @param module {@link MobileModule} object with custom or overriden services.
+     * @param module {@link MobileModule} object with custom or overridden services.
      */
     public static void initInjector(MobileModule module) {
         if (INSTANCE_CONTAINER.get() != null) {
@@ -195,13 +195,8 @@ public class AqualityServices extends aquality.selenium.core.applications.Aquali
     /**
      * Gets the utility used to perform touch actions.
      *
-     * @deprecated Touch actions are deprecated.
-     * Please use W3C Actions instead or the corresponding
-     * extension methods for the driver (if available).
-     *
      * @return instance of touch actions.
      */
-    @Deprecated
     public static ITouchActions getTouchActions() {
         return get(ITouchActions.class);
     }

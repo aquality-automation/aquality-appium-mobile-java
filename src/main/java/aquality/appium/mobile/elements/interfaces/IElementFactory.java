@@ -279,7 +279,7 @@ public interface IElementFactory extends aquality.selenium.core.elements.interfa
      *
      * @param locator Elements selector.
      * @param type    Type of elements to be obtained
-     * @param count   Expected number of elements that have to be found (zero, more then zero, any).
+     * @param count   Expected number of elements that have to be found (zero, more than zero, any).
      * @param state   Visibility state of target elements.
      * @param <T>     Type of the target element.
      * @return List of elements.
@@ -307,7 +307,7 @@ public interface IElementFactory extends aquality.selenium.core.elements.interfa
      * @param locator Elements selector.
      * @param type    Type of elements to be obtained
      * @param name    Child element name.
-     * @param count   Expected number of elements that have to be found (zero, more then zero, any).
+     * @param count   Expected number of elements that have to be found (zero, more than zero, any).
      * @param <T>     Type of the target element.
      * @return List of elements.
      */
@@ -333,7 +333,7 @@ public interface IElementFactory extends aquality.selenium.core.elements.interfa
      *
      * @param locator Elements selector.
      * @param type    Type of elements to be obtained
-     * @param count   Expected number of elements that have to be found (zero, more then zero, any).
+     * @param count   Expected number of elements that have to be found (zero, more than zero, any).
      * @param <T>     Type of the target element.
      * @return List of elements.
      */

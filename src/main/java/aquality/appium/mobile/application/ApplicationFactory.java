@@ -52,7 +52,7 @@ public abstract class ApplicationFactory implements IApplicationFactory {
         return driver;
     }
 
-    protected class CustomActionRetrier extends ElementActionRetrier {
+    protected static class CustomActionRetrier extends ElementActionRetrier {
         private final List<Class<? extends Throwable>> handledExceptions;
 
         CustomActionRetrier(List<Class<? extends Throwable>> handledExceptions) {
@@ -66,7 +66,7 @@ public abstract class ApplicationFactory implements IApplicationFactory {
         }
     }
 
-    protected class ClientFactory implements Factory {
+    protected static class ClientFactory implements Factory {
 
         private final Factory defaultClientFactory = Factory.createDefault();
         private final Duration timeoutCommand = AqualityServices.get(ITimeoutConfiguration.class).getCommand();

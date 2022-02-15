@@ -8,7 +8,6 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.remote.service.DriverService;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 public class Application implements IApplication {
 
@@ -32,7 +31,7 @@ public class Application implements IApplication {
     }
 
     private void setImplicitlyWaitToDriver(Duration duration) {
-        getDriver().manage().timeouts().implicitlyWait(duration.getSeconds(), TimeUnit.SECONDS);
+        getDriver().manage().timeouts().implicitlyWait(duration);
         this.timeoutImpl = duration;
     }
 
