@@ -80,7 +80,7 @@ jobs:
           echo "Emulator started"
 
           echo "Installing Appium"
-          npm install -g appium
+          npm install -g appium@next
           ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
           chmod +x /usr/local/bin/appium
           export PATH=$PATH:/usr/local/bin/appium
@@ -89,6 +89,7 @@ jobs:
 
           echo "Installing UIA2 driver"
           appium driver install uiautomator2
+          appium driver list
           echo "UIA2 driver installed"
 
           echo "Installing and Running Appium doctor"
@@ -107,7 +108,7 @@ jobs:
       displayName: 'Start Appium server'
       inputs:
         script: |
-          appium --allow-insecure chromedriver_autodownload &
+          appium --allow-insecure chromedriver_autodownload --base-path /wd/hub &
           echo "Appium server started"
       condition: eq(variables['isRemote'], 'true')
 
