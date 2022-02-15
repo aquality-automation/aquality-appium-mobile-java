@@ -39,7 +39,7 @@
     "language": "ru"
   },
   "elementCache": {
-    "isEnabled": true
+    "isEnabled": false
   },
   "touchActions": {
     "swipe": {
