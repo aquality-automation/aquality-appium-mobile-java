@@ -25,7 +25,8 @@
   },
   "localServiceSettings": {
     "arguments": {
-      "--allow-insecure": "chromedriver_autodownload"
+      "--allow-insecure": "chromedriver_autodownload",
+      "–keep-alive-timeout": 800
     },
     "capabilities": {
     }

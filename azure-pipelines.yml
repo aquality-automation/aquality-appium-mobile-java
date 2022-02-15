@@ -80,7 +80,7 @@ jobs:
           echo "Emulator started"
 
           echo "Installing Appium"
-          npm install -g appium@beta
+          npm install -g appium@next
           ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
           chmod +x /usr/local/bin/appium
           export PATH=$PATH:/usr/local/bin/appium
@@ -107,7 +107,7 @@ jobs:
       displayName: 'Start Appium server'
       inputs:
         script: |
-          appium --allow-insecure chromedriver_autodownload &
+          appium --allow-insecure chromedriver_autodownload –keep-alive-timeout 800&
           echo "Appium server started"
       condition: eq(variables['isRemote'], 'true')
 
