@@ -1,7 +1,7 @@
 {
   "platformName": "android",
   "isRemote": true,
-  "remoteConnectionUrl": "http://127.0.0.1:4723",
+  "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
   "screensLocation": "integration",
   "driverSettings": {
     "android": {
@@ -25,8 +25,7 @@
   },
   "localServiceSettings": {
     "arguments": {
-      "--allow-insecure": "chromedriver_autodownload",
-      "–keep-alive-timeout": 800
+      "--allow-insecure": "chromedriver_autodownload"
     },
     "capabilities": {
     }
