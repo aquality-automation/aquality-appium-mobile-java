@@ -51,7 +51,7 @@ public class TouchActions implements ITouchActions {
         PointerInput finger = getFinger();
         Sequence sequence = getPressSequence(finger, startPoint)
                 .addAction(finger.createPointerMove(
-                        getSwipeDuration(), PointerInput.Origin.viewport(), startPoint.getX(),startPoint.getY()));
+                        getSwipeDuration(), PointerInput.Origin.viewport(), startPoint.getX(), startPoint.getY()));
         performTouchAction(finger, sequence, endPoint);
     }
 
