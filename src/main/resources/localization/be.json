@@ -1,15 +1,4 @@
 {
-  "loc.clicking": "Націскаем",
-  "loc.el.getattr": "Атрымліваем атрыбут '%1$s'",
-  "loc.get.text": "Атрымліваем тэкст элемента",
-  "loc.text.sending.keys": "Націскаем клавішы '%1$s'",
-  "loc.no.elements.found.in.state": "Не знайшлі элементаў па лакатару '%1$s' у %2$s стане",
-  "loc.no.elements.found.by.locator": "Не знайшлі элементаў па лакатару '%1$s'",
-  "loc.elements.were.found.but.not.in.state": "Знайшлі элементы па лакатару '%1$s', але яны не ў жаданым стане %2$s",
-  "loc.elements.found.but.should.not": "Не павінна быць знойдзена элементаў па лакатару '%1$s' у %2$s стане",
-  "loc.search.of.elements.failed": "Пошук элемента па лакатару '%1$s' прайшоў няўдала",
-  "loc.element.not.in.state": "Элемент %1$s не стаў %2$s пасля таймаўта %3$s",
-  "loc.get.page.source.failed": "Адбылася памылка ў час атрымання разметкі старонкі",
   "loc.application.quit": "Закрываем праграму",
   "loc.application.driver.remote": "Усталёўваем драйвер праграммы з выкарыстаннем сервера па адрасе '%s'",
   "loc.platform.name.wrong": "Платформа '%s' не падтрымліваецца.",
@@ -39,5 +28,7 @@
   "loc.text.unfocusing": "Адводзім фокус з поля",
   "loc.text.masked_value": "********",
   "loc.action.swipe": "Праводзім па экране з каардынатаў (x:%1$s; y:%2$s) у (x:%3$s; y:%4$s)",
-  "loc.action.swipeLongPress": "Праводзім па экране доўгім націскам з каардынатаў (x:%1$s; y:%2$s) у (x:%3$s; y:%4$s)"
+  "loc.action.swipeLongPress": "Праводзім па экране доўгім націскам з каардынатаў (x:%1$s; y:%2$s) у (x:%3$s; y:%4$s)",
+  "loc.get.center": "Атрымліваем каардынаты цэнтра элемента",
+  "loc.center.value": "Каардынаты цэнтра элемента: (x:%1$s; y:%2$s)"
 }

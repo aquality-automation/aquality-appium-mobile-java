@@ -13,11 +13,7 @@ import aquality.selenium.core.localization.ILocalizationManager;
 import aquality.selenium.core.localization.ILocalizedLogger;
 import aquality.selenium.core.utilities.IElementActionRetrier;
 import aquality.selenium.core.waitings.IConditionalWait;
-import io.appium.java_client.MobileElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-
-import java.time.Duration;
+import org.openqa.selenium.*;
 
 /**
  * Abstract class, describing wrapper of Appium element.
@@ -79,11 +75,6 @@ public abstract class Element extends aquality.selenium.core.elements.Element im
     }
 
     @Override
-    public MobileElement getElement(Duration timeout) {
-        return (MobileElement) super.getElement(timeout);
-    }
-
-    @Override
     public void sendKeys(Keys key) {
         logElementAction("loc.text.sending.keys", Keys.class.getSimpleName().concat(".").concat(key.name()));
         doWithRetry(() -> getElement().sendKeys(key));
@@ -92,5 +83,17 @@ public abstract class Element extends aquality.selenium.core.elements.Element im
     @Override
     public IElementTouchActions getTouchActions() {
         return new ElementTouchActions(this);
+    }
+
+    @Override
+    public Point getCenter() {
+        logElementAction("loc.get.center");
+        WebElement element = getElement();
+        Point upperLeft = element.getLocation();
+        Dimension dimensions = element.getSize();
+        Point center = new Point(upperLeft.getX() + dimensions.getWidth() / 2,
+                upperLeft.getY() + dimensions.getHeight() / 2);
+        logElementAction("loc.center.value", center.getX(), center.getY());
+        return center;
     }
 }

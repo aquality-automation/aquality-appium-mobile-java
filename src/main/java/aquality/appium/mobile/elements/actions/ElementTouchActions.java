@@ -9,15 +9,15 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 
 public class ElementTouchActions implements IElementTouchActions {
-    private IElement element;
-    private Point scrollDownStartPoint;
-    private Point scrollDownEndPoint;
-    private Point swipeLeftStartPoint;
-    private Point swipeLeftEndPoint;
-    private Point scrollUpStartPoint;
-    private Point scrollUpEndPoint;
-    private Point swipeRightStartPoint;
-    private Point swipeRightEndPoint;
+    private final IElement element;
+    private final Point scrollDownStartPoint;
+    private final Point scrollDownEndPoint;
+    private final Point swipeLeftStartPoint;
+    private final Point swipeLeftEndPoint;
+    private final Point scrollUpStartPoint;
+    private final Point scrollUpEndPoint;
+    private final Point swipeRightStartPoint;
+    private final Point swipeRightEndPoint;
 
     public ElementTouchActions(IElement element) {
         this.element = element;
@@ -45,12 +45,12 @@ public class ElementTouchActions implements IElementTouchActions {
 
     @Override
     public void swipe(Point endPoint) {
-        AqualityServices.getTouchActions().swipe(element.getElement().getCenter(), endPoint);
+        AqualityServices.getTouchActions().swipe(element.getCenter(), endPoint);
     }
 
     @Override
     public void swipeWithLongPress(Point endPoint) {
-        AqualityServices.getTouchActions().swipeWithLongPress(element.getElement().getCenter(), endPoint);
+        AqualityServices.getTouchActions().swipeWithLongPress(element.getCenter(), endPoint);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ElementTouchActions implements IElementTouchActions {
                     break;
                 default:
                     throw new IllegalArgumentException(
-                            String.format("'%s' direction does not exist", direction.toString()));
+                            String.format("'%s' direction does not exist", direction));
             }
         }
     }

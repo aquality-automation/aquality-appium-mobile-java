@@ -53,9 +53,6 @@ jobs:
   variables:
     ANDROID_EMU_NAME: test
     ANDROID_SDK_ID: system-images;android-28;google_apis_playstore;x86
-    XCODE_VERSION: 10.2
-    IOS_PLATFORM_VERSION: 12.2
-    IOS_DEVICE_NAME: iPhone X
 
   steps:
     - task: CmdLine@2
@@ -83,16 +80,21 @@ jobs:
           echo "Emulator started"
 
           echo "Installing Appium"
-          npm install -g appium@v1.17.0
+          npm install -g appium@next
           ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
           chmod +x /usr/local/bin/appium
           export PATH=$PATH:/usr/local/bin/appium
           appium --version
           echo "Appium installed"
 
+          echo "Installing UIA2 driver"
+          appium driver install uiautomator2
+          appium driver list
+          echo "UIA2 driver installed"
+
           echo "Installing and Running Appium doctor"
           npm install -g request@2.34.0
-          npm install -g appium-doctor@1.15.1
+          npm install @appium/doctor -g
           ln -fs /usr/local/lib/node_modules/appium-doctor/appium-doctor.js /usr/local/bin/appium-doctor
           chmod +x /usr/local/bin/appium-doctor
           export PATH=$PATH:/usr/local/bin/appium-doctor
@@ -106,7 +108,7 @@ jobs:
       displayName: 'Start Appium server'
       inputs:
         script: |
-          appium --allow-insecure chromedriver_autodownload &
+          appium --allow-insecure chromedriver_autodownload --base-path /wd/hub &
           echo "Appium server started"
       condition: eq(variables['isRemote'], 'true')
 

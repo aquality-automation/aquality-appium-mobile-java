@@ -4,11 +4,9 @@ import aquality.appium.mobile.elements.Attributes;
 import aquality.appium.mobile.elements.ElementType;
 import aquality.appium.mobile.elements.actions.IElementTouchActions;
 import aquality.selenium.core.elements.ElementState;
-import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-
-import java.time.Duration;
+import org.openqa.selenium.Point;
 
 public interface IElement extends aquality.selenium.core.elements.interfaces.IElement {
 
@@ -70,28 +68,6 @@ public interface IElement extends aquality.selenium.core.elements.interfaces.IEl
     }
 
     /**
-     * Gets current mobile element by specified {@link #getLocator()}
-     * Default timeout is provided in {@link aquality.selenium.core.configurations.ITimeoutConfiguration}
-     * {@link org.openqa.selenium.NoSuchElementException} throws if element not found
-     *
-     * @return instance of {@link MobileElement} if found.
-     */
-    @Override
-    default MobileElement getElement() {
-        return getElement(null);
-    }
-
-    /**
-     * Gets current mobile element by specified {@link #getLocator()}
-     * {@link org.openqa.selenium.NoSuchElementException} throws if element not found
-     *
-     * @param timeout Timeout for waiting
-     * @return instance of {@link MobileElement} if found.
-     */
-    @Override
-    MobileElement getElement(Duration timeout);
-
-    /**
      * Gets attribute value of the element.
      *
      * @param attribute Attribute
@@ -102,9 +78,15 @@ public interface IElement extends aquality.selenium.core.elements.interfaces.IEl
     }
 
     /**
-     * Gets the the utility used to perform touch actions for element.
+     * Gets the utility used to perform touch actions for element.
      *
      * @return instance of element touch actions.
      */
     IElementTouchActions getTouchActions();
+
+    /**
+     * Method returns central coordinates of an element.
+     * @return The instance of the {@link org.openqa.selenium.Point}
+     */
+    Point getCenter();
 }

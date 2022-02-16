@@ -22,7 +22,7 @@ We use interfaces where is possible, so you can implement your own version of ta
 <dependency>
     <groupId>com.github.aquality-automation</groupId>
     <artifactId>aquality-appium-mobile</artifactId>
-    <version>${LATEST_VERSION}</version>
+    <version>3.0.0-beta</version>
 </dependency>
 ```
 
@@ -31,15 +31,32 @@ We use interfaces where is possible, so you can implement your own version of ta
  - Open settings.json and find `applicationPath` option under the `driverSettings` section of desired platform. Replace the value with full or relative path to your app, e.g. `./src/test/resources/apps/ApiDemos-debug.apk`.
 
 3. Ensure that [Appium server](https://appium.io) is set up at your machine where the code would be executed, and the address/port match to set in your `settings.json` in `remoteConnectionUrl` parameter.
-If the parameter `isRemote` in your settings.json is set to `false`, this means that AppiumDriverLocalService would be used to setup Appium server using Node.js. This option requires specific version of node.js to be preinstalled on your machine (Please read more [here](http://appium.io/docs/en/contributing-to-appium/appium-from-source/#nodejs) )
+If the parameter `isRemote` in your settings.json is set to `false`, this means that AppiumDriverLocalService would be used to set up Appium server using Node.js. This option requires specific version of node.js to be preinstalled on your machine (Please read more [here](http://appium.io/docs/en/contributing-to-appium/appium-from-source/#nodejs) )
+
+> Note:
+After migration to Appium v.8, we started using Appium server v.2 in our [azure-pipelines](azure-pipelines.yml). 
+> It has some breaking changes, described [here](https://github.com/appium/java-client/blob/master/docs/v7-to-v8-migration-guide.md).
+> In particular:
+> 1. Please install required driver manually:
+> ```yaml
+> npm install -g appium@next
+> appium driver install uiautomator2
+> ```
+> 2. As soon as we continue to use "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub" in our [settings.json](./src/main/resources/settings.json), we need to specify the `--base-path` when starting Appium server:
+> ```yaml
+> appium --allow-insecure chromedriver_autodownload --base-path /wd/hub &
+> ```
+>
+> 3. We also recommend disabling element caching and w3c in chromeOptions when you run Android Chrome session. Take a look at example here: [settings.androidwebsession.json](./src/test/resources/settings.androidwebsession.json).
+
 
 4. (optional) Launch an application directly by calling `AqualityServices.getApplication();`. 
 
 > Note: 
 If you don't start an Application directly, it would be started with the first call of any Aquality service or class requiring interacting with the Application.
 
-5. That's it! Now you are able work with Application via AqualityServices or via element services.
-Please take a look at our example tests [here](./src/test/java/samples/)
+5. That's it! Now you are able to work with Application via AqualityServices or via element services.
+Please take a look at our example tests [here](./src/test/java/samples/.).
 
 6. To interact with Application's forms and elements, we recommend following the Page/Screen Objects pattern. This approach is fully integrated into our package.
 To start with that, you will need to create a separate class for each window/form of your application, and inherit this class from the [Screen](./src/main/java/aquality/appium/mobile/screens/Screen.java). 
@@ -141,7 +158,7 @@ import aquality.appium.mobile.application.PlatformName;
 import aquality.appium.mobile.screens.screenfactory.ScreenType;
 import org.openqa.selenium.By;
 
-import static io.appium.java_client.MobileBy.AccessibilityId;
+import static io.appium.java_client.AppiumBy.AccessibilityId;
 import static org.openqa.selenium.By.xpath;
 
 @ScreenType(platform = PlatformName.ANDROID)
@@ -171,7 +188,13 @@ public class AndroidLoginScreen extends LoginScreen {
 4. Resolve screen in test:
 
 ```java
-LoginScreen loginScreen = AqualityServices.getScreenFactory().getScreen(LoginScreen.class);
+public class DemoTest {
+    @Test
+    public void testScreenFactory() {
+        LoginScreen loginScreen = AqualityServices.getScreenFactory().getScreen(LoginScreen.class);
+        Assert.assertNotNull(loginScreen, "Screen must be resolved from factory");
+    }
+}
 ```
 
 You can find an example in [aquality-appium-mobile-java-template](https://github.com/aquality-automation/aquality-appium-mobile-java-template) repository.
@@ -180,7 +203,7 @@ You can find an example in [aquality-appium-mobile-java-template](https://github
 
 Our library allows you to run tests on different devices and store their settings (like udid, name, etc.) in JSON files.
 
-You have to add [devices.json](./src/test/resources/devices.json) file to resources where you can define a set of devices which you use to run tests.
+You have to add [devices.json](./src/test/resources/devices.json) file to resources where you can define a set of devices which you use for the test run.
 
 It is possible to set default device for each platform in [settings.json](./src/test/resources/settings.json) by defining `deviceKey` property which is a key of device settings from `devices.json` file.
 

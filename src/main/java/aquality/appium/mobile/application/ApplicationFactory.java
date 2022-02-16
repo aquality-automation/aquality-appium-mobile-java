@@ -5,13 +5,11 @@ import aquality.selenium.core.localization.ILocalizationManager;
 import aquality.selenium.core.utilities.ElementActionRetrier;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.IOSElement;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.SessionNotCreatedException;
+import org.openqa.selenium.remote.http.ClientConfig;
 import org.openqa.selenium.remote.http.HttpClient;
-import org.openqa.selenium.remote.http.HttpClient.Builder;
 import org.openqa.selenium.remote.http.HttpClient.Factory;
 
 import java.net.URL;
@@ -43,10 +41,10 @@ public abstract class ApplicationFactory implements IApplicationFactory {
         AppiumDriver driver;
         switch (platformName) {
             case ANDROID:
-                driver = new AndroidDriver<AndroidElement>(serviceUrl, httpClientFactory, capabilities);
+                driver = new AndroidDriver(serviceUrl, httpClientFactory, capabilities);
                 break;
             case IOS:
-                driver = new IOSDriver<IOSElement>(serviceUrl, httpClientFactory, capabilities);
+                driver = new IOSDriver(serviceUrl, httpClientFactory, capabilities);
                 break;
             default:
                 throw getLoggedWrongPlatformNameException(platformName.name());
@@ -54,7 +52,7 @@ public abstract class ApplicationFactory implements IApplicationFactory {
         return driver;
     }
 
-    protected class CustomActionRetrier extends ElementActionRetrier {
+    protected static class CustomActionRetrier extends ElementActionRetrier {
         private final List<Class<? extends Throwable>> handledExceptions;
 
         CustomActionRetrier(List<Class<? extends Throwable>> handledExceptions) {
@@ -68,19 +66,20 @@ public abstract class ApplicationFactory implements IApplicationFactory {
         }
     }
 
-    protected class ClientFactory implements Factory {
+    protected static class ClientFactory implements Factory {
 
         private final Factory defaultClientFactory = Factory.createDefault();
         private final Duration timeoutCommand = AqualityServices.get(ITimeoutConfiguration.class).getCommand();
 
         @Override
-        public Builder builder() {
-            return defaultClientFactory.builder().readTimeout(timeoutCommand);
+        public HttpClient createClient(URL url) {
+            return defaultClientFactory.createClient(ClientConfig.defaultConfig().baseUrl(url).readTimeout(timeoutCommand));
         }
 
         @Override
-        public HttpClient createClient(URL url) {
-            return this.builder().createClient(url);
+        public HttpClient createClient(ClientConfig clientConfig) {
+            clientConfig.readTimeout(timeoutCommand);
+            return defaultClientFactory.createClient(clientConfig);
         }
 
         @Override
