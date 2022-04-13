@@ -24,7 +24,13 @@ We use interfaces where is possible, so you can implement your own version of ta
     <artifactId>aquality-appium-mobile</artifactId>
     <version>3.0.0-beta</version>
 </dependency>
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>4.1.0</version>
+</dependency>
 ```
+Note: adding selenium dependency is a temporary solution to avoid version conflict caused by some appium dependencies; to be fixed on the release version.
 
 2. Configure the path to your application at settings.json:
  - Copy [settings.json](./src/main/resources/settings.json) into the resources directory of your project. 
