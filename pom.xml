@@ -179,6 +179,12 @@
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
             <version>8.0.0-beta2</version>
+        </dependency>        
+             <!--  todo: remove the dependency below after the conflict is resolved-->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.1.0</version>
         </dependency>
 
         <dependency>
