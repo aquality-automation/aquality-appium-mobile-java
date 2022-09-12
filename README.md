@@ -76,10 +76,10 @@ package samples.android.apidemos.screens;
 import aquality.appium.mobile.elements.interfaces.IButton;
 import aquality.appium.mobile.elements.interfaces.ILabel;
 import aquality.appium.mobile.elements.interfaces.ITextBox;
-import aquality.appium.mobile.screens.AndroidScreen;
+import aquality.appium.mobile.screens.Screen;
 import org.openqa.selenium.By;
 
-public class InvokeSearchScreen extends AndroidScreen {
+public class InvokeSearchScreen extends Screen {
 
     private final ITextBox txbSearch = getElementFactory().getTextBox(By.id("txt_query_prefill"), "Search");
     private final IButton btnStartSearch = getElementFactory().getButton(By.id("btn_start_search"), "Start search");
