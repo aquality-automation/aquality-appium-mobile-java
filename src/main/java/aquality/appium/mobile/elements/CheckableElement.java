@@ -16,6 +16,14 @@ public abstract class CheckableElement extends Element {
     }
 
     public boolean isChecked() {
+        logElementAction("loc.checkable.is.checked");
+        boolean state = getState();
+        logElementAction("loc.checkable.state", state);
+        return state;
+    }
+
+    protected boolean getState()
+    {
         return doWithRetry(() -> {
             String checked = getElement().getAttribute(Attributes.CHECKED.toString());
             if (checked == null || checked.equals("")) {
