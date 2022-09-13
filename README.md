@@ -17,20 +17,18 @@ We use interfaces where is possible, so you can implement your own version of ta
 
 ### Quick start
 
-1. To start work with this package, simply add the dependency to your pom.xml:
+To start the project using Aquality.Selenium framework, you can [download our template BDD project by this link.](https://github.com/aquality-automation/aquality-appium-mobile-java-template)
+
+Alternatively, you can follow the steps below:
+
+1. Add the dependency to your pom.xml:
 ```
 <dependency>
     <groupId>com.github.aquality-automation</groupId>
     <artifactId>aquality-appium-mobile</artifactId>
-    <version>3.0.0-beta</version>
-</dependency>
-<dependency>
-    <groupId>org.seleniumhq.selenium</groupId>
-    <artifactId>selenium-java</artifactId>
-    <version>4.1.0</version>
+    <version>3.0.x</version>
 </dependency>
 ```
-Note: adding selenium dependency is a temporary solution to avoid version conflict caused by some appium dependencies; to be fixed on the release version.
 
 2. Configure the path to your application at settings.json:
  - Copy [settings.json](./src/main/resources/settings.json) into the resources directory of your project. 
@@ -78,10 +76,10 @@ package samples.android.apidemos.screens;
 import aquality.appium.mobile.elements.interfaces.IButton;
 import aquality.appium.mobile.elements.interfaces.ILabel;
 import aquality.appium.mobile.elements.interfaces.ITextBox;
-import aquality.appium.mobile.screens.AndroidScreen;
+import aquality.appium.mobile.screens.Screen;
 import org.openqa.selenium.By;
 
-public class InvokeSearchScreen extends AndroidScreen {
+public class InvokeSearchScreen extends Screen {
 
     private final ITextBox txbSearch = getElementFactory().getTextBox(By.id("txt_query_prefill"), "Search");
     private final IButton btnStartSearch = getElementFactory().getButton(By.id("btn_start_search"), "Start search");
@@ -202,8 +200,6 @@ public class DemoTest {
     }
 }
 ```
-
-You can find an example in [aquality-appium-mobile-java-template](https://github.com/aquality-automation/aquality-appium-mobile-java-template) repository.
 
 ### Devices
 

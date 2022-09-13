@@ -28,14 +28,8 @@ public class CheckBox extends CheckableElement implements ICheckBox {
     }
 
     @Override
-    public boolean isChecked() {
-        logElementAction("loc.checkbox.get.state");
-        return super.isChecked();
-    }
-
-    @Override
     public void toggle() {
-        setState(!super.isChecked());
+        setState(!getState());
     }
 
     /**
@@ -45,7 +39,7 @@ public class CheckBox extends CheckableElement implements ICheckBox {
      */
     private void setState(boolean state) {
         logElementAction("loc.setting.value", state);
-        if (state != super.isChecked()) {
+        if (state != getState()) {
             click();
         }
     }

@@ -95,32 +95,44 @@ public class ComboBox extends Element implements IComboBox {
 
     @Override
     public String getSelectedValue() {
-        return doWithRetry(
+        logElementAction("loc.combobox.getting.selected.text");
+        String text = doWithRetry(
                 () -> new Select(getElement()).getFirstSelectedOption().getAttribute(Attributes.VALUE.toString()));
+        logElementAction("loc.combobox.selected.text", text);
+        return text;
     }
 
     @Override
     public String getSelectedText() {
-        return doWithRetry(() -> new Select(getElement()).getFirstSelectedOption().getText());
+        logElementAction("loc.combobox.getting.selected.value");
+        String value = doWithRetry(() -> new Select(getElement()).getFirstSelectedOption().getText());
+        logElementAction("loc.combobox.selected.value", value);
+        return value;
     }
 
     @Override
     public List<String> getValues() {
         logElementAction("loc.combobox.get.values");
-        return doWithRetry(() ->
+        List<String> values = doWithRetry(() ->
                 new Select(getElement()).getOptions()
                         .stream()
                         .map(option -> option.getAttribute(Attributes.VALUE.toString()))
                         .collect(Collectors.toList()));
+        logElementAction("loc.combobox.values",
+                values.stream().map(value -> String.format("'%s'", value)).collect(Collectors.joining(", ")));
+        return values;
     }
 
     @Override
     public List<String> getTexts() {
         logElementAction("loc.combobox.get.texts");
-        return doWithRetry(() ->
+        List<String> values = doWithRetry(() ->
                 new Select(getElement()).getOptions()
                         .stream()
                         .map(WebElement::getText)
                         .collect(Collectors.toList()));
+        logElementAction("loc.combobox.texts",
+                values.stream().map(value -> String.format("'%s'", value)).collect(Collectors.joining(", ")));
+        return values;
     }
 }
