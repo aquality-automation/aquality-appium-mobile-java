@@ -6,7 +6,7 @@
 
     <groupId>com.github.aquality-automation</groupId>
     <artifactId>aquality-appium-mobile</artifactId>
-    <version>3.0.0-beta</version>
+    <version>3.1.1</version>
 
     <packaging>jar</packaging>
     <name>Aquality Appium Mobile</name>
@@ -172,13 +172,13 @@
         <dependency>
             <groupId>com.github.aquality-automation</groupId>
             <artifactId>aquality-selenium-core</artifactId>
-            <version>2.0.4</version>
+            <version>2.0.5</version>
         </dependency>
 
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
-            <version>8.2.0</version>
+            <version>8.3.0</version>
         </dependency>
 
         <dependency>
