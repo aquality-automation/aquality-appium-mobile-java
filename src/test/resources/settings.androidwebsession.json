@@ -14,6 +14,7 @@
           "w3c": false
         },
         "uiautomator2ServerInstallTimeout": 30000,
+        "adbExecTimeout": 30000,
         "eventTimings": true
       }
     }
