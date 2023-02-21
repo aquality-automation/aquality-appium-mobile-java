@@ -19,6 +19,10 @@ import java.util.List;
 
 public abstract class ApplicationFactory implements IApplicationFactory {
 
+    protected CustomActionRetrier getActionRetrier() {
+        return new CustomActionRetrier(Collections.singletonList(SessionNotCreatedException.class));
+    }
+
     protected IllegalArgumentException getLoggedWrongPlatformNameException(String actualPlatform) {
         String message = AqualityServices.get(ILocalizationManager.class)
                 .getLocalizedMessage("loc.platform.name.wrong", actualPlatform);
@@ -31,7 +35,7 @@ public abstract class ApplicationFactory implements IApplicationFactory {
         PlatformName platformName = AqualityServices.getApplicationProfile().getPlatformName();
         Capabilities capabilities = AqualityServices.getApplicationProfile().getDriverSettings().getCapabilities();
         Factory httpClientFactory = new ClientFactory();
-        return new CustomActionRetrier(Collections.singletonList(SessionNotCreatedException.class))
+        return getActionRetrier()
                 .doWithRetry(() -> createSession(platformName, serviceUrl, httpClientFactory, capabilities));
     }
 
