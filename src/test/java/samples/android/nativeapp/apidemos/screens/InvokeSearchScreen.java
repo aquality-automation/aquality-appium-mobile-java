@@ -16,8 +16,12 @@ public class InvokeSearchScreen extends AndroidScreen {
     }
 
     public void submitSearch(String query) {
-        txbSearch.clearAndType(query);
+        typeQuery(query);
         btnStartSearch.click();
+    }
+
+    public void typeQuery(String query) {
+        txbSearch.clearAndType(query);
     }
 
     public String getSearchResult() {

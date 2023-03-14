@@ -51,5 +51,13 @@
       "verticalOffset": 0.2,
       "horizontalOffset": 0.5
     }
+  },
+  "visualization": {
+    "imageExtension": "png",
+    "maxFullFileNameLength": 255,
+    "defaultThreshold": 0.012,
+    "comparisonWidth": 16,
+    "comparisonHeight": 16,
+    "pathToDumps": "./src/test/resources/visualDumps/"
   }
 }

@@ -12,6 +12,7 @@ import aquality.selenium.core.elements.interfaces.IElementFinder;
 import aquality.selenium.core.localization.ILocalizationManager;
 import aquality.selenium.core.localization.ILocalizedLogger;
 import aquality.selenium.core.utilities.IElementActionRetrier;
+import aquality.selenium.core.visualization.IImageComparator;
 import aquality.selenium.core.waitings.IConditionalWait;
 import org.openqa.selenium.*;
 
@@ -43,6 +44,11 @@ public abstract class Element extends aquality.selenium.core.elements.Element im
     @Override
     protected IElementFinder getElementFinder() {
         return AqualityServices.get(IElementFinder.class);
+    }
+
+    @Override
+    protected IImageComparator getImageComparator() {
+        return AqualityServices.get(IImageComparator.class);
     }
 
     @Override

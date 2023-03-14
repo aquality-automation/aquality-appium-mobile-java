@@ -1,10 +1,16 @@
 package aquality.appium.mobile.screens;
 
 import aquality.selenium.core.elements.interfaces.IElementStateProvider;
+import aquality.selenium.core.forms.IForm;
+import aquality.selenium.core.visualization.IDumpManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 
-public interface IScreen {
+import java.awt.*;
+
+/**
+ * Defines interface for any UI form.
+ */
+public interface IScreen extends IForm {
     /**
      * Locator for specified screen
      */
@@ -26,4 +32,13 @@ public interface IScreen {
      * @return provider to define element's state
      */
     IElementStateProvider state();
+
+
+    /**
+     * Gets dump manager for the current form that could be used for visualization purposes,
+     * such as saving and comparing dumps.
+     *
+     * @return form's dump manager.
+     */
+    IDumpManager dump();
 }
