@@ -12,7 +12,6 @@ public abstract class AndroidScreen extends Screen {
         super(locator, name);
     }
 
-    @SuppressWarnings("unchecked")
     protected void startActivity(Activity activity) {
         AqualityServices.getLocalizedLogger().info("loc.application.android.activity.start",
                 activity.getAppActivity(),

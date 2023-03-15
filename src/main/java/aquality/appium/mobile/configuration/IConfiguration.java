@@ -1,10 +1,10 @@
 package aquality.appium.mobile.configuration;
 
-import aquality.selenium.core.configurations.IElementCacheConfiguration;
-import aquality.selenium.core.configurations.ILoggerConfiguration;
-import aquality.selenium.core.configurations.IRetryConfiguration;
-import aquality.selenium.core.configurations.ITimeoutConfiguration;
+import aquality.selenium.core.configurations.*;
 
+/**
+ * Describes tools configuration.
+ */
 public interface IConfiguration {
 
     /**
@@ -48,4 +48,11 @@ public interface IConfiguration {
      * @return Configuration of touch actions.
      */
     ITouchActionsConfiguration getTouchActionsConfiguration();
+
+    /**
+     * Gets configuration of VisualStateProvider and Dump manager.
+     *
+     * @return Visualization configuration.
+     */
+    IVisualizationConfiguration getVisualizationConfiguration();
 }

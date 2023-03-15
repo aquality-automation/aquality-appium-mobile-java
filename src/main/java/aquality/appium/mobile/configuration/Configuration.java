@@ -1,9 +1,6 @@
 package aquality.appium.mobile.configuration;
 
-import aquality.selenium.core.configurations.IElementCacheConfiguration;
-import aquality.selenium.core.configurations.ILoggerConfiguration;
-import aquality.selenium.core.configurations.IRetryConfiguration;
-import aquality.selenium.core.configurations.ITimeoutConfiguration;
+import aquality.selenium.core.configurations.*;
 import com.google.inject.Inject;
 
 public class Configuration implements IConfiguration {
@@ -14,18 +11,20 @@ public class Configuration implements IConfiguration {
     private final ILoggerConfiguration loggerConfiguration;
     private final IElementCacheConfiguration elementCacheConfiguration;
     private final ITouchActionsConfiguration touchActionsConfiguration;
+    private final IVisualizationConfiguration visualizationConfiguration;
 
     @Inject
     public Configuration(ITimeoutConfiguration timeoutConfiguration, IRetryConfiguration retryConfiguration,
                          IApplicationProfile applicationProfile, ILoggerConfiguration loggerConfiguration,
                          IElementCacheConfiguration elementCacheConfiguration,
-                         ITouchActionsConfiguration touchActionsConfiguration) {
+                         ITouchActionsConfiguration touchActionsConfiguration, IVisualizationConfiguration visualizationConfiguration) {
         this.timeoutConfiguration = timeoutConfiguration;
         this.retryConfiguration = retryConfiguration;
         this.applicationProfile = applicationProfile;
         this.loggerConfiguration = loggerConfiguration;
         this.elementCacheConfiguration = elementCacheConfiguration;
         this.touchActionsConfiguration = touchActionsConfiguration;
+        this.visualizationConfiguration = visualizationConfiguration;
     }
 
     @Override
@@ -56,5 +55,10 @@ public class Configuration implements IConfiguration {
     @Override
     public ITouchActionsConfiguration getTouchActionsConfiguration() {
         return touchActionsConfiguration;
+    }
+
+    @Override
+    public IVisualizationConfiguration getVisualizationConfiguration() {
+        return visualizationConfiguration;
     }
 }

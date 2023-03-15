@@ -17,7 +17,7 @@ We use interfaces where is possible, so you can implement your own version of ta
 
 ### Quick start
 
-To start the project using Aquality.Selenium framework, you can [download our template BDD project by this link.](https://github.com/aquality-automation/aquality-appium-mobile-java-template)
+To start the project using aquality.appium.mobile framework, you can [download our template BDD project by this link.](https://github.com/aquality-automation/aquality-appium-mobile-java-template)
 
 Alternatively, you can follow the steps below:
 

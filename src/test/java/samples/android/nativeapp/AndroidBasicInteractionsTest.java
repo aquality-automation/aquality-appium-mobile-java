@@ -64,6 +64,19 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
     }
 
     @Test
+    public void testSaveAndCompareScreenDump()
+    {
+        InvokeSearchScreen searchScreen = ApplicationActivity.SEARCH.open();
+        Assert.assertTrue(searchScreen.state().isDisplayed(), String.format("%s should be opened", searchScreen.getName()));
+        final String customDumpName = String.format("my dump of %s", searchScreen.getName());
+        searchScreen.dump().save(customDumpName);
+        Assert.assertEquals(searchScreen.dump().compare(customDumpName), 0, "Current screen should have no visual difference comparing to just saved dump");
+        final String query = "Hello world!";
+        searchScreen.typeQuery(query);
+        Assert.assertTrue(searchScreen.dump().compare() > 0, "Current screen after the search should have visual difference comparing to dump saved");
+    }
+
+    @Test
     public void testRadioButton() {
         ITestRadioButton.super.testRadioButton();
     }
