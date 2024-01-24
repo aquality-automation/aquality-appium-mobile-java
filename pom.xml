@@ -6,7 +6,7 @@
 
     <groupId>com.github.aquality-automation</groupId>
     <artifactId>aquality-appium-mobile</artifactId>
-    <version>4.0.0</version>
+    <version>${revision}</version>
 
     <packaging>jar</packaging>
     <name>Aquality Appium Mobile</name>
