@@ -16,7 +16,9 @@ public abstract class AndroidWebTest {
 
     @AfterClass
     void tearDown() {
-        AqualityServices.getApplication().quit();
+        if (AqualityServices.isApplicationStarted()) {
+            AqualityServices.getApplication().quit();
+        }
         System.clearProperty("profile");
     }
 }
