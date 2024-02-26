@@ -35,7 +35,7 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
 
     private void openViewControlsScreen() {
         ViewControlsScreen screen = ApplicationActivity.VIEW_CONTROLS.open();
-        Assert.assertTrue(screen.state().isDisplayed(), String.format("%s screen should be opened", screen.getName()));
+        Assert.assertTrue(screen.state().waitForDisplayed(), String.format("%s screen should be opened", screen.getName()));
     }
 
     @Override
@@ -57,7 +57,7 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
     @Test
     public void testSendKeys() {
         InvokeSearchScreen searchScreen = ApplicationActivity.SEARCH.open();
-        Assert.assertTrue(searchScreen.state().isDisplayed(), String.format("%s should be opened", searchScreen.getName()));
+        Assert.assertTrue(searchScreen.state().waitForDisplayed(), String.format("%s should be opened", searchScreen.getName()));
         String query = "Hello world!";
         searchScreen.submitSearch(query);
         Assert.assertEquals(searchScreen.getSearchResult(), query, "Search result don't match to entered query");
@@ -67,7 +67,7 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
     public void testSaveAndCompareScreenDump()
     {
         InvokeSearchScreen searchScreen = ApplicationActivity.SEARCH.open();
-        Assert.assertTrue(searchScreen.state().isDisplayed(), String.format("%s should be opened", searchScreen.getName()));
+        Assert.assertTrue(searchScreen.state().waitForDisplayed(), String.format("%s should be opened", searchScreen.getName()));
         final String customDumpName = String.format("my dump of %s", searchScreen.getName());
         searchScreen.dump().save(customDumpName);
         Assert.assertEquals(searchScreen.dump().compare(customDumpName), 0, "Current screen should have no visual difference comparing to just saved dump");
@@ -114,7 +114,7 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
     @Test
     public void testHorizontalSwipeToElement() {
         ViewTabsScrollableScreen viewTabsScrollableScreen = ApplicationActivity.VIEW_TABS_SCROLLABLE.open();
-        Assert.assertTrue(viewTabsScrollableScreen.state().isDisplayed(),
+        Assert.assertTrue(viewTabsScrollableScreen.state().waitForDisplayed(),
                 String.format("%s screen should be opened", viewTabsScrollableScreen.getName()));
         viewTabsScrollableScreen.swipeTabWithLongPress(4, 1);
         viewTabsScrollableScreen.selectTab(7);
