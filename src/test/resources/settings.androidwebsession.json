@@ -37,7 +37,7 @@
     "pollingInterval": 300
   },
   "logger": {
-    "language": "ru"
+    "language": "en"
   },
   "elementCache": {
     "isEnabled": false

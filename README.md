@@ -15,6 +15,11 @@ Most of performed methods are logged using LOG4J, so you can easily see a histor
 
 We use interfaces where is possible, so you can implement your own version of target interface with no need to rewrite other classes. 
 
+> ### Breaking news!
+> Starting from v5.0.0 onwards, this package requires Java 11 or higher, as Selenium and Appium have stopped support of Java 8.
+> The last version available for Java 8 is [v4.1.1](https://github.com/aquality-automation/aquality-appium-mobile-java/releases/tag/v4.1.1)
+
+
 ### Quick start
 
 To start the project using aquality.appium.mobile framework, you can [download our template BDD project by this link.](https://github.com/aquality-automation/aquality-appium-mobile-java-template)
@@ -26,7 +31,7 @@ Alternatively, you can follow the steps below:
 <dependency>
     <groupId>com.github.aquality-automation</groupId>
     <artifactId>aquality-appium-mobile</artifactId>
-    <version>3.0.x</version>
+    <version>5.0.x</version>
 </dependency>
 ```
 
