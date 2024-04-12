@@ -21,7 +21,7 @@ public abstract class AndroidScreen extends Screen {
                 activity.getAppPackage());
         AndroidDriver driver = (AndroidDriver) AqualityServices.getApplication().getDriver();
         Map<String, Object> params = new HashMap<>();
-        params.put("intent", activity.getAppPackage() + "/" + activity.getAppActivity());
+        params.put("intent", String.format("%s/%s", activity.getAppPackage(), activity.getAppActivity()));
         params.put("package", activity.getAppPackage());
         driver.executeScript("mobile: startActivity", params);
     }

@@ -5,6 +5,7 @@ import aquality.selenium.core.applications.IApplication;
 import aquality.selenium.core.configurations.ITimeoutConfiguration;
 import aquality.selenium.core.localization.ILocalizedLogger;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.InteractsWithApps;
 import org.openqa.selenium.remote.service.DriverService;
 
 import java.time.Duration;
@@ -84,5 +85,14 @@ public class Application implements IApplication {
         if (getDriverService() != null) {
             getDriverService().stop();
         }
+    }
+
+    /**
+     * Terminate the particular application if it is running.
+     * @param bundleId the bundle identifier (or app id) of the app to be terminated.
+     * @return true if the app was running before and has been successfully stopped.
+     */
+    public boolean terminateApp(String bundleId) {
+        return ((InteractsWithApps)getDriver()).terminateApp(bundleId);
     }
 }
