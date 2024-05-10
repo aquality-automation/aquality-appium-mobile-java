@@ -102,10 +102,10 @@ public class AqualityServices extends aquality.selenium.core.applications.Aquali
     /**
      * Sets instance of application.
      *
-     * @param IMobileApplication Instance of desired application.
+     * @param application Instance of desired application.
      */
-    public static void setApplication(IMobileApplication IMobileApplication) {
-        getInstance().setApp(IMobileApplication);
+    public static void setApplication(IMobileApplication application) {
+        getInstance().setApp(application);
     }
 
     /**
