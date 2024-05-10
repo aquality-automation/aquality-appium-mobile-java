@@ -1,7 +1,7 @@
 package aquality.appium.mobile.elements;
 
-import aquality.appium.mobile.application.Application;
 import aquality.appium.mobile.application.AqualityServices;
+import aquality.appium.mobile.application.IMobileApplication;
 import aquality.appium.mobile.elements.actions.ElementTouchActions;
 import aquality.appium.mobile.elements.actions.IElementTouchActions;
 import aquality.appium.mobile.elements.interfaces.IElement;
@@ -32,7 +32,7 @@ public abstract class Element extends aquality.selenium.core.elements.Element im
     }
 
     @Override
-    protected Application getApplication() {
+    protected IMobileApplication getApplication() {
         return AqualityServices.getApplication();
     }
 

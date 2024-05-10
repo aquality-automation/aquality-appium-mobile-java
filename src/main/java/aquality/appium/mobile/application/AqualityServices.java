@@ -11,7 +11,7 @@ import aquality.selenium.core.logging.Logger;
 import aquality.selenium.core.waitings.IConditionalWait;
 import com.google.inject.Injector;
 
-public class AqualityServices extends aquality.selenium.core.applications.AqualityServices<Application> {
+public class AqualityServices extends aquality.selenium.core.applications.AqualityServices<IMobileApplication> {
 
     private static final ThreadLocal<AqualityServices> INSTANCE_CONTAINER = ThreadLocal.withInitial(AqualityServices::new);
 
@@ -34,7 +34,7 @@ public class AqualityServices extends aquality.selenium.core.applications.Aquali
      *
      * @return Instance of application.
      */
-    public static Application getApplication() {
+    public static IMobileApplication getApplication() {
         return getInstance().getApp(injector -> AqualityServices.startApplication());
     }
 
@@ -95,17 +95,17 @@ public class AqualityServices extends aquality.selenium.core.applications.Aquali
         getInstance().applicationFactory = applicationFactory;
     }
 
-    private static Application startApplication() {
+    private static IMobileApplication startApplication() {
         return getApplicationFactory().getApplication();
     }
 
     /**
      * Sets instance of application.
      *
-     * @param application Instance of desired application.
+     * @param IMobileApplication Instance of desired application.
      */
-    public static void setApplication(Application application) {
-        getInstance().setApp(application);
+    public static void setApplication(IMobileApplication IMobileApplication) {
+        getInstance().setApp(IMobileApplication);
     }
 
     /**

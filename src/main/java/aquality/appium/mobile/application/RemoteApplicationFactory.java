@@ -8,7 +8,7 @@ import java.net.URL;
 public class RemoteApplicationFactory extends ApplicationFactory {
 
     @Override
-    public Application getApplication() {
+    public IMobileApplication getApplication() {
         URL serverUrl = AqualityServices.getApplicationProfile().getRemoteConnectionUrl();
         AppiumDriver driver = getDriver(serverUrl);
         driver.setFileDetector(new LocalFileDetector());
