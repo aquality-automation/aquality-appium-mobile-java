@@ -18,6 +18,7 @@ public class DriverSettings implements IDriverSettings {
     private static final String APPLICATION_PATH_KEY = "applicationPath";
     private static final String APP_CAPABILITY_KEY = "app";
     private static final String DEVICE_KEY_KEY = "deviceKey";
+    public static final String CAPABILITIES = "capabilities";
 
     private final ISettingsFile settingsFile;
     private final PlatformName platformName;
@@ -33,12 +34,12 @@ public class DriverSettings implements IDriverSettings {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilitiesFromSettings.forEach((key, value) -> {
             if (key.toLowerCase().endsWith("options")) {
-                value = settingsFile.getMap(getDriverSettingsPath("capabilities", key));
+                value = settingsFile.getMap(getDriverSettingsPath(CAPABILITIES, key));
             }
             capabilities.setCapability(key, value);
         });
         if (hasApplicationPath()) {
-            capabilities.setCapability(APP_CAPABILITY_KEY, getAbsolutePath(getApplicationPath()));
+            capabilities.setCapability(APP_CAPABILITY_KEY, getApplicationPath());
         }
         return capabilities.merge(getDeviceCapabilities());
     }
@@ -48,7 +49,7 @@ public class DriverSettings implements IDriverSettings {
     }
 
     private String getDriverCapabilitiesJsonPath() {
-        return getDriverSettingsPath("capabilities");
+        return getDriverSettingsPath(CAPABILITIES);
     }
 
     private String getAbsolutePath(String relativePath) {
@@ -64,7 +65,7 @@ public class DriverSettings implements IDriverSettings {
     }
 
     private boolean hasApplicationPath() {
-        return settingsFile.getMap(getDriverSettingsPath()).containsKey(APPLICATION_PATH_KEY);
+        return settingsFile.getMap(getDriverSettingsPath()).containsKey(APPLICATION_PATH_KEY) || getDeviceCapabilities().is(APP_CAPABILITY_KEY);
     }
 
     private Capabilities getDeviceCapabilities() {
@@ -75,7 +76,16 @@ public class DriverSettings implements IDriverSettings {
 
     @Override
     public String getApplicationPath() {
-        return String.valueOf(settingsFile.getValue(getDriverSettingsPath(APPLICATION_PATH_KEY)));
+        return getAbsolutePath(String.valueOf(settingsFile.getValueOrDefault(getDriverSettingsPath(APPLICATION_PATH_KEY),
+                getDeviceCapabilities().getCapability(APP_CAPABILITY_KEY))));
+    }
+
+    @Override
+    public String getBundleId() {
+        final String BUNDLE_ID_CAPABILITY_KEY = platformName == PlatformName.ANDROID ? "appPackage" : "bundleId";
+        String pathToCapability = getDriverSettingsPath(CAPABILITIES, BUNDLE_ID_CAPABILITY_KEY);
+        Object capabilityForDevice = getDeviceCapabilities().getCapability(BUNDLE_ID_CAPABILITY_KEY);
+        return (capabilityForDevice == null ? settingsFile.getValue(pathToCapability) : capabilityForDevice).toString();
     }
 
     private String getDriverSettingsPath(final String... paths) {

@@ -1,16 +1,25 @@
 package aquality.appium.mobile.application;
 
 import aquality.appium.mobile.configuration.IApplicationProfile;
-import aquality.selenium.core.applications.IApplication;
 import aquality.selenium.core.configurations.ITimeoutConfiguration;
 import aquality.selenium.core.localization.ILocalizedLogger;
+import aquality.selenium.core.utilities.IActionRetrier;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.InteractsWithApps;
+import io.appium.java_client.CommandExecutionHelper;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.appmanagement.ApplicationState;
+import io.appium.java_client.appmanagement.BaseActivateApplicationOptions;
+import io.appium.java_client.appmanagement.BaseTerminateApplicationOptions;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.service.DriverService;
 
 import java.time.Duration;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Supplier;
 
-public class Application implements IApplication {
+public class Application implements IMobileApplication {
 
     private final ILocalizedLogger localizedLogger;
     private final IApplicationProfile applicationProfile;
@@ -36,10 +45,7 @@ public class Application implements IApplication {
         this.timeoutImpl = duration;
     }
 
-    /**
-     * Provides AppiumDriver instance for current application session.
-     * @return driver instance.
-     */
+    @Override
     public AppiumDriver getDriver() {
         return appiumDriver;
     }
@@ -49,18 +55,12 @@ public class Application implements IApplication {
         return appiumDriver.getSessionId() != null;
     }
 
-    /**
-     * Provides current AppiumDriver service instance (would be null if driver is not local)
-     * @return driver service instance
-     */
+    @Override
     public DriverService getDriverService() {
         return driverService;
     }
 
-    /**
-     * Returns name of current platform
-     * @return name
-     */
+    @Override
     public final PlatformName getPlatformName() {
         return applicationProfile.getPlatformName();
     }
@@ -73,9 +73,7 @@ public class Application implements IApplication {
         }
     }
 
-    /**
-     * Executes appium driver quit, then stops the driver service
-     */
+    @Override
     public void quit() {
         localizedLogger.info("loc.application.quit");
         if (getDriver() != null) {
@@ -88,11 +86,90 @@ public class Application implements IApplication {
     }
 
     /**
-     * Terminate the particular application if it is running.
-     * @param bundleId the bundle identifier (or app id) of the app to be terminated.
-     * @return true if the app was running before and has been successfully stopped.
+     * Retries application actions.
+     * @param function result supplier.
+     * @return result of the function executed.
+     * @param <T> type of the result.
      */
-    public boolean terminateApp(String bundleId) {
-        return ((InteractsWithApps)getDriver()).terminateApp(bundleId);
+    protected <T> T doWithRetry(Supplier<T> function) {
+        return AqualityServices.get(IActionRetrier.class)
+                .doWithRetry(function, Collections.singletonList(WebDriverException.class));
+    }
+
+    /**
+     * Retries application actions.
+     * @param function runnable function.
+     */
+    protected void doWithRetry(Runnable function) {
+        AqualityServices.get(IActionRetrier.class)
+                .doWithRetry(function, Collections.singletonList(WebDriverException.class));
+    }
+
+    @Override
+    public String getId() {
+        final String iosExtName = "mobile: activeAppInfo";
+        return doWithRetry(() -> {
+            if (PlatformName.ANDROID == getPlatformName()) {
+                return ((AndroidDriver) getDriver()).getCurrentPackage();
+            }
+            Map<String, Object> result = CommandExecutionHelper.executeScript(getDriver().assertExtensionExists(iosExtName), iosExtName);
+            return String.valueOf(Objects.requireNonNull(result).get("bundleId"));
+        });
+    }
+
+    @Override
+    public ApplicationState getState(String appId) {
+        localizedLogger.info("loc.application.get.state", appId);
+        ApplicationState state = doWithRetry(() -> appManagement().queryAppState(appId));
+        localizedLogger.info("loc.application.state", state);
+        return state;
+    }
+
+    @Override
+    public void install(String appPath) {
+        localizedLogger.info("loc.application.install", appPath);
+        doWithRetry(() -> appManagement().installApp(appPath));
+    }
+
+    @Override
+    public void background(Duration timeout) {
+        localizedLogger.info("loc.application.background");
+        doWithRetry(() -> appManagement().runAppInBackground(timeout));
+    }
+
+    @Override
+    public boolean remove(String appId) {
+        localizedLogger.info("loc.application.remove", appId);
+        return doWithRetry(() -> appManagement().removeApp(appId));
+    }
+
+    @Override
+    public void activate(String appId) {
+        localizedLogger.info("loc.application.activate", appId);
+        doWithRetry(() -> appManagement().activateApp(appId));
+    }
+
+    @Override
+    public void activate(String appId, Duration timeout) {
+        localizedLogger.info("loc.application.activate", appId);
+        class Options extends BaseActivateApplicationOptions<Options> {
+            @Override
+            public Map<String, Object> build() {
+                return Collections.singletonMap("timeout", timeout.toMillis());
+            }
+        }
+        doWithRetry(() -> appManagement().activateApp(appId, new Options()));
+    }
+
+    @Override
+    public boolean terminate(String appId, Duration timeout) {
+        localizedLogger.info("loc.application.terminate", appId);
+        class Options extends BaseTerminateApplicationOptions<Options> {
+            @Override
+            public Map<String, Object> build() {
+                return Collections.singletonMap("timeout", timeout.toMillis());
+            }
+        }
+        return doWithRetry(() -> appManagement().terminateApp(appId, new Options()));
     }
 }

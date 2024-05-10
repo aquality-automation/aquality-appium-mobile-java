@@ -15,9 +15,9 @@ import aquality.selenium.core.applications.AqualityModule;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
-public class MobileModule extends AqualityModule<Application> implements IConfigurationsModule, IElementsModule, IScreensModule, IActionsModule {
+public class MobileModule extends AqualityModule<IMobileApplication> implements IConfigurationsModule, IElementsModule, IScreensModule, IActionsModule {
 
-    public MobileModule(Provider<Application> applicationProvider) {
+    public MobileModule(Provider<IMobileApplication> applicationProvider) {
         super(applicationProvider);
     }
 

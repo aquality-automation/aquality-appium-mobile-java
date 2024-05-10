@@ -1,14 +1,19 @@
 package samples.android.nativeapp;
 
 import aquality.appium.mobile.application.AqualityServices;
+import aquality.appium.mobile.application.IMobileApplication;
 import aquality.appium.mobile.application.MobileModule;
 import aquality.appium.mobile.elements.interfaces.ICheckBox;
 import aquality.appium.mobile.elements.interfaces.IRadioButton;
+import aquality.selenium.core.configurations.ITimeoutConfiguration;
+import io.appium.java_client.appmanagement.ApplicationState;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import org.testng.util.RetryAnalyzerCount;
 import samples.android.ITestCheckBox;
 import samples.android.ITestRadioButton;
 import samples.android.nativeapp.apidemos.ApplicationActivity;
@@ -52,6 +57,36 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
     @AfterClass
     public void tearDown() {
         AqualityServices.getApplication().quit();
+    }
+
+    public static class RetryAnalyzer extends RetryAnalyzerCount {
+        public RetryAnalyzer() {}
+        @Override
+        public boolean retryMethod(ITestResult result) {
+            return !result.isSuccess() && result.getThrowable() instanceof AssertionError;
+        }
+    }
+
+    @Test(retryAnalyzer = RetryAnalyzer.class, successPercentage = 50)
+    public void testApplicationManagement() {
+        IMobileApplication app = AqualityServices.getApplication();
+        Assert.assertThrows(IllegalArgumentException.class, () -> AqualityServices.getApplicationProfile().getDriverSettings().getBundleId());
+        ApplicationActivity.SEARCH.open();
+        String id = app.getId();
+        app.background();
+        Assert.assertEquals(app.getState(id), ApplicationState.RUNNING_IN_BACKGROUND);
+        app.activate(id);
+        Assert.assertEquals(app.getState(id), ApplicationState.RUNNING_IN_FOREGROUND);
+        Assert.assertTrue(app.terminate());
+        Assert.assertTrue(app.isStarted());
+        Assert.assertEquals(app.getState(id), ApplicationState.NOT_RUNNING);
+        app.activate(id, AqualityServices.get(ITimeoutConfiguration.class).getCondition());
+        Assert.assertEquals(app.getState(id), ApplicationState.RUNNING_IN_FOREGROUND);
+        Assert.assertTrue(app.remove());
+        Assert.assertEquals(app.getState(id), ApplicationState.NOT_INSTALLED);
+        Assert.assertFalse(app.terminate(id));
+        app.install();
+        Assert.assertEquals(app.getState(id), ApplicationState.NOT_RUNNING);
     }
 
     @Test

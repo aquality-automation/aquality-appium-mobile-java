@@ -11,7 +11,7 @@ import java.util.Collections;
 public class LocalApplicationFactory extends ApplicationFactory {
 
     @Override
-    public Application getApplication() {
+    public IMobileApplication getApplication() {
         ILocalServiceSettings settings = AqualityServices.getLocalServiceSettings();
         AppiumServiceBuilder builder = new AppiumServiceBuilder()
                 .withCapabilities(settings.getCapabilities());

@@ -18,4 +18,11 @@ public interface IDriverSettings {
      * @return path to application.
      */
     String getApplicationPath();
+
+    /**
+     * Provides the bundleId/appPackage of the application.
+     *
+     * @return application id.
+     */
+    String getBundleId();
 }
