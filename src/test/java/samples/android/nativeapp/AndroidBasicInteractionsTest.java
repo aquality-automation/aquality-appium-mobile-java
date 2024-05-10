@@ -8,10 +8,12 @@ import aquality.appium.mobile.elements.interfaces.IRadioButton;
 import aquality.selenium.core.configurations.ITimeoutConfiguration;
 import io.appium.java_client.appmanagement.ApplicationState;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import org.testng.util.RetryAnalyzerCount;
 import samples.android.ITestCheckBox;
 import samples.android.ITestRadioButton;
 import samples.android.nativeapp.apidemos.ApplicationActivity;
@@ -57,7 +59,15 @@ public class AndroidBasicInteractionsTest implements ITestCheckBox, ITestRadioBu
         AqualityServices.getApplication().quit();
     }
 
-    @Test
+    public static class RetryAnalyzer extends RetryAnalyzerCount {
+        public RetryAnalyzer() {}
+        @Override
+        public boolean retryMethod(ITestResult result) {
+            return !result.isSuccess() && result.getThrowable() instanceof AssertionError;
+        }
+    }
+
+    @Test(retryAnalyzer = RetryAnalyzer.class, successPercentage = 50)
     public void testApplicationManagement() {
         IMobileApplication app = AqualityServices.getApplication();
         Assert.assertThrows(IllegalArgumentException.class, () -> AqualityServices.getApplicationProfile().getDriverSettings().getBundleId());

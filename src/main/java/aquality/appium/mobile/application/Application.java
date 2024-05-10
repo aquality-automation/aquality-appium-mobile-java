@@ -163,6 +163,7 @@ public class Application implements IMobileApplication {
 
     @Override
     public boolean terminate(String appId, Duration timeout) {
+        localizedLogger.info("loc.application.terminate", appId);
         class Options extends BaseTerminateApplicationOptions<Options> {
             @Override
             public Map<String, Object> build() {
