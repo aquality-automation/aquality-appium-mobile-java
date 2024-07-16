@@ -4,8 +4,7 @@ import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.application.PlatformName;
 import aquality.selenium.core.localization.ILocalizationManager;
 import aquality.selenium.core.utilities.ISettingsFile;
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import io.appium.java_client.remote.options.BaseOptions;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,9 +28,9 @@ public class DriverSettings implements IDriverSettings {
     }
 
     @Override
-    public Capabilities getCapabilities() {
+    public BaseOptions<?> getCapabilities() {
         Map<String, Object> capabilitiesFromSettings = getCapabilitiesFromSettings();
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+        BaseOptions<?> capabilities = new BaseOptions<>();
         capabilitiesFromSettings.forEach((key, value) -> {
             if (key.toLowerCase().endsWith("options")) {
                 value = settingsFile.getMap(getDriverSettingsPath(CAPABILITIES, key));
@@ -68,7 +67,7 @@ public class DriverSettings implements IDriverSettings {
         return settingsFile.getMap(getDriverSettingsPath()).containsKey(APPLICATION_PATH_KEY) || getDeviceCapabilities().is(APP_CAPABILITY_KEY);
     }
 
-    private Capabilities getDeviceCapabilities() {
+    private BaseOptions<?> getDeviceCapabilities() {
         String deviceKey = (String) settingsFile.getValueOrDefault(getDriverSettingsPath(DEVICE_KEY_KEY), null);
         IDeviceSettings deviceSettings = new DeviceSettings(deviceKey);
         return deviceSettings.getCapabilities();

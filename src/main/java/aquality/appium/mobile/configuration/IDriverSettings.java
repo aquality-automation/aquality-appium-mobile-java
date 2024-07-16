@@ -1,6 +1,6 @@
 package aquality.appium.mobile.configuration;
 
-import org.openqa.selenium.Capabilities;
+import io.appium.java_client.remote.options.BaseOptions;
 
 /**
  * Describes AppiumDriver settings.
@@ -9,9 +9,9 @@ public interface IDriverSettings {
 
     /**
      * Gets appium driver capabilities.
-     * @return initialized {@link Capabilities}.
+     * @return initialized {@link BaseOptions}.
      */
-    Capabilities getCapabilities();
+    BaseOptions<?> getCapabilities();
 
     /**
      * Provides a path to the application.
