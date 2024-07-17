@@ -2,8 +2,7 @@ package aquality.appium.mobile.configuration;
 
 import aquality.selenium.core.utilities.ISettingsFile;
 import aquality.selenium.core.utilities.JsonSettingsFile;
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import io.appium.java_client.remote.options.BaseOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,9 +26,9 @@ public class DeviceSettings implements IDeviceSettings {
     }
 
     @Override
-    public Capabilities getCapabilities() {
+    public BaseOptions<?> getCapabilities() {
         Map<String, Object> deviceCapabilities = getCapabilitiesFromSettings();
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+        BaseOptions<?> capabilities = new BaseOptions<>();
         deviceCapabilities.forEach(capabilities::setCapability);
         return capabilities;
     }

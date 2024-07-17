@@ -1,6 +1,6 @@
 package aquality.appium.mobile.configuration;
 
-import org.openqa.selenium.Capabilities;
+import io.appium.java_client.remote.options.BaseOptions;
 
 /**
  * Describes desired device settings.
@@ -9,7 +9,7 @@ public interface IDeviceSettings {
 
     /**
      * Capabilities related to desired device.
-     * @return initialized {@link Capabilities}.
+     * @return initialized {@link BaseOptions}.
      */
-    Capabilities getCapabilities();
+    BaseOptions<?> getCapabilities();
 }
