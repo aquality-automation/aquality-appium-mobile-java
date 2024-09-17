@@ -18,7 +18,7 @@ jobs:
       - name: Step 2 - Set up Maven Central Repository
         uses: actions/setup-java@v3
         with:
-          java-version: "11"
+          java-version: "21"
           distribution: "adopt"
           server-id: ossrh
           server-username: MVN_CENTRAL_USERNAME
