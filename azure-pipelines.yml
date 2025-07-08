@@ -82,7 +82,7 @@ jobs:
             $ANDROID_HOME/platform-tools/adb shell pm list packages >/dev/null 2>&1 && break
             sleep 2
           done
-          if [[ $i -eq 60 ]]; then
+          if [[ $i -eq 300 ]]; then
             echo "Emulator failed to boot in time" >&2
             exit 1
           fi
