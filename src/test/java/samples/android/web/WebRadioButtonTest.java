@@ -10,7 +10,7 @@ public class WebRadioButtonTest extends AndroidWebTest implements ITestRadioButt
 
     @Override
     public void openRadioButtonsScreen() {
-        AqualityServices.getApplication().getDriver().get("http://www.echoecho.com/htmlforms10.htm");
+        AqualityServices.getApplication().getDriver().get("https://formy-project.herokuapp.com/radiobutton");
     }
 
     @Override
