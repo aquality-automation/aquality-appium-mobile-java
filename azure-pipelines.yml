@@ -53,7 +53,7 @@ jobs:
 
   variables:
     ANDROID_EMU_NAME: test
-    ANDROID_SDK_ID: system-images;android-30;google_apis_playstore;x86
+    ANDROID_SDK_ID: system-images;android-30;google_apis_playstore;x86_64
 
   steps:
     - task: CmdLine@2
@@ -78,12 +78,19 @@ jobs:
           echo "Starting emulator"
           nohup $ANDROID_HOME/emulator/emulator -avd "$(ANDROID_EMU_NAME)" -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -verbose > /dev/null 2>&1 &
           $ANDROID_HOME/platform-tools/adb wait-for-device
-          while [[ $? -ne 0 ]]; do sleep 1; $ANDROID_HOME/platform-tools/adb shell pm list packages; done;
+          for i in {1..300}; do
+            $ANDROID_HOME/platform-tools/adb shell pm list packages >/dev/null 2>&1 && break
+            sleep 2
+          done
+          if [[ $i -eq 300 ]]; then
+            echo "Emulator failed to boot in time" >&2
+            exit 1
+          fi
           $ANDROID_HOME/platform-tools/adb devices
           echo "Emulator started"
 
           echo "Installing Appium"
-          npm install -g appium@latest
+          npm install -g appium@2
           ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
           chmod +x /usr/local/bin/appium
           export PATH=$PATH:/usr/local/bin/appium
