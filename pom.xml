@@ -16,7 +16,6 @@
     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <revision>5.0.0-SNAPSHOT</revision>
     </properties>
 
     <scm>
