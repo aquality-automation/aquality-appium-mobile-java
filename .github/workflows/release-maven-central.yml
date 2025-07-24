@@ -54,7 +54,12 @@ jobs:
 
       - name: Step 6 - Publish package
         run: |
-          mvn -B --no-transfer-progress -Dmaven.test.skip=true -Drevision=${{ steps.gitversion.outputs.semVer }} deploy
+          mvn -B --no-transfer-progress \
+              versions:set \
+              -DnewVersion=${{ steps.gitversion.outputs.semVer }} \
+              -DgenerateBackupPoms=false \
+              -DprocessAllModules
+          mvn -B --no-transfer-progress -Dmaven.test.skip=true deploy
         env:
           MVN_CENTRAL_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MVN_CENTRAL_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
