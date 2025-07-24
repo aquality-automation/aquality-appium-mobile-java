@@ -13,6 +13,8 @@
   "loc.application.ready": "Application on platform '%1$s' is ready...",
   "loc.application.implicit.timeout": "Set implicit timeout '%1$s' in seconds",
   "loc.application.android.activity.start": "Starting the '%1$s' activity of the Android app at package '%2$s'",
+  "loc.application.execute.script": "Executing script '%s'",
+  "loc.application.script.result": "Script result: '%s'",
   "loc.button": "Button",
   "loc.checkbox": "CheckBox",
   "loc.checkable.is.checked": "Getting state",

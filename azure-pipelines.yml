@@ -9,37 +9,39 @@ jobs:
   displayName: Analyse code with SonarQube
 
   steps:
-    - task: SonarCloudPrepare@1
+    - task: SonarCloudPrepare@3
       displayName: 'Prepare SonarCloud analysis'
       inputs:
         SonarCloud: 'SonarCloud'
         organization: 'aqualityautomation'
         scannerMode: 'CLI'
         configMode: 'file'
-        extraProperties: |
-            sonar.coverage.exclusions=**/**
+        extraProperties: 'sonar.coverage.exclusions=**/**'
 
-    - task: Maven@3
+    - task: Maven@4
       displayName: 'Compile project'
       inputs:
         mavenPomFile: 'pom.xml'
-        goals: 'clean compile'
+        goals: 'clean'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '11'
+        jdkVersionOption: '1.11'
         mavenVersionOption: 'Default'
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
-      continueOnError: true
 
-    - task: SonarCloudAnalyze@1
+    - task: SonarCloudAnalyze@3
+      inputs:
+        jdkversion: 'JAVA_HOME_21_X64'
       displayName: 'Run SonarCloud code analysis'
       continueOnError: true
 
-    - task: SonarCloudPublish@1
+    - task: SonarCloudPublish@3
       displayName: 'Publish SonarCloud quality gate results'
+      inputs:
+        pollingTimeoutSec: '300'
 
 - job: tests
   displayName: Run tests

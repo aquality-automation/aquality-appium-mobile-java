@@ -1,5 +1,6 @@
 package aquality.appium.mobile.application;
 
+import aquality.appium.mobile.actions.IAndroidActions;
 import aquality.appium.mobile.actions.ITouchActions;
 import aquality.appium.mobile.configuration.IApplicationProfile;
 import aquality.appium.mobile.configuration.IConfiguration;
@@ -199,5 +200,14 @@ public class AqualityServices extends aquality.selenium.core.applications.Aquali
      */
     public static ITouchActions getTouchActions() {
         return get(ITouchActions.class);
+    }
+
+    /**
+     * Gets the utility used to perform Android-specific actions.
+     *
+     * @return instance of Android actions.
+     */
+    public static IAndroidActions getAndroidActions() {
+        return get(IAndroidActions.class);
     }
 }

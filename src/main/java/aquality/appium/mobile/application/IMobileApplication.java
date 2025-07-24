@@ -8,6 +8,8 @@ import io.appium.java_client.appmanagement.ApplicationState;
 import org.openqa.selenium.remote.service.DriverService;
 
 import java.time.Duration;
+import java.util.Collections;
+import java.util.Map;
 
 public interface IMobileApplication extends IApplication {
     /**
@@ -62,6 +64,23 @@ public interface IMobileApplication extends IApplication {
      * @return an enumeration of the application state
      */
     ApplicationState getState(String appId);
+
+    /**
+     * Execute application script
+     * @param script script
+     * @param params parameters
+     * @return result of the script execution.
+     */
+    <T> T executeScript(String script, Map<String, Object> params);
+
+    /**
+     * Execute application script
+     * @param script script
+     * @return result of the script execution.
+     */
+    default <T> T executeScript(String script) {
+        return executeScript(script, Collections.emptyMap());
+    }
 
     /**
      * Installs an application.
