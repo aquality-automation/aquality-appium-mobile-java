@@ -106,13 +106,26 @@ public class Application implements IMobileApplication {
     }
 
     @Override
+    public <T> T executeScript(String script, Map<String, Object> params) {
+        return doWithRetry(() -> {
+            String argsString = params == null || params.isEmpty() ? "" : ", " + params;
+            localizedLogger.info("loc.application.execute.script", script + argsString);
+            T result = CommandExecutionHelper.executeScript(getDriver().assertExtensionExists(script), script, params);
+            if (result != null) {
+                localizedLogger.info("loc.application.script.result", result);
+            }
+            return result;
+        });
+    }
+
+    @Override
     public String getId() {
         final String iosExtName = "mobile: activeAppInfo";
         return doWithRetry(() -> {
             if (PlatformName.ANDROID == getPlatformName()) {
                 return ((AndroidDriver) getDriver()).getCurrentPackage();
             }
-            Map<String, Object> result = CommandExecutionHelper.executeScript(getDriver().assertExtensionExists(iosExtName), iosExtName);
+            Map<String, Object> result = executeScript(iosExtName, null);
             return String.valueOf(Objects.requireNonNull(result).get("bundleId"));
         });
     }

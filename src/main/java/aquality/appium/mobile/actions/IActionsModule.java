@@ -13,4 +13,11 @@ public interface IActionsModule extends IConfigurationsModule {
     default Class<? extends ITouchActions> getTouchActionsImplementation() {
         return TouchActions.class;
     }
+
+    /**
+     * @return class which implements {@link IAndroidActions}
+     */
+    default Class<? extends IAndroidActions> getAndroidActionsImplementation() {
+        return AndroidActions.class;
+    }
 }

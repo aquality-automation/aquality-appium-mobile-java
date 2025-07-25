@@ -1,6 +1,7 @@
 package aquality.appium.mobile.application;
 
 import aquality.appium.mobile.actions.IActionsModule;
+import aquality.appium.mobile.actions.IAndroidActions;
 import aquality.appium.mobile.actions.ITouchActions;
 import aquality.appium.mobile.configuration.IApplicationProfile;
 import aquality.appium.mobile.configuration.IConfiguration;
@@ -31,5 +32,6 @@ public class MobileModule extends AqualityModule<IMobileApplication> implements 
         bind(IScreenFactory.class).to(getScreenFactoryImplementation());
         bind(ITouchActionsConfiguration.class).to(getTouchActionsConfigurationImplementation());
         bind(ITouchActions.class).to(getTouchActionsImplementation());
+        bind(IAndroidActions.class).to(getAndroidActionsImplementation());
     }
 }
