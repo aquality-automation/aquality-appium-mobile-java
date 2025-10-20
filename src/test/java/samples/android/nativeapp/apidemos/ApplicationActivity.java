@@ -1,16 +1,16 @@
 package samples.android.nativeapp.apidemos;
 
 import aquality.appium.mobile.application.AqualityServices;
+import aquality.appium.mobile.elements.interfaces.IButton;
 import aquality.appium.mobile.screens.Screen;
+import aquality.selenium.core.configurations.ITimeoutConfiguration;
 import io.appium.java_client.android.Activity;
 import org.openqa.selenium.By;
-import samples.android.nativeapp.apidemos.screens.AlertsMenuScreen;
-import samples.android.nativeapp.apidemos.screens.AndroidScreen;
-import samples.android.nativeapp.apidemos.screens.InvokeSearchScreen;
-import samples.android.nativeapp.apidemos.screens.ViewControlsScreen;
-import samples.android.nativeapp.apidemos.screens.ViewTabsScrollableScreen;
+import org.openqa.selenium.WebDriverException;
+import samples.android.nativeapp.apidemos.screens.*;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collections;
 
 public enum ApplicationActivity {
 
@@ -38,7 +38,8 @@ public enum ApplicationActivity {
     public <T extends AndroidScreen> T getScreen() {
         try {
             return (T) screen.getDeclaredConstructor().newInstance();
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
+                 InvocationTargetException e) {
             AqualityServices.getLogger().debug(e.getMessage());
             throw new IllegalArgumentException("Something went wrong during screen getting");
         }
@@ -46,6 +47,8 @@ public enum ApplicationActivity {
 
     private static class ActivityScreen extends AndroidScreen {
         private final Activity activity;
+        private final IButton btnWait = getElementFactory().getButton(By.id("android:id/aerr_wait"), "Wait");
+        private final IButton btnCloseApp = getElementFactory().getButton(By.id("android:id/aerr_close"), "Close app");
 
         ActivityScreen(Activity activity) {
             super(By.name(activity.getAppActivity()), activity.getAppActivity());
@@ -54,6 +57,21 @@ public enum ApplicationActivity {
 
         void open() {
             startActivity(activity);
+            // workaround to handle System UI isn't responding dialog
+            ITimeoutConfiguration timeoutConfiguration = AqualityServices.getConfiguration().getTimeoutConfiguration();
+            boolean result = AqualityServices.getConditionalWait().waitFor(() ->
+                    {
+                        if (!btnWait.state().waitForDisplayed()) {
+                            return true;
+                        }
+                        btnWait.click();
+                        return btnWait.state().waitForNotDisplayed();
+                    }, timeoutConfiguration.getCommand(),
+                    timeoutConfiguration.getCondition(),
+                    Collections.singletonList(WebDriverException.class));
+            if (!result) {
+                btnCloseApp.click();
+            }
         }
     }
 }

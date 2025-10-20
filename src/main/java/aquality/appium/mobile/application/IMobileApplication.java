@@ -14,6 +14,7 @@ import java.util.Map;
 public interface IMobileApplication extends IApplication {
     /**
      * Provides default timeout for terminate methods.
+     *
      * @return default timeout for waiting until the application is terminated.
      */
     static Duration getDefaultTerminateTimeout() {
@@ -67,15 +68,19 @@ public interface IMobileApplication extends IApplication {
 
     /**
      * Execute application script
+     *
      * @param script script
      * @param params parameters
+     * @param <T>    type of the result
      * @return result of the script execution.
      */
     <T> T executeScript(String script, Map<String, Object> params);
 
     /**
      * Execute application script
+     *
      * @param script script
+     * @param <T>    type of the result
      * @return result of the script execution.
      */
     default <T> T executeScript(String script) {

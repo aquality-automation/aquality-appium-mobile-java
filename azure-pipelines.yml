@@ -2,7 +2,7 @@ trigger:
   - master
 
 pool:
-  vmImage: 'macOS-latest'
+  vmImage: 'macOS-14'
 
 jobs:
 - job: sonar
@@ -44,6 +44,7 @@ jobs:
         pollingTimeoutSec: '300'
 
 - job: tests
+  timeoutInMinutes: 60
   displayName: Run tests
   strategy:
     maxParallel: 2
@@ -55,11 +56,12 @@ jobs:
 
   variables:
     ANDROID_EMU_NAME: test
-    ANDROID_SDK_ID: system-images;android-30;google_apis_playstore;x86_64
+    ANDROID_SDK_ID: system-images;android-29;google_apis_playstore;x86_64
 
   steps:
     - task: CmdLine@2
       displayName: 'Configure Appium and Android SDK'
+      timeoutInMinutes: 15
       inputs:
         script: |
           echo "Configuring Environment"
