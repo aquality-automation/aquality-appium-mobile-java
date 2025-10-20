@@ -13,16 +13,22 @@ import java.awt.*;
 public interface IScreen extends IForm {
     /**
      * Locator for specified screen
+     *
+     * @return locator
      */
     By getLocator();
 
     /**
      * Name of specified screen
+     *
+     * @return name
      */
     String getName();
 
     /**
      * Size of the element described by screen locator.
+     *
+     * @return size
      */
     Dimension getSize();
 

@@ -30,6 +30,9 @@ public abstract class Screen extends Form<IElement> implements IScreen {
 
     /**
      * Constructor with parameters
+     *
+     * @param locator Locator of the screen
+     * @param name    Name of the screen
      */
     protected Screen(By locator, String name) {
         super(IElement.class);
@@ -50,7 +53,7 @@ public abstract class Screen extends Form<IElement> implements IScreen {
 
     @Override
     public Dimension getSize() {
-       return screenElement.visual().getSize();
+        return screenElement.visual().getSize();
     }
 
     @Override
@@ -68,7 +71,7 @@ public abstract class Screen extends Form<IElement> implements IScreen {
         return screenElement;
     }
 
-    protected IElementFactory getElementFactory(){
+    protected IElementFactory getElementFactory() {
         return AqualityServices.getElementFactory();
     }
 
