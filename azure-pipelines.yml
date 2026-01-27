@@ -126,7 +126,7 @@ jobs:
           echo "Appium server started"
       condition: eq(variables['isRemote'], 'true')
 
-    - task: Maven@3
+    - task: Maven@4
       displayName: 'Run tests'
       inputs:
         mavenPomFile: 'pom.xml'
@@ -134,7 +134,7 @@ jobs:
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '11'
+        jdkVersionOption: '1.11'
         mavenVersionOption: 'Default'
         mavenAuthenticateFeed: false
         effectivePomSkip: false
