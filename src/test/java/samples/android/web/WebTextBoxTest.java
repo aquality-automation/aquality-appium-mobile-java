@@ -26,19 +26,19 @@ public class WebTextBoxTest extends AndroidWebTest {
             btnCloseBanner.click();
         }
         txbSearch.type(VALUE_TO_SUBMIT);
-        Assert.assertEquals(VALUE_TO_SUBMIT, txbSearch.getValue(), "Submitted value should match to expected");
+        Assert.assertEquals(txbSearch.getValue(), VALUE_TO_SUBMIT, "Submitted value should match to expected");
         txbSearch.clear();
-        Assert.assertEquals("", txbSearch.getValue(), "Value should be cleared");
+        Assert.assertEquals(txbSearch.getValue(), "", "Value should be cleared");
         txbSearch.click();
         checkUnfocus();
         txbSearch.focus();
         Assert.assertTrue(isKeyboardShown(true), "Keyboard should be shown when focus successful");
         txbSearch.typeSecret(VALUE_TO_SUBMIT);
-        Assert.assertEquals(VALUE_TO_SUBMIT, txbSearch.getValue(), "Submitted value should match to expected");
+        Assert.assertEquals(txbSearch.getValue(), VALUE_TO_SUBMIT, "Submitted value should match to expected");
         txbSearch.clearAndType(VALUE_TO_SUBMIT);
-        Assert.assertEquals(VALUE_TO_SUBMIT, txbSearch.getValue(), "Submitted value should match to expected");
+        Assert.assertEquals(txbSearch.getValue(), VALUE_TO_SUBMIT, "Submitted value should match to expected");
         txbSearch.clearAndTypeSecret(VALUE_TO_SUBMIT);
-        Assert.assertEquals(VALUE_TO_SUBMIT, txbSearch.getValue(), "Submitted value should match to expected");
+        Assert.assertEquals(txbSearch.getValue(), VALUE_TO_SUBMIT, "Submitted value should match to expected");
         txbSearch.sendKeys(Keys.ENTER);
         Assert.assertTrue(txbSearch.state().waitForNotDisplayed(), "text field should disappear after the submit");
     }

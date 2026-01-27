@@ -94,7 +94,7 @@ jobs:
           echo "Emulator started"
 
           echo "Installing Appium"
-          npm install -g appium@2
+          npm install -g appium@3
           ln -fs /usr/local/lib/node_modules/appium/build/lib/main.js /usr/local/bin/appium
           chmod +x /usr/local/bin/appium
           export PATH=$PATH:/usr/local/bin/appium
@@ -102,7 +102,7 @@ jobs:
           echo "Appium installed"
 
           echo "Installing UIA2 driver"
-          appium driver install uiautomator2@4
+          appium driver install uiautomator2@6
           appium driver list
           echo "UIA2 driver installed"
 
@@ -122,11 +122,11 @@ jobs:
       displayName: 'Start Appium server'
       inputs:
         script: |
-          appium --allow-insecure chromedriver_autodownload --base-path /wd/hub &
+          appium --allow-insecure uiautomator2:chromedriver_autodownload --base-path /wd/hub &
           echo "Appium server started"
       condition: eq(variables['isRemote'], 'true')
 
-    - task: Maven@3
+    - task: Maven@4
       displayName: 'Run tests'
       inputs:
         mavenPomFile: 'pom.xml'
@@ -134,7 +134,7 @@ jobs:
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '11'
+        jdkVersionOption: '1.11'
         mavenVersionOption: 'Default'
         mavenAuthenticateFeed: false
         effectivePomSkip: false
