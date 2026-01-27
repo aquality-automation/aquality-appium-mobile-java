@@ -1,6 +1,6 @@
 {
   "platformName": "android",
-  "isRemote": true,
+  "isRemote": false,
   "remoteConnectionUrl": "http://127.0.0.1:4723/wd/hub",
   "screensLocation": "integration",
   "driverSettings": {
@@ -26,14 +26,14 @@
   },
   "localServiceSettings": {
     "arguments": {
-      "--allow-insecure": "chromedriver_autodownload"
+      "--allow-insecure": "uiautomator2:chromedriver_autodownload"
     },
     "capabilities": {
     }
   },
   "timeouts": {
     "timeoutImplicit": 0,
-    "timeoutCondition": 15,
+    "timeoutCondition": 10,
     "timeoutPollingInterval": 300,
     "timeoutCommand": 120
   },

@@ -8,14 +8,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Attribute that identifies platform of screen.
+ * Attribute that identifies a platform of the screen.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface ScreenType {
 
     /**
-     * Name of platform that screen relates to.
+     * Name of a platform that screen relates to.
+     *
+     * @return platform name
      */
     PlatformName platform();
 }

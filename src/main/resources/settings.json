@@ -23,7 +23,7 @@
   },
   "localServiceSettings": {
     "arguments": {
-      "--allow-insecure": "chromedriver_autodownload"
+      "--allow-insecure": "uiautomator2:chromedriver_autodownload"
     },
     "capabilities": {
     }

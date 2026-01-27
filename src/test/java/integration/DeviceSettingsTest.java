@@ -36,12 +36,12 @@ public class DeviceSettingsTest {
         System.setProperty(DEVICES_PROFILE_PROPERTY_KEY, "test");
         IDeviceSettings testDeviceSettings = new DeviceSettings("iPhone_11");
         Capabilities testCapabilities = testDeviceSettings.getCapabilities();
-        Assert.assertEquals("iPhone 11 test", testCapabilities.getCapability("deviceName"));
+        Assert.assertEquals(testCapabilities.getCapability("deviceName"), "iPhone 11 test");
 
         System.clearProperty(DEVICES_PROFILE_PROPERTY_KEY);
         IDeviceSettings deviceSettings = new DeviceSettings("iPhone_11");
         Capabilities capabilities = deviceSettings.getCapabilities();
-        Assert.assertEquals("iPhone 11", capabilities.getCapability("deviceName"));
+        Assert.assertEquals(capabilities.getCapability("deviceName"), "iPhone 11");
     }
 
     @Test
@@ -49,7 +49,7 @@ public class DeviceSettingsTest {
         System.setProperty(PLATFORM_NAME_PROPERTY_KEY, "ios");
         System.setProperty(DEVICE_KEY_PROPERTY_KEY, "iPhone_11");
         Capabilities capabilities = AqualityServices.get(IApplicationProfile.class).getDriverSettings().getCapabilities();
-        Assert.assertEquals("iPhone 11", capabilities.getCapability("deviceName"));
+        Assert.assertEquals(capabilities.getCapability("deviceName"), "iPhone 11");
     }
 
     @Test
@@ -57,7 +57,7 @@ public class DeviceSettingsTest {
         System.setProperty(PLATFORM_NAME_PROPERTY_KEY, "android");
         System.setProperty(DEVICE_KEY_PROPERTY_KEY, "Nexus");
         Capabilities capabilities = AqualityServices.get(IApplicationProfile.class).getDriverSettings().getCapabilities();
-        Assert.assertEquals("Nexus", capabilities.getCapability("deviceName"));
+        Assert.assertEquals(capabilities.getCapability("deviceName"), "Nexus");
     }
 
     @Test
@@ -65,7 +65,7 @@ public class DeviceSettingsTest {
         System.setProperty(PLATFORM_NAME_PROPERTY_KEY, "android");
         System.setProperty(DEVICE_KEY_PROPERTY_KEY, "Samsung_Galaxy");
         Capabilities capabilities = AqualityServices.get(IApplicationProfile.class).getDriverSettings().getCapabilities();
-        Assert.assertEquals("Samsung Galaxy", capabilities.getCapability("deviceName"));
+        Assert.assertEquals(capabilities.getCapability("deviceName"), "Samsung Galaxy");
     }
 
     @AfterClass
