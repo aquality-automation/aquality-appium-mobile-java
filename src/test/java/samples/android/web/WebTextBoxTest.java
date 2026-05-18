@@ -15,7 +15,7 @@ public class WebTextBoxTest extends AndroidWebTest {
     private static final String VALUE_TO_SUBMIT = "quality assurance";
     private static final ITextBox txbSearch = AqualityServices.getElementFactory().getTextBox(By.id("searchInput"), "Search");
     private static final IButton btnOverlayToggle = AqualityServices.getElementFactory().getButton(By.className("button-collapse"), "Toggle Overlay");
-    private static final IButton btnCloseBanner = AqualityServices.getElementFactory().getButton(By.className("overlay-banner-close"), "Close banner");
+    private static final IButton btnCloseBanner = AqualityServices.getElementFactory().getButton(By.cssSelector("button[class*=close]"), "Close banner");
 
     @Test
     public void testTextBoxInteraction() {
@@ -23,6 +23,8 @@ public class WebTextBoxTest extends AndroidWebTest {
         txbSearch.state().waitForClickable();
         if (btnOverlayToggle.state().isDisplayed()) {
             btnOverlayToggle.click();
+        }
+        if (btnCloseBanner.state().isDisplayed()) {
             btnCloseBanner.click();
         }
         txbSearch.type(VALUE_TO_SUBMIT);
