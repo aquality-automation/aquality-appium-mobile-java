@@ -4,6 +4,7 @@ import aquality.appium.mobile.application.AqualityServices;
 import aquality.appium.mobile.elements.interfaces.IButton;
 import aquality.appium.mobile.elements.interfaces.ITextBox;
 import aquality.selenium.core.configurations.ITimeoutConfiguration;
+import aquality.selenium.core.elements.ElementState;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -15,7 +16,7 @@ public class WebTextBoxTest extends AndroidWebTest {
     private static final String VALUE_TO_SUBMIT = "quality assurance";
     private static final ITextBox txbSearch = AqualityServices.getElementFactory().getTextBox(By.id("searchInput"), "Search");
     private static final IButton btnOverlayToggle = AqualityServices.getElementFactory().getButton(By.className("button-collapse"), "Toggle Overlay");
-    private static final IButton btnCloseBanner = AqualityServices.getElementFactory().getButton(By.cssSelector("button[class*=close]"), "Close banner");
+    private static final IButton btnCloseBanner = AqualityServices.getElementFactory().getButton(By.cssSelector("button[class*=close]"), "Close banner", ElementState.EXISTS_IN_ANY_STATE);
 
     @Test
     public void testTextBoxInteraction() {
@@ -24,13 +25,19 @@ public class WebTextBoxTest extends AndroidWebTest {
         if (btnOverlayToggle.state().isDisplayed()) {
             btnOverlayToggle.click();
         }
-        if (btnCloseBanner.state().isDisplayed()) {
+        if (btnCloseBanner.state().isExist()) {
             btnCloseBanner.click();
         }
         txbSearch.type(VALUE_TO_SUBMIT);
         Assert.assertEquals(txbSearch.getValue(), VALUE_TO_SUBMIT, "Submitted value should match to expected");
         txbSearch.clear();
         Assert.assertEquals(txbSearch.getValue(), "", "Value should be cleared");
+        if (btnOverlayToggle.state().isDisplayed()) {
+            btnOverlayToggle.click();
+        }
+        if (btnCloseBanner.state().isExist()) {
+            btnCloseBanner.click();
+        }
         txbSearch.click();
         checkUnfocus();
         txbSearch.focus();
