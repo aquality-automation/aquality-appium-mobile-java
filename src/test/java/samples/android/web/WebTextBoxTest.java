@@ -28,7 +28,7 @@ public class WebTextBoxTest extends AndroidWebTest {
             btnOverlayToggle.click();
         }
         Optional<IButton> btnCloseBanner = AqualityServices.getElementFactory()
-                .findElements(By.cssSelector("span[class*=close-icon]"), "Close banner", IButton.class, ElementsCount.ANY, ElementState.EXISTS_IN_ANY_STATE)
+                .findElements(By.xpath("//span[contains(@class, 'close-icon')]"), "Close banner", IButton.class, ElementsCount.ANY, ElementState.EXISTS_IN_ANY_STATE)
                 .stream().findFirst();
         btnCloseBanner.ifPresent(iButton ->
                 AqualityServices.getApplication().getDriver()
