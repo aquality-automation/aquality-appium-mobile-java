@@ -31,8 +31,7 @@ public class WebTextBoxTest extends AndroidWebTest {
                 .findElements(By.xpath("//span[contains(@class, 'close-icon')]"), "Close banner", IButton.class, ElementsCount.ANY, ElementState.EXISTS_IN_ANY_STATE)
                 .stream().findFirst();
         btnCloseBanner.ifPresent(iButton ->
-                AqualityServices.getApplication().getDriver()
-                        .executeScript("arguments[0].click();", iButton.getElement()));
+                iButton.getTouchActions().swipe(iButton.getCenter()));
     }
 
     private void clickSearchTextBox() {
