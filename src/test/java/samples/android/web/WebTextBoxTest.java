@@ -48,7 +48,6 @@ public class WebTextBoxTest extends AndroidWebTest {
     public void testTextBoxInteraction() {
         AqualityServices.getApplication().getDriver().get("https://wikipedia.org");
         txbSearch.state().waitForClickable();
-        closeBanner();
         txbSearch.type(VALUE_TO_SUBMIT);
         Assert.assertEquals(txbSearch.getValue(), VALUE_TO_SUBMIT, "Submitted value should match to expected");
         txbSearch.clear();
