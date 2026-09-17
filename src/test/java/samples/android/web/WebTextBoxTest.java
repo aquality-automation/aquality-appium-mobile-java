@@ -29,7 +29,7 @@ public class WebTextBoxTest extends AndroidWebTest {
             btnOverlayToggle.click();
         }
         Optional<IButton> btnCloseBanner = AqualityServices.getElementFactory()
-                .findElements(By.cssSelector("button[class*=close-icon]"), "Close banner", IButton.class, ElementsCount.ANY, ElementState.DISPLAYED)
+                .findElements(By.cssSelector("span[class*=close-icon]"), "Close banner", IButton.class, ElementsCount.ANY, ElementState.DISPLAYED)
                 .stream().findFirst();
         btnCloseBanner.ifPresent(IElement::click);
     }
