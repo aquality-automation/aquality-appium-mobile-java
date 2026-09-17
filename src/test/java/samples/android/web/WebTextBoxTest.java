@@ -39,6 +39,7 @@ public class WebTextBoxTest extends AndroidWebTest {
             txbSearch.click();
         } catch (ElementClickInterceptedException e) {
             AqualityServices.getLogger().fatal(e.getMessage(), e);
+            AqualityServices.getLogger().debug(AqualityServices.getApplication().getDriver().getPageSource());
             closeBanner();
             txbSearch.click();
         }
