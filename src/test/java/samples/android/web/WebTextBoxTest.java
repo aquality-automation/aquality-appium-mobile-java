@@ -7,7 +7,6 @@ import aquality.appium.mobile.elements.interfaces.ITextBox;
 import aquality.selenium.core.configurations.ITimeoutConfiguration;
 import aquality.selenium.core.elements.ElementState;
 import aquality.selenium.core.elements.ElementsCount;
-import aquality.selenium.core.elements.interfaces.IElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -29,9 +28,11 @@ public class WebTextBoxTest extends AndroidWebTest {
             btnOverlayToggle.click();
         }
         Optional<IButton> btnCloseBanner = AqualityServices.getElementFactory()
-                .findElements(By.cssSelector("span[class*=close-icon]"), "Close banner", IButton.class, ElementsCount.ANY, ElementState.DISPLAYED)
+                .findElements(By.cssSelector("span[class*=close-icon]"), "Close banner", IButton.class, ElementsCount.ANY, ElementState.EXISTS_IN_ANY_STATE)
                 .stream().findFirst();
-        btnCloseBanner.ifPresent(IElement::click);
+        btnCloseBanner.ifPresent(iButton ->
+                AqualityServices.getApplication().getDriver()
+                        .executeScript("arguments[0].click();", iButton.getElement()));
     }
 
     private void clickSearchTextBox() {
