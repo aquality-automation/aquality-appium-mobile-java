@@ -5,39 +5,42 @@ import aquality.appium.mobile.elements.interfaces.IButton;
 import aquality.appium.mobile.elements.interfaces.ITextBox;
 import aquality.selenium.core.configurations.ITimeoutConfiguration;
 import aquality.selenium.core.elements.ElementState;
+import aquality.selenium.core.elements.ElementsCount;
+import aquality.selenium.core.elements.interfaces.IElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Optional;
+
 public class WebTextBoxTest extends AndroidWebTest {
 
     private static final String VALUE_TO_SUBMIT = "quality assurance";
     private static final ITextBox txbSearch = AqualityServices.getElementFactory().getTextBox(By.id("searchInput"), "Search");
     private static final IButton btnOverlayToggle = AqualityServices.getElementFactory().getButton(By.className("button-collapse"), "Toggle Overlay");
-    private static final IButton btnCloseBanner = AqualityServices.getElementFactory().getButton(By.cssSelector("button[class*=close]"), "Close banner", ElementState.EXISTS_IN_ANY_STATE);
+
+    private void closeBanner() {
+        if (btnOverlayToggle.state().isDisplayed() && "true".equals(btnOverlayToggle.getAttribute("aria-expanded"))) {
+            btnOverlayToggle.click();
+        }
+        Optional<IButton> btnCloseBanner = AqualityServices.getElementFactory()
+                .findElements(By.cssSelector("button[class*=close]"), "Close banner", IButton.class, ElementsCount.ANY, ElementState.DISPLAYED)
+                .stream().findFirst();
+        btnCloseBanner.ifPresent(IElement::click);
+    }
 
     @Test
     public void testTextBoxInteraction() {
         AqualityServices.getApplication().getDriver().get("https://wikipedia.org");
         txbSearch.state().waitForClickable();
-        if (btnOverlayToggle.state().isDisplayed()) {
-            btnOverlayToggle.click();
-        }
-        if (btnCloseBanner.state().isExist()) {
-            btnCloseBanner.click();
-        }
+        closeBanner();
         txbSearch.type(VALUE_TO_SUBMIT);
         Assert.assertEquals(txbSearch.getValue(), VALUE_TO_SUBMIT, "Submitted value should match to expected");
         txbSearch.clear();
         Assert.assertEquals(txbSearch.getValue(), "", "Value should be cleared");
-        if (btnOverlayToggle.state().isDisplayed()) {
-            btnOverlayToggle.click();
-        }
-        if (btnCloseBanner.state().isExist()) {
-            btnCloseBanner.click();
-        }
+        closeBanner();
         txbSearch.click();
         checkUnfocus();
         txbSearch.focus();
