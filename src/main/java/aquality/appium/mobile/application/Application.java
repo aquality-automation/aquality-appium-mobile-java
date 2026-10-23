@@ -10,8 +10,8 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.appmanagement.ApplicationState;
 import io.appium.java_client.appmanagement.BaseActivateApplicationOptions;
 import io.appium.java_client.appmanagement.BaseTerminateApplicationOptions;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.remote.service.DriverService;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -25,13 +25,13 @@ public class Application implements IMobileApplication {
     private final IApplicationProfile applicationProfile;
     private Duration timeoutImpl;
     private final AppiumDriver appiumDriver;
-    private final DriverService driverService;
+    private final AppiumDriverLocalService driverService;
 
     public Application(AppiumDriver appiumDriver) {
         this(appiumDriver, null);
     }
 
-    public Application(AppiumDriver appiumDriver, DriverService driverService) {
+    public Application(AppiumDriver appiumDriver, AppiumDriverLocalService driverService) {
         this.appiumDriver = appiumDriver;
         this.driverService = driverService;
         localizedLogger = AqualityServices.getLocalizedLogger();
@@ -56,7 +56,7 @@ public class Application implements IMobileApplication {
     }
 
     @Override
-    public DriverService getDriverService() {
+    public AppiumDriverLocalService getDriverService() {
         return driverService;
     }
 
@@ -110,7 +110,7 @@ public class Application implements IMobileApplication {
         return doWithRetry(() -> {
             String argsString = params == null || params.isEmpty() ? "" : ", " + params;
             localizedLogger.info("loc.application.execute.script", script + argsString);
-            T result = CommandExecutionHelper.executeScript(getDriver().assertExtensionExists(script), script, params);
+            T result = CommandExecutionHelper.executeScript(getDriver(), script, params);
             if (result != null) {
                 localizedLogger.info("loc.application.script.result", result);
             }

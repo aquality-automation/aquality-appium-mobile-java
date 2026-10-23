@@ -3,14 +3,15 @@ package aquality.appium.mobile.application;
 import aquality.selenium.core.configurations.ITimeoutConfiguration;
 import aquality.selenium.core.localization.ILocalizationManager;
 import aquality.selenium.core.utilities.ElementActionRetrier;
+import io.appium.java_client.AppiumClientConfig;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.http.ClientConfig;
+import io.appium.java_client.http.HttpClient;
+import io.appium.java_client.http.HttpClient.Factory;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.SessionNotCreatedException;
-import org.openqa.selenium.remote.http.ClientConfig;
-import org.openqa.selenium.remote.http.HttpClient;
-import org.openqa.selenium.remote.http.HttpClient.Factory;
 
 import java.net.URL;
 import java.time.Duration;
@@ -76,19 +77,8 @@ public abstract class ApplicationFactory implements IApplicationFactory {
         private final Duration timeoutCommand = AqualityServices.get(ITimeoutConfiguration.class).getCommand();
 
         @Override
-        public HttpClient createClient(URL url) {
-            return defaultClientFactory.createClient(ClientConfig.defaultConfig().baseUrl(url).readTimeout(timeoutCommand));
-        }
-
-        @Override
         public HttpClient createClient(ClientConfig clientConfig) {
-            clientConfig.readTimeout(timeoutCommand);
-            return defaultClientFactory.createClient(clientConfig);
-        }
-
-        @Override
-        public void cleanupIdleClients() {
-            defaultClientFactory.cleanupIdleClients();
+            return defaultClientFactory.createClient(AppiumClientConfig.fromClientConfig(clientConfig).readTimeout(timeoutCommand));
         }
     }
 

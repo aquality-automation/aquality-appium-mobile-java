@@ -5,7 +5,7 @@ import aquality.selenium.core.configurations.ITimeoutConfiguration;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.InteractsWithApps;
 import io.appium.java_client.appmanagement.ApplicationState;
-import org.openqa.selenium.remote.service.DriverService;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -33,7 +33,7 @@ public interface IMobileApplication extends IApplication {
      *
      * @return driver service instance
      */
-    DriverService getDriverService();
+    AppiumDriverLocalService getDriverService();
 
     /**
      * Returns name of current platform

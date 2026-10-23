@@ -1,7 +1,7 @@
 package aquality.appium.mobile.configuration;
 
 import io.appium.java_client.service.local.flags.ServerArgument;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.MutableCapabilities;
 
 import java.util.Map;
 
@@ -18,7 +18,7 @@ public interface ILocalServiceSettings {
 
     /**
      * Gets appium driver local service desired capabilities.
-     * @return initialized {@link DesiredCapabilities}.
+     * @return initialized {@link MutableCapabilities}.
      */
-    DesiredCapabilities getCapabilities();
+    MutableCapabilities getCapabilities();
 }

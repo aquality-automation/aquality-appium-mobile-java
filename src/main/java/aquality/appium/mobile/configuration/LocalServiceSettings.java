@@ -3,7 +3,7 @@ package aquality.appium.mobile.configuration;
 import aquality.selenium.core.utilities.ISettingsFile;
 import com.google.inject.Inject;
 import io.appium.java_client.service.local.flags.ServerArgument;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.MutableCapabilities;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,9 +26,9 @@ public class LocalServiceSettings implements ILocalServiceSettings {
     }
 
     @Override
-    public DesiredCapabilities getCapabilities() {
+    public MutableCapabilities getCapabilities() {
         Map<String, Object> capabilitiesFromSettings = settingsFile.getMap(SETTINGS_PATH + "/capabilities");
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+        MutableCapabilities capabilities = new MutableCapabilities();
         capabilitiesFromSettings.forEach(capabilities::setCapability);
         return capabilities;
     }
